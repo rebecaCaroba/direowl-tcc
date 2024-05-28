@@ -23,13 +23,19 @@
     display: flex;
 }
 
+@media (max-width: 1120px) {
+    .app {
+        display: block;
+    }
+}
+
 .content {
     flex: 1;
     padding: 20px;
 }
 
 .content.with-sidebar {
-    margin-left: 250px;
+    margin-left: 2rem;
 }
 
 body {

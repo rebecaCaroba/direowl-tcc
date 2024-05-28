@@ -3,14 +3,12 @@
 aside {
   background-color: $c-first;
   width: 235px;
-  padding: 1.5rem 0 1.5rem 1.5rem;
+  padding: 0 0 1.5rem 1.5rem;
   position: fixed;
   height: 100%;
 }
 
-.sidebar-logo {
-  margin-bottom: 20px;
-  
+.sidebar-logo {  
   a {
     text-decoration: none;
     margin-top: 20px;

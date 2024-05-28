@@ -7,13 +7,14 @@ export function Aside() {
 
   const handleLinkClick = (link: any) => {
     setActiveLink(link);
+
+    const element = document.querySelector('#aside') as HTMLElement
+
+    element.classList.toggle('active')
   };
 
     return (
-    <aside>
-        <div className="sidebar-logo">
-            <Link to="/library"><h2>Logo</h2></Link>
-        </div>
+    <aside id='aside'>
       <nav className="sidebar-nav">
         <ul>
           <li>
