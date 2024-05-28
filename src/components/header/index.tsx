@@ -12,12 +12,12 @@ export function Header() {
     }
 
     return (
-        <header>
+        <header className="Header">
             <div className="sidebar-logo">
             <Link to="/library"><h2>Logo</h2></Link>
             </div>
             
-                <button onClick={() => toggleIsShowNavbar()}><RiMenuUnfold3Line size={42} /></button>
+            <button className="show-navbar" onClick={() => toggleIsShowNavbar()}><RiMenuUnfold3Line size={42} /></button>
             <Aside />
         </header>
     )
