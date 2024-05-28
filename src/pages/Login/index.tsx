@@ -3,8 +3,8 @@ import './style.scss'
 export function Login() {
     return (
         <div className='container'>
-            <h1>Login</h1>
             <form className='form-container'>
+                <h1>Login</h1>
                 <label htmlFor="email">Email</label>
                 <input type="email" name="email" id="email" placeholder='Example@email.com' />
                 <label htmlFor="password">Senha</label>

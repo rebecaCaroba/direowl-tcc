@@ -21,10 +21,11 @@
         font-weight: bold;
         font-size: $body;
     }
+    
+    h1 {
+        text-align: center;
+        color: $c-secondary;
+    }
 }
 
-h1 {
-    text-align: center;
-    color: $c-secondary;
-}
 

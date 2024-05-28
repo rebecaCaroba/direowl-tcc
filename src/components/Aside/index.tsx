@@ -26,7 +26,7 @@ export function Aside() {
             <Link
             className={activeLink === 'library/add-collection' ? 'active' : ''}
             onClick={() => handleLinkClick('library/add-collection')} 
-            to="/library/add-collection">Adicionar coleção</Link>
+            to="/library/add-catalog">Adicionar catálogo</Link>
           </li>
           <li>
             <Link
