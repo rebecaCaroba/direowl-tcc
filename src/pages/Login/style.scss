@@ -1,0 +1,29 @@
+@import '../../styles/config/variables';
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 24.25rem;
+    width: 100%;
+
+    label {
+        color: $c-secondary;
+    }
+
+    button {
+        background-color: $c-secondary;
+        color: $c-first-500;
+        height: 3.25rem;
+        border: 0;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: $body;
+    }
+}
+
+h1 {
+    text-align: center;
+    color: $c-secondary;
+}
+

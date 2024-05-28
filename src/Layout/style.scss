@@ -1,0 +1,9 @@
+@import '../styles/config/variables';
+
+input {
+    background-color: $c-first;
+    border: 2px solid $c-gray-500;
+    color: $c-gray-100;
+    padding: 1rem;
+    height: 3rem; //48px
+}
