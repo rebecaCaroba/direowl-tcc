@@ -1,0 +1,48 @@
+@import '../../styles/config/variables';
+
+aside {
+  background-color: $c-first;
+  width: 235px;
+  padding: 1.5rem 0 1.5rem 1.5rem;
+  position: fixed;
+  height: 100%;
+}
+
+.sidebar-logo {
+  margin-bottom: 20px;
+  
+  a {
+    text-decoration: none;
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: $c-gray-100;
+  }
+}
+
+.sidebar-nav {
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    display: block;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  a {
+    display: block;
+    text-decoration: none;
+    color: $c-gray-200;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 1rem;
+    width: 100%;
+    &.active, &:hover, &:active {
+      background: $c-first-500;
+      color: $c-gray-100;
+    }
+  }
+  
+}
