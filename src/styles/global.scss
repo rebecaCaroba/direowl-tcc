@@ -12,6 +12,18 @@
     }
 }
 
+body {
+    -webkit-font-smoothing: antialiased;
+    background-color: $c-first-500;
+    color: $c-gray-100;
+}
+
+input,
+textarea,
+button {
+    font-size: 400;
+}
+
 .container {
     display: flex;
     align-items: center;
@@ -23,12 +35,6 @@
     display: flex;
 }
 
-@media (max-width: 1120px) {
-    .app {
-        display: block;
-    }
-}
-
 .content {
     flex: 1;
     padding: 20px;
@@ -38,14 +44,13 @@
     margin-left: 2rem;
 }
 
-body {
-    -webkit-font-smoothing: antialiased;
-    background-color: $c-first-500;
-    color: $c-gray-100;
-}
 
-input,
-textarea,
-button {
-    font-size: 400;
+@media (max-width: 1120px) {
+    .app {
+        display: block;
+    }
+
+    .content.with-sidebar {
+        margin-left: 0px;
+    }
 }

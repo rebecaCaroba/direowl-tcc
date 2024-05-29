@@ -1,6 +1,7 @@
 import { IoPersonCircle, IoSearch } from "react-icons/io5";
 import './style.scss'
 import { Link } from "react-router-dom";
+import { BookShelves } from "../../components/BookShelves";
 
 export function Library() {
     return (
@@ -17,6 +18,7 @@ export function Library() {
                     <p>Lisa Simpson</p>
                 </div>
             </header>
+            <BookShelves />
         </div>
     )
 }
