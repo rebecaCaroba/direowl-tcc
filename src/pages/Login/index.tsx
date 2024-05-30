@@ -1,9 +1,16 @@
+import { useNavigate } from 'react-router-dom'
 import './style.scss'
 
 export function Login() {
+    const navigate = useNavigate();
+
+    function handle() {
+        navigate('/library')
+    }
+
     return (
         <div className='container'>
-            <form className='form-container'>
+            <form onSubmit={handle} className='form-container'>
                 <h1>Login</h1>
                 <label htmlFor="email">Email</label>
                 <input type="email" name="email" id="email" placeholder='Example@email.com' />

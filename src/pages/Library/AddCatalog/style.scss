@@ -1,0 +1,42 @@
+@import '../../../styles/config/variables';
+
+.addcatolog-container {
+
+    h1 {
+        margin: 1.5rem 0;
+        padding: 1.5rem 0;
+        border-bottom: 2px solid $c-gray-700;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        max-width: 1000px;
+        width: 100%;
+
+        span {
+            font-size: $small;
+            color: $c-gray-500;
+        }
+
+        button {
+            width: 100px;
+            height: 44px;
+            background-color: $c-secondary;
+            border: 0;
+            font-weight: bold;
+            cursor: pointer;
+        }   
+
+        label {
+            font-size: $h3;
+            font-weight: bold;
+        }
+
+        input {
+            height: 2.4375rem;
+
+        }
+    }
+}

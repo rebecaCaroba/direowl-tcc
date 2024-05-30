@@ -33,8 +33,6 @@
                 border-bottom: 3px solid $c-secondary;
             }
         }
-
-
     }
 
     form {
@@ -43,6 +41,8 @@
         width: 100%;
         gap: 1.5rem;
         margin-top: 2rem;
+        max-width: 1000px;
+        width: 100%;
 
 
         label {
