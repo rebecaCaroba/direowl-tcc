@@ -11,13 +11,14 @@
 .bookshelves-content {
     width: 100%;
     display: flex;
-    margin-left: 1rem;
-    align-items: center;
-    gap: 2rem;
-
+    flex-direction: column;
+    
     .book {
+        margin-left: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
         a {
-            margin: 0.2rem;
             height: 100%;
             display: block;
         }
@@ -37,9 +38,18 @@
 }
 
 
-@media (max-width: 728px) {
+@media (max-width: 705px) {
     section {
-        overflow: scroll;
+        overflow-x: scroll;
     }
 
+    .bookshelves-container {
+        position: relative;
+    }
+
+    .bookshelve {
+        position: absolute;
+        top: 340px;
+        width: 100%;
+    }
 }
