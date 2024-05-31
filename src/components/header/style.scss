@@ -47,7 +47,7 @@
         visibility: hidden;
         overflow-y: hidden;
         padding: 0;
-        // ajustar transição
+        transition: 0.3s linear;
     }
 
     #aside.active {
@@ -55,6 +55,6 @@
         opacity: 1;
         visibility: visible;
         overflow-y: auto;
-        transition: 0.6s;
     }
 }
+
