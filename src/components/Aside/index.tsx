@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
 import './style.scss'
+import { FaBook } from 'react-icons/fa';
 
 export function Aside() {
     const [activeLink, setActiveLink] = useState(null);
@@ -16,12 +17,15 @@ export function Aside() {
     return (
     <aside id='aside'>
       <nav className="sidebar-nav">
+          <div className="sidebar-logo">
+            <Link to="/library"><FaBook color="white" size={52} /></Link>
+          </div>
         <ul>
           <li>
             <Link
             className={activeLink === 'library' ? 'active' : ''}
             onClick={() => handleLinkClick('library')}
-            to="/library">Página inicial</Link>
+            to="/library">Estantes</Link>
           </li>
           <li>
             <Link

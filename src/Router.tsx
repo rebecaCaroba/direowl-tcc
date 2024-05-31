@@ -7,6 +7,7 @@ import { AddCatalog } from './pages/Library/AddCatalog/index.tsx';
 import { AddBook } from './pages/Library/AddBook/index.tsx';
 import { Dashboards } from './pages/Library/Dashboards/index.tsx';
 import { Header } from './components/header/index.tsx';
+import { Book } from './pages/Library/Book/index.tsx';
 
 export function Router() {
   const location = useLocation();
@@ -25,6 +26,7 @@ export function Router() {
             <Route path="/library/add-catalog" element={<AddCatalog />} />
             <Route path="/library/add-book" element={<AddBook />} />
             <Route path="/library/dashboards" element={<Dashboards />} />
+            <Route path="/library/book/*" element={<Book />} />
         </Routes>
       </div>
     </div>

@@ -6,6 +6,7 @@ aside {
   padding: 0 0 1.5rem 1.5rem;
   position: fixed;
   height: 100%;
+
 }
 
 .sidebar-logo {  
@@ -43,4 +44,10 @@ aside {
     }
   }
   
+}
+
+@media (max-width: 1020px) {
+  .sidebar-logo {
+    display: none;
+  }
 }

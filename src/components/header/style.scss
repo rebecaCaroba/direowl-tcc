@@ -4,8 +4,8 @@
     background-color: $c-first;
     width: 235px;
 
-    .sidebar-logo {
-        padding: 1.5rem 0 1.5rem 1.5rem;
+    .header-sidebar-logo {
+        display: none;
     }
 
     .show-navbar {
@@ -23,11 +23,18 @@
 }
 
 @media (max-width: 1120px) {
+
+    .header-sidebar-logo {
+        display: block;
+    }
+
     .Header {
+        padding: 1rem;
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        position: fixed;
         top: 0;
         left: 0;
         z-index: 1000;
@@ -40,7 +47,7 @@
     #aside {
         position: fixed;
         width: 100%;
-        top: 70px;
+        top: 78px;
         right: 0;
         z-index: 1000;
         height: 0;
@@ -51,7 +58,7 @@
     }
 
     #aside.active {
-        height: calc(100vh - 70px);
+        height: calc(100vh - 78px);
         opacity: 1;
         visibility: visible;
         overflow-y: auto;
