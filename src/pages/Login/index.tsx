@@ -1,22 +1,64 @@
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import * as z from 'zod'
 import './style.scss'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+
+const LoginAccountFormSchema = z.object({
+    email: z.
+      string()
+      .min(1, { message: 'O email não pode ter apenas 1 caracter' })
+      .email('Email inválido'),
+    password: z.string().min(4, { message: 'A senha deve ter no mínimo 4 caracteres.' }),
+  })
+
+type LoginAccountInputs = z.infer<typeof LoginAccountFormSchema>
 
 export function Login() {
-    const navigate = useNavigate();
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+      } = useForm<LoginAccountInputs>({
+        resolver: zodResolver(LoginAccountFormSchema),
+      })
+    // const navigate = useNavigate();
 
-    function handle() {
-        navigate('/library')
+    function handleLoginAccount(data: LoginAccountInputs) {
+        console.log(data)
+
+
+        // navigate('/library')
     }
+    
+    const password = watch('password')
+    const isSubmitDisabled = !password
 
     return (
         <div className='container'>
-            <form onSubmit={handle} className='form-container'>
+            <form onSubmit={handleSubmit(handleLoginAccount)} className='form-container'>
                 <h1>Login</h1>
+
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" placeholder='Example@email.com' />
+                <input 
+                type="email" 
+                id="email" 
+                placeholder='Example@email.com' 
+                {...register('email')}
+                />
+                <span className='span-erros'>{errors.email?.message ? errors.email?.message : ''}</span>
+
                 <label htmlFor="password">Senha</label>
-                <input type="password" id="password" placeholder='Pelo menos 8 caracteres' />
-                <button type="submit">Entrar</button>
+                <input type="password" 
+                id="password" 
+                placeholder='Pelo menos 8 caracteres' 
+                {...register('password')} 
+                />
+                <span className='span-erros'>{errors.password?.message ? errors.password?.message : ''}</span>
+  
+                <p>Não tem uma conta? <Link to="/register">Criar uma</Link></p>
+                <button disabled={isSubmitDisabled} type="submit">Entrar</button>
             </form>
         </div>
     )

@@ -8,6 +8,15 @@
     width: 100%;
     margin: 2rem;
 
+    a {
+        color: $c-gray-100;
+    }
+
+
+    span {
+        color: $c-gray-400;
+    }
+
     label {
         color: $c-secondary;
     }
@@ -20,6 +29,11 @@
         cursor: pointer;
         font-weight: bold;
         font-size: $body;
+    }
+
+    button:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
     }
     
     h1 {
