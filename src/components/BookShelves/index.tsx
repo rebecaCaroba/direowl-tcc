@@ -33,19 +33,19 @@ export function BookShelves() {
                 <section className='bookshelves-content'>
                     <div className='book'>
                         <div>
-                            <Link to=''><img src={ExLivro} alt="" /></Link>
+                            <Link to='book'><img src={ExLivro} alt="" /></Link>
                         </div>
                         <div>
-                            <Link to=''><img src={ExLivro} alt="" /></Link>
+                            <Link to='/book'><img src={ExLivro} alt="" /></Link>
                         </div>
                         <div>
-                            <Link to=''><img src={ExLivro} alt="" /></Link>
+                            <Link to='/book'><img src={ExLivro} alt="" /></Link>
                         </div>
                         <div>
-                            <Link to=''><img src={ExLivro} alt="" /></Link>
+                            <Link to='/book'><img src={ExLivro} alt="" /></Link>
                         </div>
                         <div>
-                            <Link to=''><img src={ExLivro} alt="" /></Link>
+                            <Link to='/book'><img src={ExLivro} alt="" /></Link>
                         </div>
                     </div>
                     <div className='bookshelve'></div>

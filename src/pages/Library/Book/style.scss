@@ -1,0 +1,75 @@
+@import '../../../styles/config/variables';
+.book-cover-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: -5rem;
+}
+
+.book-cover-content {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+
+    img {
+        width: 200px;
+    }
+
+    .book-cover-info {
+        display: flex;
+        max-width: 450px;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+        padding: 1rem;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.496);
+        gap: 1rem;
+        
+        
+
+        button {
+            padding: 0.9rem;
+            background-color: $c-secondary;
+            border: 0;
+            border-radius: 12px;
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+            font-size: 38px;
+        }
+    }
+}
+
+.book-info {
+    background-color: $c-first;
+    padding: 7rem 5rem;
+    width: 90%;
+    margin: 0 auto;
+
+    p, data {
+        text-align: justify;
+        color: $c-gray-300;
+    }
+
+    h3 {
+        margin: 1.5rem 0;
+    }
+}
+
+@media (max-width: 750px) {
+
+    .book-info {
+        padding: 2rem;
+    } 
+
+    .book-cover-container {
+        margin-bottom: 0;
+    }
+
+    .book-cover-content {
+        justify-content: center;
+    }
+    
+
+
+}
