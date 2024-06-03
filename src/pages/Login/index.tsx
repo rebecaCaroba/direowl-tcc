@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import * as z from 'zod'
 import './style.scss'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { api } from '../../lib/axios'
+import { AxiosError } from 'axios'
 
 const LoginAccountFormSchema = z.object({
     email: z.
@@ -23,13 +25,25 @@ export function Login() {
       } = useForm<LoginAccountInputs>({
         resolver: zodResolver(LoginAccountFormSchema),
       })
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
-    function handleLoginAccount(data: LoginAccountInputs) {
-        console.log(data)
+    async function handleLoginAccount(data: LoginAccountInputs) {
+        try{
+          const response = await api.post('/login', {
+            email: data.email,
+            password: data.password
+          })
 
+          console.log(response)
+          navigate('/library')
 
-        // navigate('/library')
+        }catch (err) {
+          if (err instanceof AxiosError && err?.response?.data?.message) {
+            alert(err.response.data.message)
+            return
+        }
+        console.log(err)
+        }
     }
     
     const password = watch('password')
