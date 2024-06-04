@@ -5,7 +5,7 @@
     h1 {
         margin: 1.5rem 0;
         padding: 1.5rem 0;
-        border-bottom: 2px solid $c-gray-700;
+        border-bottom: 2px solid $c-first-500;
     }
 
     form {
@@ -22,11 +22,7 @@
 
         button {
             width: 100px;
-            height: 44px;
-            background-color: $c-secondary;
-            border: 0;
-            font-weight: bold;
-            cursor: pointer;
+
         }   
 
         label {

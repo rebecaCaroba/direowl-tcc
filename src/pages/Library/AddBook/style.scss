@@ -11,7 +11,7 @@
 .addbook-content {
 
     nav {
-        border-bottom: 3px solid $c-gray-700;
+        border-bottom: 3px solid $c-first-500;
 
         ul {
             display: flex;
@@ -22,6 +22,7 @@
 
 
             a {
+                font-size: $h3;
                 color: $c-gray-100;
                 text-decoration: none;
                 font-weight: bold;
@@ -60,11 +61,6 @@
         
         button {
             width: 100px;
-            height: 44px;
-            background-color: $c-secondary;
-            border: 0;
-            font-weight: bold;
-            cursor: pointer;
         }
 
         .search-book {

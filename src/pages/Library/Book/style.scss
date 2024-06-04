@@ -19,12 +19,9 @@
         max-width: 450px;
         flex-direction: column;
         justify-content: space-between;
-        align-items: start;
         padding: 1rem;
         border-bottom: 2px solid rgba(255, 255, 255, 0.496);
         gap: 1rem;
-        
-        
 
         button {
             padding: 0.9rem;
@@ -41,9 +38,9 @@
 }
 
 .book-info {
-    background-color: $c-first;
+    background-color: $c-first-250;
     padding: 7rem 5rem;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
 
     p, data {
@@ -57,6 +54,11 @@
 }
 
 @media (max-width: 750px) {
+
+    .book-cover-info {
+        align-items: center;
+        text-align: center;
+    }
 
     .book-info {
         padding: 2rem;

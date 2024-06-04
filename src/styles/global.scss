@@ -14,7 +14,7 @@
 
 body {
     -webkit-font-smoothing: antialiased;
-    background-color: $c-first-700;
+    background-color: $c-first;
     color: $c-gray-100;
 }
 
@@ -51,6 +51,7 @@ button {
     }
 
     .content.with-sidebar {
+        padding: 0;
         margin-left: 0px;
         margin-top: 6rem;
     }

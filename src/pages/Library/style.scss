@@ -12,9 +12,7 @@
         width: 100%;
         
         input[type="text"] {
-            border: 0;
             width: 100%;
-            border-radius: 8px;
         }
 
         button[type="submit"] {
@@ -24,7 +22,7 @@
 
             svg {
                 position: absolute;
-                top: 15%;
+                top: 13%;
                 right: 1%;
                 color: $c-gray-300;
             }
