@@ -1,6 +1,9 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
+import { api } from '../../lib/axios'
+import { useNavigate } from 'react-router-dom'
+import { AxiosError } from 'axios'
 
 const newAccountFormSchema = z.object({
     username: z
@@ -31,8 +34,26 @@ export function Register() {
         resolver: zodResolver(newAccountFormSchema),
       })
 
+      const navigate = useNavigate();
+
       async function handleCreatAccount(data: NewAccountInputs) {
-        console.log(data)
+        try{
+            const response = await api.post('/register', {
+              username: data.username,
+              email: data.email,
+              password: data.password
+            })
+  
+            console.log(response)
+            navigate('/library')
+  
+          }catch (err) {
+            if (err instanceof AxiosError && err?.response?.data?.message) {
+              alert(err.response.data.message)
+              return
+          }
+          console.log(err)
+          }
     }
 
     return (
