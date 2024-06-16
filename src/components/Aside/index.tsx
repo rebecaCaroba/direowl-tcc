@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
 import './style.scss'
-import { FaBook } from 'react-icons/fa';
 import { ImBooks } from "react-icons/im";
 import { LuBookPlus } from "react-icons/lu";
 import { GrCatalog } from "react-icons/gr";
 import { AiOutlineBarChart } from 'react-icons/ai';
+import logobranca from '../../assets/logobranca.svg'
 
 export function Aside() {
   const [activeLink, setActiveLink] = useState(null);
@@ -22,7 +22,7 @@ export function Aside() {
     <aside id='aside'>
       <nav className="sidebar-nav">
         <div className="sidebar-logo">
-          <Link className='links-sidebar' to="/library"><FaBook color="white" size={52} /></Link>
+          <Link className='links-sidebar' to="/library"><img src={logobranca} width={100} /></Link>
         </div>
         <ul>
           <li className={activeLink === 'library' ? 'active' : ''}>

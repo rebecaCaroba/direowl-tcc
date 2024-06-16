@@ -1,77 +1,67 @@
 @import '../../../styles/config/variables';
-.book-cover-container {
+
+.book {
     display: flex;
     justify-content: center;
-    margin-bottom: -5rem;
+    margin-top: 1rem;
 }
 
-.book-cover-content {
+.book-container {
+    width: 80%;
     display: flex;
+    justify-content: center;
     gap: 3rem;
-    flex-wrap: wrap;
 
-    img {
-        width: 200px;
+    h1 {
+        margin-bottom: 1rem;
     }
 
-    .book-cover-info {
-        display: flex;
-        max-width: 450px;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 1rem;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.496);
-        gap: 1rem;
-
-        button {
-            padding: 0.9rem;
-            background-color: $c-secondary;
-            border: 0;
-            border-radius: 12px;
-        }
-
-        h1 {
-            margin-bottom: 1rem;
-            font-size: 38px;
-        }
+    img {
+        width: 60%;
     }
 }
 
 .book-info {
-    background-color: $c-first-250;
-    padding: 7rem 5rem;
-    width: 100%;
-    margin: 0 auto;
+    flex: 1 1 50px;
 
-    p, data {
-        text-align: justify;
-        color: $c-gray-300;
+    p {
+        margin-top: 1rem;
     }
 
-    h3 {
-        margin: 1.5rem 0;
+    .timer {
+        display: flex;
+        align-items: center;
+    }
+
+    svg {
+        color: $c-gray-500;
+        font-size: 1.5rem;
+        
     }
 }
 
-@media (max-width: 750px) {
-
-    .book-cover-info {
-        align-items: center;
-        text-align: center;
-    }
-
-    .book-info {
-        padding: 2rem;
-    } 
-
-    .book-cover-container {
-        margin-bottom: 0;
-    }
-
-    .book-cover-content {
-        justify-content: center;
+.book-btn {
+    display: flex;
+    gap: 1rem;
+    .button-ler {
+        background: $c-secondary-100;
+        background: linear-gradient(139deg, $c-secondary-100, 0%, $c-secondary 100%);
+        width: 50%;
+        letter-spacing: 1px;
+        margin-top: 2rem;
     }
     
+    .button-fav {
+        background-color: #2e3039;
+        color: $c-gray-100;
+        width: 50%;
+        letter-spacing: 1px;
+        margin-top: 2rem;
+    }
+}
 
-
+@media (max-width: 1120px) {
+    .book-container {
+        flex-direction: column-reverse;
+    }
 }
