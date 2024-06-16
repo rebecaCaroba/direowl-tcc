@@ -9,28 +9,12 @@ aside {
 
 }
 
-.sidebar-logo {  
+.sidebar-logo {
   a {
     text-decoration: none;
     margin-top: 1rem;
     font-size: 1.1em;
     color: $c-gray-100;
-  }
-}
-
-.sidebar-nav {
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    display: block;
-    width: 100%;
-    cursor: pointer;
-  }
-  
-  a {
     display: block;
     text-decoration: none;
     color: $c-gray-200;
@@ -38,12 +22,39 @@ aside {
     font-size: 1rem;
     padding: 1rem;
     width: 100%;
-    &.active, &:hover, &:active {
-      background: $c-first;
-      color: $c-gray-100;
+  }
+}
+
+.sidebar-nav {
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      width: 100%;
+      cursor: pointer;
+      &.active,
+      &:hover,
+      &:active {
+        background: $c-first;
+        color: $c-gray-100;
+      }
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: $c-gray-200;
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 1rem 1rem 1rem 0.5rem;
+      width: 100%;     
+      padding-left: 1rem;
+ 
     }
   }
-  
 }
 
 @media (max-width: 1020px) {

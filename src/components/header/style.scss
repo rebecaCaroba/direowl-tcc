@@ -6,6 +6,11 @@
 
     .header-sidebar-logo {
         display: none;
+
+        a:hover {
+            background: $c-first-250;
+            color: $c-secondary;
+        }
     }
 
     .show-navbar {
