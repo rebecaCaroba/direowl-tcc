@@ -3,8 +3,9 @@ import * as z from 'zod'
 import './style.scss'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { api } from '../../lib/axios'
-import { AxiosError } from 'axios'
+import logo from '../../assets/logobranca.svg'
+// import { api } from '../../lib/axios'
+// import { AxiosError } from 'axios'
 
 const LoginAccountFormSchema = z.object({
     email: z.
@@ -28,22 +29,23 @@ export function Login() {
     const navigate = useNavigate();
 
     async function handleLoginAccount(data: LoginAccountInputs) {
-        try{
-          const response = await api.post('/login', {
-            email: data.email,
-            password: data.password
-          })
+    
+        // try{
+        //   const response = await api.post('/login', {
+        //     email: data.email,
+        //     password: data.password
+        //   })
 
-          console.log(response)
+          console.log(data)
           navigate('/library')
 
-        }catch (err) {
-          if (err instanceof AxiosError && err?.response?.data?.message) {
-            alert(err.response.data.message)
-            return
-        }
-        console.log(err)
-        }
+        // }catch (err) {
+        //   if (err instanceof AxiosError && err?.response?.data?.message) {
+        //     alert(err.response.data.message)
+        //     return
+        // }
+        // console.log(err)
+        // }
     }
     
     const password = watch('password')
@@ -51,8 +53,11 @@ export function Login() {
 
     return (
         <div className='container'>
+          <img src={logo} width={80} />
             <form onSubmit={handleSubmit(handleLoginAccount)} className='form-container'>
-                <h1>Login</h1>
+                <div className='logo-title'>
+                  <h1>Login do usuário</h1>
+                </div>
 
                 <label htmlFor="email">Email</label>
                 <input 

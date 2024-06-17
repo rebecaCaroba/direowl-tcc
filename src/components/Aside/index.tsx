@@ -22,7 +22,7 @@ export function Aside() {
     <aside id='aside'>
       <nav className="sidebar-nav">
         <div className="sidebar-logo">
-          <Link className='links-sidebar' to="/library"><img src={logobranca} width={100} /></Link>
+          <Link className='links-sidebar' to="/library"><img src={logobranca} width={80} /></Link>
         </div>
         <ul>
           <li className={activeLink === 'library' ? 'active' : ''}>

@@ -26,12 +26,18 @@ button {
 
 h1 {
     font-family: 'sans-serif';
+    background: -webkit-linear-gradient(139deg, rgba(255,237,118,1) 0%, rgba(247,177,118,1) 100%);
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 40px;
 }
 
 .container {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     min-height: 100vh;
 }
 

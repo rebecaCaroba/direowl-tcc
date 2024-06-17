@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Aside } from "../Aside";
 import { RiMenuUnfold3Line } from "react-icons/ri";
 import './style.scss'
-import { FaBook } from "react-icons/fa";
+import logo from '../../assets/logobranca.svg'
 
 export function Header() {
     function toggleIsShowNavbar() {
@@ -15,7 +15,7 @@ export function Header() {
     return (
         <header className="Header">
             <div className="header-sidebar-logo">
-            <Link to="/library"><FaBook color="white" size={52} /></Link>
+            <Link to="/library"><img src={logo} alt="" /></Link>
             </div>
             <button className="show-navbar" onClick={() => toggleIsShowNavbar()}><RiMenuUnfold3Line size={42} /></button>
             <Aside />
