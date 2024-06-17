@@ -31,6 +31,12 @@
     .timer {
         display: flex;
         align-items: center;
+        gap: 0.2rem;
+        margin-top: 0.4rem;
+
+        svg {
+            color: $c-first-100;
+        }
     }
 
     svg {
@@ -50,9 +56,11 @@
         letter-spacing: 1px;
         margin-top: 2rem;
     }
+
+    
     
     .button-fav {
-        background-color: #2e3039;
+        background-color: $c-first-450;
         color: $c-gray-100;
         width: 50%;
         letter-spacing: 1px;

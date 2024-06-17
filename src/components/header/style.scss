@@ -1,14 +1,14 @@
 @import '../../styles/config/variables';
 
 .Header {
-    background-color: $c-first-250;
+    background-color: $c-first-450;
     width: 235px;
 
     .header-sidebar-logo { 
         display: none;
         
         a:hover {
-            background: $c-first-250;
+            background: $c-first-450;
             color: $c-secondary;
         }
     }

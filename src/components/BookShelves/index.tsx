@@ -7,7 +7,7 @@ export function BookShelves() {
     return (
         <main>
             <div className='bookshelves-container'>
-                <h1>Livros de comédia</h1>
+                <h1 className='text-yelow'>Livros de comédia</h1>
                 <section className='bookshelves-content'>
                     <div className='book'>
                         <div>
@@ -30,7 +30,7 @@ export function BookShelves() {
                 </section>
             </div>
             <div className='bookshelves-container'>
-                <h1>Livros de comédia</h1>
+                <h1 className='text-yelow'>Livros de comédia</h1>
                 <section className='bookshelves-content'>
                     <div className='book'>
                         <div>

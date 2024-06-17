@@ -6,7 +6,7 @@ export function AddBook() {
     return (
         <>
             <div className="addbook-container">
-            <h1>Adicionar livro</h1>
+            <h1 className="text-yelow">Adicionar livro</h1>
                 <div className="addbook-content">
                     <nav>
                         <ul>
@@ -40,7 +40,7 @@ export function AddBook() {
                                 <IoSearch size={32} />
                             </div>
 
-                            <button type="submit">Pesquisar</button>
+                            <button className="btn-yellow" type="submit">Pesquisar</button>
                         </form>
                     </section>
                 </div>

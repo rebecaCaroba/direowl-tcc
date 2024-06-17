@@ -24,13 +24,11 @@ button {
     font-size: 400;
 }
 
-h1 {
-    font-family: 'sans-serif';
+.text-yelow {
     background: -webkit-linear-gradient(139deg, rgba(255,237,118,1) 0%, rgba(247,177,118,1) 100%);
     background-clip: border-box;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 40px;
 }
 
 .container {
