@@ -6,6 +6,7 @@ import { LuBookPlus } from "react-icons/lu";
 import { GrCatalog } from "react-icons/gr";
 import { AiOutlineBarChart } from 'react-icons/ai';
 import logobranca from '../../assets/logobranca.svg'
+import { IoPersonCircle } from 'react-icons/io5';
 
 export function Aside() {
   const [activeLink, setActiveLink] = useState(null);
@@ -22,7 +23,7 @@ export function Aside() {
     <aside id='aside'>
       <nav className="sidebar-nav">
         <div className="sidebar-logo">
-          <Link className='links-sidebar' to="/library"><img src={logobranca} width={80} /></Link>
+          <Link className='links-sidebar' to="/library"><img src={logobranca} width={55} /></Link>
         </div>
         <ul>
           <li className={activeLink === 'library' ? 'active' : ''}>
@@ -59,6 +60,10 @@ export function Aside() {
           </li>
         </ul>
       </nav>
+        <div className="library-user">
+          <Link to="/"><IoPersonCircle size={42} /></Link>
+          <p>Lisa Simpson</p>
+        </div>
     </aside>
   )
 }

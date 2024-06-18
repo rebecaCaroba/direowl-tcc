@@ -52,7 +52,7 @@
     #aside {
         position: fixed;
         width: 100%;
-        top: 78px;
+        top: 76px;
         right: 0;
         z-index: 1000;
         height: 0;
@@ -63,10 +63,11 @@
     }
 
     #aside.active {
-        height: calc(100vh - 78px);
+        height: calc(100vh - 76px);
         opacity: 1;
         visibility: visible;
         overflow-y: auto;
+        overflow: hidden;
     }
 }
 

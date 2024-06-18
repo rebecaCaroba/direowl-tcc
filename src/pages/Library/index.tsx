@@ -1,7 +1,6 @@
-import { IoPersonCircle, IoSearch } from "react-icons/io5";
 import './style.scss'
-import { Link } from "react-router-dom";
 import { BookShelves } from "../../components/BookShelves";
+import { IoSearch } from 'react-icons/io5';
 
 export function Library() {
     return (
@@ -13,10 +12,7 @@ export function Library() {
                     </button>
                     <input type="text" autoComplete="off" name="search" id="search" placeholder="Pesquise por nome, autor, ISBN" />
                 </form>
-                <div className="library-user">
-                    <Link to="/"><IoPersonCircle size={42} /></Link>
-                    <p>Lisa Simpson</p>
-                </div>
+                
             </header>
             <BookShelves />
         </div>

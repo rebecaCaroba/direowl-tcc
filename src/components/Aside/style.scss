@@ -6,7 +6,6 @@ aside {
   padding: 0 0 1.5rem 1.5rem;
   position: fixed;
   height: 100%;
-
 }
 
 .sidebar-logo {
@@ -26,6 +25,8 @@ aside {
 }
 
 .sidebar-nav {
+  
+
   ul {
     list-style: none;
     padding: 0;
@@ -60,5 +61,18 @@ aside {
 @media (max-width: 1020px) {
   .sidebar-logo {
     display: none;
+  }
+}
+
+.library-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+  height: 100%;
+
+  svg {
+      color: $c-gray-100;
+
   }
 }
