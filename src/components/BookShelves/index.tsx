@@ -9,7 +9,7 @@ export function BookShelves() {
             <div className='bookshelves-container'>
                 <h1 className='text-yelow'>Livros de comédia</h1>
                 <section className='bookshelves-content'>
-                    <div className='book'>
+                    <div className='bookshelves-book'>
                         <div>
                             <Link to=''><img src='http://books.google.com/books/content?id=K3yzEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api' alt="" /></Link>
                         </div>
@@ -32,7 +32,7 @@ export function BookShelves() {
             <div className='bookshelves-container'>
                 <h1 className='text-yelow'>Livros de comédia</h1>
                 <section className='bookshelves-content'>
-                    <div className='book'>
+                    <div className='bookshelves-book'>
                         <div>
                             <Link to='book'><img src={sherlock} alt="" /></Link>
                         </div>

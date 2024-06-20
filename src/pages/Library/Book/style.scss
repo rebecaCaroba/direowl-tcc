@@ -3,11 +3,14 @@
 .book {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     margin-top: 1rem;
+    margin: 2rem 1rem 1rem 1rem;
+
 }
 
 .book-container {
-    width: 80%;
+    margin-bottom: 3rem;
     display: flex;
     justify-content: center;
     gap: 3rem;
@@ -16,8 +19,15 @@
         margin-bottom: 1rem;
     }
 
+    .book-image {
+        width: 200px;
+        -webkit-box-shadow: -17px 14px 33px 5px rgba(0, 0, 0, 0.38);
+        -moz-box-shadow: -17px 14px 33px 5px rgba(0, 0, 0, 0.38);
+        box-shadow: -17px 14px 33px 5px rgba(0, 0, 0, 0.38);
+    }
+
     img {
-        width: 60%;
+        width: 100%;
     }
 }
 
@@ -42,23 +52,22 @@
     svg {
         color: $c-gray-500;
         font-size: 1.5rem;
-        
+
     }
 }
 
 .book-btn {
     display: flex;
     gap: 1rem;
+
     .button-ler {
-        background: rgb(255,237,118);
-        background: linear-gradient(139deg, rgba(255,237,118,1) 0%, rgba(247,177,118,1) 100%);
+        background: rgb(255, 237, 118);
+        background: linear-gradient(139deg, rgba(255, 237, 118, 1) 0%, rgba(247, 177, 118, 1) 100%);
         width: 50%;
         letter-spacing: 1px;
         margin-top: 2rem;
     }
 
-    
-    
     .button-fav {
         background-color: $c-first-450;
         color: $c-gray-100;
@@ -68,8 +77,15 @@
     }
 }
 
-@media (max-width: 1120px) {
+@media (max-width: 630px) {
     .book-container {
         flex-direction: column-reverse;
+    }
+
+    .timeline-container {
+        h2 {
+            font-size: $h2-mobile;
+        }
+
     }
 }
