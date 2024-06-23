@@ -47,7 +47,7 @@ export function Register() {
       })
 
       console.log(response)
-      navigate('/library')
+      navigate('/')
 
     } catch (err) {
       if (err instanceof AxiosError && err?.response?.data?.message) {

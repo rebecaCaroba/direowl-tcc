@@ -31,6 +31,13 @@ button {
     -webkit-text-fill-color: transparent;
 }
 
+
+.btn-yellow {
+    background: rgb(255,237,118);
+    background: linear-gradient(139deg, rgba(255,237,118,1) 0%, rgba(247,177,118,1) 100%);
+    color: $c-first;
+}
+
 .container {
     display: flex;
     align-items: center;

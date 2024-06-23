@@ -18,15 +18,15 @@ export function Router() {
       {showAside && <Header />}
       <div  className={`content ${showAside ? 'with-sidebar' : ''}`}>
         <Routes>
-          <Route path='/' element={<DefaultLayout />}>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
-          </Route>
+          <Route element={<DefaultLayout />}>
             <Route path="/library" element={<Library />} />
             <Route path="/library/add-catalog" element={<AddCatalog />} />
             <Route path="/library/add-book" element={<AddBook />} />
             <Route path="/library/dashboards" element={<Dashboards />} />
             <Route path="/library/book/*" element={<Book />} />
+          </Route>
         </Routes>
       </div>
     </div>

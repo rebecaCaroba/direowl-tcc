@@ -6,7 +6,6 @@ import logo from '../../assets/logobranca.svg'
 
 export function Header() {
     function toggleIsShowNavbar() {
-        console.log('oi')
         const element = document.querySelector('#aside') as HTMLElement
 
         element.classList.toggle('active')
