@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import * as z from 'zod'
 import './style.scss'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -26,7 +26,7 @@ export function Login() {
       } = useForm<LoginAccountInputs>({
         resolver: zodResolver(LoginAccountFormSchema),
       })
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     async function handleLoginAccount(data: LoginAccountInputs) {
       console.log(data)
@@ -40,7 +40,7 @@ export function Login() {
 
         //   localStorage.setItem('token', response.data.token)
 
-        //   navigate('/library')
+          navigate('/library')
 
         // }catch (err) {
         //   if (err instanceof AxiosError && err?.response?.data?.message) {
