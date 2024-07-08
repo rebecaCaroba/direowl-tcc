@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
-import './style.scss'
 import { ImBooks } from "react-icons/im";
 import { LuBookPlus } from "react-icons/lu";
 import { GrCatalog } from "react-icons/gr";
 import { AiOutlineBarChart } from 'react-icons/ai';
 import logobranca from '../../assets/logobranca.svg'
 import { IoPersonCircle } from 'react-icons/io5';
+import './style.scss'
 
 export function Aside() {
   const [activeLink, setActiveLink] = useState(null);
@@ -30,7 +30,7 @@ export function Aside() {
             <Link
               onClick={() => handleLinkClick('library')}
               to="/library">
-              <ImBooks size={24} />
+              <ImBooks size={26} />
               Estantes
             </Link>
           </li>
@@ -38,7 +38,7 @@ export function Aside() {
             <Link
               onClick={() => handleLinkClick('library/add-collection')}
               to="/library/add-catalog">
-              <GrCatalog size={24} />
+              <GrCatalog size={26} />
               Adicionar catálogo
             </Link>
           </li>
@@ -46,7 +46,7 @@ export function Aside() {
             <Link
               onClick={() => handleLinkClick('/library/add-book')}
               to="/library/add-book">
-              <LuBookPlus size={24} />
+              <LuBookPlus size={26} />
               Adicionar livro
             </Link>
           </li>
@@ -54,16 +54,17 @@ export function Aside() {
             <Link
               onClick={() => handleLinkClick('/library/dashboards')}
               to="/library/dashboards">
-              <AiOutlineBarChart size={24} />
+              <AiOutlineBarChart size={26} />
               Painéis
             </Link>
           </li>
+
+          <li className="library-user">
+            <Link to="/"><IoPersonCircle size={26} /> Lisa Simpson</Link>
+          </li>
         </ul>
       </nav>
-        <div className="library-user">
-          <Link to="/"><IoPersonCircle size={42} /></Link>
-          <p>Lisa Simpson</p>
-        </div>
+
     </aside>
   )
 }

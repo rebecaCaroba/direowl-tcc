@@ -4,8 +4,8 @@ import './style.scss'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import logo from '../../assets/logobranca.svg'
-// import { api } from '../../lib/axios'
-// import { AxiosError } from 'axios'
+import { api } from '../../lib/axios'
+import { AxiosError } from 'axios'
 
 const LoginAccountFormSchema = z.object({
     email: z.
@@ -31,24 +31,24 @@ export function Login() {
     async function handleLoginAccount(data: LoginAccountInputs) {
       console.log(data)
     
-        // try{
-        //   const response = await api.post('/login', {
-        //     email: data.email,
-        //     password: data.password,
-        //   })
-        //   console.log(response.data)
+        try{
+          const response = await api.post('/login', {
+            email: data.email,
+            password: data.password,
+          })
+          console.log(response.data)
 
-        //   localStorage.setItem('token', response.data.token)
+          localStorage.setItem('token', response.data.token)
 
           navigate('/library')
 
-        // }catch (err) {
-        //   if (err instanceof AxiosError && err?.response?.data?.message) {
-        //     alert(err.response.data.message)
-        //     return
-        // }
-        // console.log(err)
-        // }
+        }catch (err) {
+          if (err instanceof AxiosError && err?.response?.data?.message) {
+            alert(err.response.data.message)
+            return
+        }
+        console.log(err)
+        }
     }
     
     const password = watch('password')
