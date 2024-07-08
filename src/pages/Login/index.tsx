@@ -36,7 +36,8 @@ export function Login() {
             email: data.email,
             password: data.password,
           })
-          console.log(response.data)
+          localStorage.setItem('name', response.data.user.name)
+          localStorage.setItem('id', response.data.user.id)
 
           localStorage.setItem('token', response.data.token)
 

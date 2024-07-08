@@ -14,11 +14,12 @@ export function DefaultLayout() {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            });
+            })
 
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
                 alert(err.response.data.message)
+                localStorage.clear()
                 navigate('/')
                 return
             }
