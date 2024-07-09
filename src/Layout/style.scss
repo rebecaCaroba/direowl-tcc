@@ -18,3 +18,9 @@ button {
     font-weight: bold;
     cursor: pointer;
 }
+
+@media (max-width: 1120px) {
+    .layout-container {
+        margin: 1rem;
+    }
+}

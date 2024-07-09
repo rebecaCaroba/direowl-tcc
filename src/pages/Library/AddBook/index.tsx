@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import './style.scss'
 import { IoSearch } from "react-icons/io5";
+import sherlock from '../../../assets/sherlock.jpg'
+import './style.scss'
 
 export function AddBook() {
     return (
@@ -42,6 +43,42 @@ export function AddBook() {
 
                             <button className="btn-yellow" type="submit">Pesquisar</button>
                         </form>
+                    </section>
+                </div>
+                <div className="book-search">
+                    <h1>Resultados</h1>
+
+                    <section>
+                        <div className="image">
+                            <img src={sherlock} alt="" />
+                            <button className="btn-yellow">Adicionar</button>
+                        </div>
+                        <div className="info">
+                            <h2>Sherlock - O retorno de Sherlock Holmes</h2>
+                            <p>By Arthur Conan Doyle &nbsp; Editora BOD GmbH DE</p>
+                             <b>2016&nbsp;&nbsp;</b> <span> Páginas: 224</span>
+                            <p>ISBN:&nbsp; 9780786499076</p>
+
+                            <p>
+                            O criador da série Mark Gatiss; Sherlock Holes, elementar meu caro Watson, o lendário detetive retorna em sua aventura mais eletrizante e o texto vem acompanhado de uma introdução escrita por Mark Gatiss
+                            </p>
+                        </div>
+                    </section>
+                    <section>
+                        <div className="image">
+                            <img src={sherlock} alt="" />
+                            <button className="btn-yellow">Adicionar</button>
+                        </div>
+                        <div className="info">
+                            <h2>Sherlock - O retorno de Sherlock Holmes</h2>
+                            <p>By Arthur Conan Doyle &nbsp; Editora BOD GmbH DE</p>
+                             <b>2016&nbsp;&nbsp;</b> <span> Páginas: 224</span>
+                            <p>ISBN:&nbsp; 9780786499076</p>
+
+                            <p>
+                            O criador da série Mark Gatiss; Sherlock Holes, elementar meu caro Watson, o lendário detetive retorna em sua aventura mais eletrizante e o texto vem acompanhado de uma introdução escrita por Mark Gatiss
+                            </p>
+                        </div>
                     </section>
                 </div>
             </div>
