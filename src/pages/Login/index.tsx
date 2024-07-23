@@ -28,9 +28,7 @@ export function Login() {
       })
     const navigate = useNavigate();
 
-    async function handleLoginAccount(data: LoginAccountInputs) {
-      console.log(data)
-    
+    async function handleLoginAccount(data: LoginAccountInputs) {    
         try{
           const response = await api.post('/login', {
             email: data.email,

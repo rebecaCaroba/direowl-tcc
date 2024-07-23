@@ -39,7 +39,6 @@ export function Register() {
   const navigate = useNavigate();
 
   async function handleCreatAccount(data: NewAccountInputs) {
-    console.log(data)
     try {
       const response = await api.post('/register', {
         username: data.username,
