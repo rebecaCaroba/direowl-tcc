@@ -1,57 +1,50 @@
 import { Link } from 'react-router-dom'
-import sherlock from '../../assets/sherlock.jpg'
-import ExLivro from '../../assets/exLivro.jpg'
 import './style.scss'
 
-export function BookShelves() {
+interface CatalogType {
+    id: number
+    name: string
+    imageLinks: string
+}
+
+interface BookShelvesProps {
+    catalogs: CatalogType[]
+}
+
+export function BookShelves({ catalogs }: BookShelvesProps) {
+    console.log(catalogs)
+        const categories = catalogs.reduce((acc, book) => {
+        if (!acc[book.name]) {
+            acc[book.name] = [];
+        }
+        acc[book.name].push(book);
+        return acc;
+    }, {} as Record<string, CatalogType[]>);
+
+
     return (
         <main>
-            <div className='bookshelves-container'>
-                <h1 className='text-yelow'>Livros de comédia</h1>
-                <section className='bookshelves-content'>
-                    <div className='bookshelves-book'>
-                        <div>
-                            <Link to=''><img src='http://books.google.com/books/content?id=K3yzEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api' alt="" /></Link>
-                        </div>
-                        <div>
-                            <Link to=''><img src='http://books.google.com/books/content?id=s6iWDwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api' alt="" /></Link>
-                        </div>
-                        <div>
-                            <Link to=''><img src='http://books.google.com/books/content?id=mJhyDQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api' alt="" /></Link>
-                        </div>
-                        <div>
-                            <Link to=''><img src='http://books.google.com/books/content?id=djcdDAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api' alt="" /></Link>
-                        </div>
-                        <div>
-                            <Link to=''><img src='http://books.google.com/books/content?id=XIqWEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api' alt="" /></Link>
-                        </div>
-                    </div>
-                    <div className='bookshelve'></div>
-                </section>
-            </div>
-            <div className='bookshelves-container'>
-                <h1 className='text-yelow'>Livros de comédia</h1>
-                <section className='bookshelves-content'>
-                    <div className='bookshelves-book'>
-                        <div>
-                            <Link to='book'><img src={sherlock} alt="" /></Link>
-                        </div>
-                        <div>
-                            <Link to='/book'><img src='http://books.google.com/books/content?id=i9zPEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api' alt="" /></Link>
-                        </div>
-                        <div>
-                            <Link to='/book'><img src='http://books.google.com/books/content?id=Ww_9AwFJBv8C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api' alt="" /></Link>
-                        </div>
-                        <div>
-                            <Link to='/book'><img src={ExLivro} alt="" /></Link>
-                        </div>
-                        <div>
-                            <Link to='/book'><img src={ExLivro} alt="" /></Link>
-                        </div>
-                    </div>
-                    <div className='bookshelve'></div>
-                </section>
-            </div>
+                {
+                    Object.entries(categories).map(([categoryName, books]) => {
+                        return (
+                            <div className='bookshelves-container' key={categoryName}>
+                                <h1 className='text-yellow'>{categoryName}</h1>
+                                <section className='bookshelves-content'>
+                                    <div className='bookshelves-book'>
+                                    {books.map((book) => (
+                                        <div key={book.id}>
+                                            <Link to=''>
+                                                <img src={book.imageLinks} alt={book.name} />
+                                            </Link>
+                                        </div>
+                                    ))}
+                                    </div>
+                                    <div className='bookshelve'></div>
+                                </section>
+                            </div>
+                        )
+                    })
+                }
         </main>
     )
 }

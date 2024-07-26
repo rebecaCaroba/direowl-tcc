@@ -1,8 +1,17 @@
 import './style.scss'
 import { BookShelves } from "../../components/BookShelves";
 import { IoSearch } from 'react-icons/io5';
+import { useEffect } from 'react';
+import { useContext } from 'react';
+import { CatalogContext } from '../../context/CatalogContext';
 
 export function Library() {
+    const { getCatalogAndBooks, catalogs  } = useContext(CatalogContext)
+
+    useEffect(() => {
+        getCatalogAndBooks()
+    }, [])
+
     return (
         <div>
             <header className="library-header">
@@ -14,7 +23,7 @@ export function Library() {
                 </form>
                 
             </header>
-            <BookShelves />
+            <BookShelves catalogs={catalogs} />
         </div>
     )
 }

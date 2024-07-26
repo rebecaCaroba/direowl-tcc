@@ -1,10 +1,13 @@
 import { BrowserRouter } from "react-router-dom"
 import { Router } from "./Router"
+import { CatalogContextProvider } from "./context/CatalogContext"
 
 function App() {
   return (
     <BrowserRouter>
-      <Router/>
+      <CatalogContextProvider>
+        <Router/>
+      </CatalogContextProvider>
     </BrowserRouter>
   )
 }
