@@ -51,7 +51,7 @@ export function AddBook() {
     const [optionCatalogSelect , setOptionCatalogSelect] = useState<number>()
 
 
-    async function getCatalog() {
+    async function getCatalogs() {
         try {
             const token = localStorage.getItem('token')
             const response = await api.get('get-catalog', {
@@ -82,7 +82,7 @@ export function AddBook() {
     }, [])
 
     useEffect(() => {
-        getCatalog()
+        getCatalogs()
     }, [])
 
 

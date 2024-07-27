@@ -4,12 +4,18 @@ import { IoSearch } from 'react-icons/io5';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import { CatalogContext } from '../../context/CatalogContext';
+import { UserContext } from '../../context/UserContext.tsx/';
 
 export function Library() {
-    const { getCatalogAndBooks, catalogs  } = useContext(CatalogContext)
+    const { getCatalogAndBooks, catalogs } = useContext(CatalogContext)
+    const { user } = useContext(UserContext)
+    console.log(user)
 
     useEffect(() => {
-        getCatalogAndBooks()
+        if (user?.id !== undefined) {
+            getCatalogAndBooks(user.id);
+        }
+
     }, [])
 
     return (

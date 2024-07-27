@@ -30,9 +30,10 @@ interface CatalogContextProviderProps {
     children: ReactNode
 }
 
+
 interface CatalogContextType {
     AddBook: ({ book, CatalogSelect }: AddBookProps) => Promise<void>
-    getCatalogAndBooks: () => Promise<void>
+    getCatalogAndBooks: (idUser: number) => Promise<void>
     catalogs: CatalogType[]
     isAddBook: boolean
 }
@@ -83,16 +84,25 @@ export function CatalogContextProvider({
         }
     }
 
-    async function getCatalogAndBooks() {
+    async function getCatalogAndBooks(idUser: number) {
+        const token = localStorage.getItem('token');
+
         try {
-            const response = await api.get('get-catalog-and-books')
+            const response = await api.post('get-catalog-and-books', {
+                idUser
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
             setCatalogs(response.data.result)
         } catch (err) {
             if (err instanceof AxiosError && err.response?.data?.message) {
                 console.error(err.response.data.message)
-            } else {
-                console.error(err)
-            }
+            } 
+           console.error(err)    
         }
     }
 

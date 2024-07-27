@@ -1,8 +1,10 @@
 @import '../../styles/config/variables';
 
-.bookshelves-container {
+.bookshelves {
     margin-top: 3rem;
+}
 
+.bookshelves-container {
     h1 {
         margin-bottom: 2rem;
     }
@@ -31,6 +33,9 @@
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
             image-rendering: pixelated;
+            -webkit-box-shadow: -17px 14px 33px 5px rgba(0, 0, 0, 0.38);
+            -moz-box-shadow: -17px 14px 33px 5px rgba(0, 0, 0, 0.38);
+            box-shadow: -17px 14px 33px 5px rgba(0, 0, 0, 0.38);
         }
     }
 }
@@ -44,6 +49,9 @@
     border-radius: 4px 4px 10px 10px;
 }
 
+.no-categories {
+    text-align: center;
+}
 
 @media (max-width: 1020px) {
     .bookshelves-content {

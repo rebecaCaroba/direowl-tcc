@@ -1,8 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import './style.scss'
-import { AxiosError } from "axios";
 import { api } from '../lib/axios'
 import { useEffect } from "react";
+import './style.scss'
 
 export function DefaultLayout() {
     const navigate = useNavigate();
@@ -17,13 +16,10 @@ export function DefaultLayout() {
             })
 
         } catch (err) {
-            if (err instanceof AxiosError && err?.response?.data?.message) {
-                alert(err.response.data.message)
-                localStorage.clear()
-                navigate('/')
-                return
-            }
-            console.log(err)
+            alert(err)
+            localStorage.clear()
+            navigate('/')
+            return
         }
     }
 
