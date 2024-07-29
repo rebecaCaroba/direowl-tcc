@@ -28,7 +28,6 @@ export function BookList({ books, CatalogSelect }: BookListProps) {
   const { AddBook } = useContext(CatalogContext)
 
   async function handleAddBook(book: VolumeInfoType) {
-    console.log(book)
     await AddBook({book, CatalogSelect})
   }
 

@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom'
 import './style.scss'
+import { useContext, useEffect } from 'react'
+import { CatalogContext } from '../../context/CatalogContext'
+import { UserContext } from '../../context/UserContext.tsx'
 
 interface CatalogType {
     id: number
@@ -7,11 +10,19 @@ interface CatalogType {
     imageLinks: string
 }
 
-interface BookShelvesProps {
-    catalogs: CatalogType[]
-}
 
-export function BookShelves({ catalogs }: BookShelvesProps) {
+export function BookShelves() {
+
+    const { getCatalogAndBooks, catalogs } = useContext(CatalogContext)
+    const { user } = useContext(UserContext)
+
+    useEffect(() => {
+        if(user) {
+            getCatalogAndBooks()
+        }
+        
+    }, [user])
+    
     const categories = catalogs.reduce((acc, book) => {
         if (!acc[book.name]) {
             acc[book.name] = [];

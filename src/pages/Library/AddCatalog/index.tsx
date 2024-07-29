@@ -25,7 +25,7 @@ export function AddCatalog() {
             const idUser = localStorage.getItem('id')
             const token = localStorage.getItem('token')
 
-            const response = await api.post('/create-catalog',
+             await api.post('/create-catalog',
                 {
                     idUser: idUser,
                     nameCatalog: data.nameCatalog,
@@ -37,7 +37,6 @@ export function AddCatalog() {
                 }
             )
 
-            console.log(response)
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
                 alert(err.response.data.message)

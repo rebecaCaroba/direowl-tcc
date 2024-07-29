@@ -40,13 +40,12 @@ export function Register() {
 
   async function handleCreatAccount(data: NewAccountInputs) {
     try {
-      const response = await api.post('/register', {
+      await api.post('/register', {
         username: data.username,
         email: data.email,
         password: data.password
       })
 
-      console.log(response)
       navigate('/')
 
     } catch (err) {

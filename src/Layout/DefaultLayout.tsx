@@ -1,10 +1,12 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { api } from '../lib/axios'
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import './style.scss'
+import { UserContext } from "../context/UserContext.tsx";
 
 export function DefaultLayout() {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const { getUser } = useContext(UserContext)
 
     async function verifyAuthUser() {
         try {
@@ -25,6 +27,7 @@ export function DefaultLayout() {
 
     useEffect(() => {
         verifyAuthUser()
+        getUser()
     }, [])
 
     return (

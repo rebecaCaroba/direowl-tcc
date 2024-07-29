@@ -6,8 +6,6 @@ import { useForm } from 'react-hook-form'
 import logo from '../../assets/logobranca.svg'
 import { api } from '../../lib/axios'
 import { AxiosError } from 'axios'
-import { useContext } from 'react'
-import { UserContext } from '../../context/UserContext.tsx'
 
 const LoginAccountFormSchema = z.object({
   email: z.
@@ -29,7 +27,6 @@ export function Login() {
     resolver: zodResolver(LoginAccountFormSchema),
   })
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext)
 
   async function handleLoginAccount(data: LoginAccountInputs) {
     try {
@@ -37,13 +34,7 @@ export function Login() {
         email: data.email,
         password: data.password,
       })
-
-      setUser({
-        id: parseInt(response.data.user.id),
-        name: response.data.user.name,
-        email: response.data.user.email,
-      })
-
+      console.log(response)
       localStorage.setItem('token', response.data.token)
 
       navigate('/library')
@@ -65,7 +56,7 @@ export function Login() {
       <img src={logo} width={80} />
       <form onSubmit={handleSubmit(handleLoginAccount)} className='form-container'>
         <div className='logo-title'>
-          <h1>Login do usuário</h1>
+          <h1>Login do usuário</h1>            
         </div>
 
         <label htmlFor="email">Email</label>
