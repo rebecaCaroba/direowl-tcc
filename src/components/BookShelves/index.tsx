@@ -43,7 +43,7 @@ export function BookShelves() {
                             <div className='bookshelves-book'>
                                 {books.map((book) => (
                                     <div key={book.id} >
-                                        <Link to=''>
+                                        <Link to={`book/${book.id}`} >
                                             <img src={book.imageLinks} alt={book.name} />
                                         </Link>
                                     </div>

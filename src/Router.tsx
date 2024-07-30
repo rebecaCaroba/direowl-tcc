@@ -25,7 +25,7 @@ export function Router() {
             <Route path="/library/add-catalog" element={<AddCatalog />} />
             <Route path="/library/add-book" element={<AddBook />} />
             <Route path="/library/dashboards" element={<Dashboards />} />
-            <Route path="/library/book/*" element={<Book />} />
+            <Route path="/library/book/:bookId" element={<Book />} />
           </Route>
         </Routes>
       </div>

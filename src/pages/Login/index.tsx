@@ -34,7 +34,6 @@ export function Login() {
         email: data.email,
         password: data.password,
       })
-      console.log(response)
       localStorage.setItem('token', response.data.token)
 
       navigate('/library')
