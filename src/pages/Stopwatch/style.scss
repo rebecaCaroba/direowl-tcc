@@ -1,0 +1,18 @@
+@import '../../styles/config/variables';
+
+.stopwatch-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    min-height: 100vh;
+
+    button {
+        background-color: $c-secondary;
+        color: $c-first;
+        
+        width: 41%;
+    }
+}

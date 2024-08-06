@@ -1,7 +1,7 @@
 import { RiTimerLine } from "react-icons/ri";
 import './style.scss'
 import { Timeline } from '../../../components/Timeline';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { api } from '../../../lib/axios';
 import { AxiosError } from 'axios';
@@ -54,8 +54,10 @@ export function Book() {
                     <p>{book.description}</p>
 
                     <div className="book-btn">
-                        <button className='button-ler'>LER AGORA</button>
-                        <button className='button-fav'>ADICIONAR AOS FAVORITOS</button></div>
+                        <button className='button-ler'>
+                            <Link to='/stopwatch' >LER AGORA</Link>
+                        </button>
+                        <button className='button-fav'>ADICIONAR NOTAS</button></div>
                     </div>
                 <div className="book-image">
                     <img src={book.imageLinks} alt="" />

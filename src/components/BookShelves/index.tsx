@@ -10,7 +10,6 @@ interface CatalogType {
     imageLinks: string
 }
 
-
 export function BookShelves() {
 
     const { getCatalogAndBooks, catalogs } = useContext(CatalogContext)
