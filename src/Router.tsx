@@ -8,7 +8,7 @@ import { AddBook } from './pages/Library/AddBook/index.tsx';
 import { Dashboards } from './pages/Library/Dashboards/index.tsx';
 import { Header } from './components/header/index.tsx';
 import { Book } from './pages/Library/Book/index.tsx';
-import { Stopwatch } from './pages/Stopwatch/index.tsx';
+import { CalculateTime } from './pages/CalculateTime/index.tsx'; 
 
 export function Router() {
   const location = useLocation();
@@ -27,7 +27,7 @@ export function Router() {
             <Route path="/library/add-book" element={<AddBook />} />
             <Route path="/library/dashboards" element={<Dashboards />} />
             <Route path="/library/book/:bookId" element={<Book />} />
-            <Route path="/stopwatch" element={<Stopwatch />} />
+            <Route path="/calculate-time/:bookId/:totalPages" element={<CalculateTime />} />
           </Route>
         </Routes>
       </div>

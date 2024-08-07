@@ -1,0 +1,57 @@
+@import '../../styles/config/variables';
+
+.calculate-time-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+
+    button {
+        width: 100%;
+    }
+}
+
+.count-container {
+
+    .time {
+        display: flex;
+        align-items: center;
+        color: #fff;
+        gap: 1rem;
+
+        span {
+            border-radius: 8px;
+            background-color: $c-first-500;
+            padding: 2rem 1rem;
+            font-size: 10rem;
+        }
+    }
+
+    .count-container-button {
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .count-container-button button {
+        background-color: $c-secondary;
+        color: $c-first;
+        width: 100%;
+        margin: 1rem 0;
+    }
+
+    .count-separator {
+        width: 4rem;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        color: $c-secondary;
+        font-size: 5rem;
+
+    }
+    button:disabled {
+        background-color: rgb(103, 103, 103);
+        display: none;
+        
+    }
+}

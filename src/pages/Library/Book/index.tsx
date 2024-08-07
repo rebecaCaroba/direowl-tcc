@@ -55,7 +55,7 @@ export function Book() {
 
                     <div className="book-btn">
                         <button className='button-ler'>
-                            <Link to='/stopwatch' >LER AGORA</Link>
+                            <Link to={`/calculate-time/${bookId}/${book.pages}`} >LER AGORA</Link>
                         </button>
                         <button className='button-fav'>ADICIONAR NOTAS</button></div>
                     </div>
