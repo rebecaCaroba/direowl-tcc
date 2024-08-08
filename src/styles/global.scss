@@ -39,6 +39,12 @@ button {
     color: $c-first;
 }
 
+.btn-red {
+    background-color: $c-red-200;
+    color: $c-gray-100;
+
+}
+
 .container {
     display: flex;
     align-items: center;

@@ -4,6 +4,23 @@ import { useParams } from 'react-router-dom'
 import * as z from 'zod'
 import './style.scss'
 
+interface ResCalculateTimeType {
+    minutesDay: number,
+    pags: number,
+    horus: number
+}
+
+interface TimeType {
+  minutes: number,
+  seconds: number
+}
+
+interface FormTimeProps {
+    setStep: React.Dispatch<React.SetStateAction<number>>
+    time: TimeType
+    setResCalculateTime: React.Dispatch<React.SetStateAction<ResCalculateTimeType>>
+}
+
 const FormTimeSchema = z.object({
     pagRead: z.number().min(1, {message: 'No mínimo 1 página'}),
     daysToRead: z.number().min(1, {message: 'No mínimo 1 dia'})
@@ -11,7 +28,7 @@ const FormTimeSchema = z.object({
 
 type FormTimeInput = z.infer<typeof FormTimeSchema>
 
-export function FormTime({setStep, time, setResCalculateTime}: any) {
+export function FormTime({setStep, time, setResCalculateTime}: FormTimeProps) {
     const { totalPages } = useParams()
 
     const {
@@ -23,7 +40,7 @@ export function FormTime({setStep, time, setResCalculateTime}: any) {
     })
 
     function handleCalculateTime(data:FormTimeInput) {
-        
+ 
         const {daysToRead, pagRead} = data
 
         const numericTotalPages = Number(totalPages)
@@ -34,7 +51,7 @@ export function FormTime({setStep, time, setResCalculateTime}: any) {
 
 
         setResCalculateTime({
-            days: dailyTime,
+            minutesDay: dailyTime,
             pags: numericTotalPages,
             horus: tHours,
           })

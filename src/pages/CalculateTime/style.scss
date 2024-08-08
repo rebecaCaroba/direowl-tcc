@@ -34,9 +34,6 @@
     }
 
     .count-container-button button {
-        background-color: $c-secondary;
-        color: $c-first;
-        width: 100%;
         margin: 1rem 0;
     }
 
@@ -53,6 +50,13 @@
         background-color: rgb(103, 103, 103);
         display: none;
         
+    }
+
+    .btn-red {
+        justify-content: center;
+        gap: 0.5rem;
+        display: flex;
+        align-items: center;
     }
 }
 
