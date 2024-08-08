@@ -2,11 +2,14 @@ import { useState } from "react";
 import "./style.scss";
 import { FormTime } from "./FormTime";
 import { Count } from "./Count";
+import { ResCalculateTime } from "./ResCalculateTime";
 
 interface ResCalculateTimeType {
     minutesDay: number,
-    pags: number,
+    amoutPags: number,
     horus: number
+    pagesDay: number
+    daysToRead: number
 }
 
 interface TimeType {
@@ -19,8 +22,10 @@ export function CalculateTime() {
 
   const [resCalculateTime, setResCalculateTime] = useState<ResCalculateTimeType>({
     minutesDay: 0,
-    pags: 0,
-    horus: 0
+    amoutPags: 0,
+    horus: 0,
+    pagesDay: 0,
+    daysToRead: 0
   })
 
   const [time, setTime] = useState<TimeType>({ minutes: 0, seconds: 0 })
@@ -40,15 +45,7 @@ export function CalculateTime() {
       }
 
       {step == 3 && (
-         <div className="result-time-container">
-         <h1>Resultado</h1>
-         <p>
-           {`Tempo necessário por dia para concluir a leitura de ${resCalculateTime.pags} páginas:`}
-         </p>
-         <h1>{`${resCalculateTime.minutesDay} minutos por dia`}</h1>
-         <span>{`Total: ${resCalculateTime.horus} minutos`}</span>
-         <button className="btn-yellow">Concluir</button>
-       </div>
+         <ResCalculateTime resCalculateTime={resCalculateTime} />
       )}
     </div>
   );

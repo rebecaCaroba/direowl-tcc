@@ -6,8 +6,10 @@ import './style.scss'
 
 interface ResCalculateTimeType {
     minutesDay: number,
-    pags: number,
+    amoutPags: number,
     horus: number
+    pagesDay: number
+    daysToRead: number
 }
 
 interface TimeType {
@@ -44,16 +46,18 @@ export function FormTime({setStep, time, setResCalculateTime}: FormTimeProps) {
         const {daysToRead, pagRead} = data
 
         const numericTotalPages = Number(totalPages)
-        const timePages = (time.minutes + (time.seconds/60))/pagRead
-        const pagesDay = Math.round(numericTotalPages/daysToRead)
-        const tHours = Math.round(numericTotalPages + timePages )
+        const timePages = (time.minutes + (time.seconds / 60)) / pagRead
+        const pagesDay = Math.round(numericTotalPages / daysToRead)
+        const totalReadingTime = numericTotalPages * timePages
+        const tHours = Math.ceil(totalReadingTime / 60)
         const dailyTime = Math.ceil(pagesDay * timePages)
-
-
+        
         setResCalculateTime({
             minutesDay: dailyTime,
-            pags: numericTotalPages,
+            amoutPags: numericTotalPages,
             horus: tHours,
+            pagesDay: pagesDay,
+            daysToRead: daysToRead
           })
         setStep((state: number) => state + 1)
     }
