@@ -34,8 +34,6 @@ export function CalculateTime() {
   }
 
   const handleStop = () => {
-
-
     if (intervalRef.current !== null) {
       setBtnDisable(false)
       clearInterval(intervalRef.current)
@@ -71,13 +69,14 @@ export function CalculateTime() {
       }
 
       {step == 3 && (
-         <div>
+         <div className="result-time-container">
          <h1>Resultado</h1>
          <p>
            {`Tempo necessário por dia para concluir a leitura de ${resCalculateTime.pags} páginas:`}
          </p>
          <h1>{`${resCalculateTime.days} minutos por dia`}</h1>
          <span>{`Total: ${resCalculateTime.horus} minutos`}</span>
+         <button className="btn-yellow">Concluir</button>
        </div>
       )}
     </div>

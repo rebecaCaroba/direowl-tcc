@@ -1,0 +1,14 @@
+@import '../../../styles/config/variables';
+
+.form-time-container {
+    
+    background-color: rgba(0, 0, 0, 0.195);
+    padding: 40px;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+}

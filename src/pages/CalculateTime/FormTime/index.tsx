@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 import * as z from 'zod'
-// import './style.scss'
+import './style.scss'
 
 const FormTimeSchema = z.object({
     pagRead: z.number().min(1, {message: 'No mínimo 1 página'}),
@@ -23,26 +23,28 @@ export function FormTime({setStep, time, setResCalculateTime}: any) {
     })
 
     function handleCalculateTime(data:FormTimeInput) {
+        
         const {daysToRead, pagRead} = data
 
+        const numericTotalPages = Number(totalPages)
         const timePages = (time.minutes + (time.seconds/60))/pagRead
-        const pagesDay = Math.round(totalPages/daysToRead)
-        const tHours = Math.round(totalPages + timePages )
+        const pagesDay = Math.round(numericTotalPages/daysToRead)
+        const tHours = Math.round(numericTotalPages + timePages )
         const dailyTime = Math.ceil(pagesDay * timePages)
 
 
         setResCalculateTime({
             days: dailyTime,
-            pags: totalPages,
+            pags: numericTotalPages,
             horus: tHours,
           })
         setStep((state: number) => state + 1)
     }
 
     return (
-        <div>
+        <div className='form-time-container'>
             <h1>Calcule seu tempo</h1>
-            <form onSubmit={handleSubmit(handleCalculateTime)}>
+            <form className='form-time-form' onSubmit={handleSubmit(handleCalculateTime)}>
                 <label htmlFor="pagRead">Quantas páginas você leu? </label>
                 <input type="number" id="pagRead" {...register('pagRead', {valueAsNumber: true})} />
                 <span className='span-erros'>{errors.pagRead?.message ? errors.pagRead?.message : ''}</span>
@@ -51,7 +53,7 @@ export function FormTime({setStep, time, setResCalculateTime}: any) {
                 <input type="number" id="daysToRead" {...register('daysToRead', {valueAsNumber: true})}/>
                 <span className='span-erros'>{errors.daysToRead?.message ? errors.daysToRead?.message : ''}</span>
 
-                <input type="submit" value="Calcular" />
+                <button className='btn-yellow' type="submit"> Calcular </button>
             </form>
         </div>
     )
