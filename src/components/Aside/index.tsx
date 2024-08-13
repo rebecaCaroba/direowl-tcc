@@ -53,17 +53,12 @@ export function Aside() {
               Adicionar livro
             </Link>
           </li>
-          <li className={activeLink === '/library/dashboards' ? 'active' : ''}>
+          <li className={activeLink === '/library/profile' ? 'active' : ''}>
             <Link
-              onClick={() => handleLinkClick('/library/dashboards')}
-              to="/library/dashboards">
-              <AiOutlineBarChart size={26} />
-              Painéis
+              onClick={() => handleLinkClick('/library/profile')}
+              to="/library/profile">
+              <IoPersonCircle size={26} />{user?.name}
             </Link>
-          </li>
-
-          <li className="library-user">
-            <Link to="/"><IoPersonCircle size={26} />{user?.name}</Link>
           </li>
         </ul>
       </nav>
