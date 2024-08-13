@@ -1,6 +1,6 @@
 import { RiTimerLine } from "react-icons/ri";
 import './style.scss'
-import { Timeline } from '../../../components/Timeline';
+import { ReadingSchedule } from '../../../components/ReadingSchedule';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { api } from '../../../lib/axios';
@@ -63,7 +63,7 @@ export function Book() {
                     <img src={book.imageLinks} alt="" />
                 </div>
             </section>
-            <Timeline />
+            <ReadingSchedule bookId={bookId} />
         </main>
     )
 }

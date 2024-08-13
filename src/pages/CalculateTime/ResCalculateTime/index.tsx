@@ -22,10 +22,10 @@ interface ResCalculateTimeType {
 export function ResCalculateTime({ resCalculateTime }: ResCalculateTimeProps) {
     const { bookId } = useParams()
 
-    function handleCreateTimeLine(data: ResCalculateTimeType) {
+    async function handleCreateTimeLine(data: ResCalculateTimeType) {
         const token = localStorage.getItem('token')
         
-        const response = api.post('/create-timeline', {
+        const response = await api.post('/create-schedule', {
             minutesDay: data.minutesDay,
             amoutPags: data.amoutPags,
             pagesDay: data.pagesDay,
