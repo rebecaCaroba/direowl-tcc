@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -48,7 +47,7 @@ export function AddBook() {
     })
     const [books, setBooks] = useState<BookType[]>([])
     const [catalogs, setCatalogs] = useState<CatalogType[]>([])
-    const [optionCatalogSelect , setOptionCatalogSelect] = useState<number>()
+    const [optionCatalogSelect, setOptionCatalogSelect] = useState<number>()
 
 
     async function getCatalogs() {
@@ -91,26 +90,15 @@ export function AddBook() {
             <div className="addbook-container">
                 <h1 className="text-yelow">Adicionar livro</h1>
                 <div className="addbook-content">
-                    <nav>
-                        <ul>
-                            <li>
-                                <Link to="">Pesquisa</Link>
-                            </li>
-
-                            <li>
-                                <Link to="">Manual</Link>
-                            </li>
-                        </ul>
-                    </nav>
                     <section>
                         <form className="addbook-form" onSubmit={handleSubmit(handleSearchBook)}>
                             <label htmlFor="catalog">Selecione o catálogo</label>
-                            <select {...register('optionCatalog', {valueAsNumber: true})}>
-                               {catalogs.map((catalog, index) => {
-                                return (
-                                    <option key={index} value={catalog.id}>{catalog.name}</option>
-                                )
-                               })}
+                            <select {...register('optionCatalog', { valueAsNumber: true })}>
+                                {catalogs.map((catalog, index) => {
+                                    return (
+                                        <option key={index} value={catalog.id}>{catalog.name}</option>
+                                    )
+                                })}
                             </select>
                             <span className='span-erros'>{errors.optionCatalog?.message}</span>
 
@@ -134,7 +122,7 @@ export function AddBook() {
                 {
                     isSubmitSuccessful ? <BookList books={books} CatalogSelect={optionCatalogSelect} /> : ''
                 }
-                
+
             </div>
         </>
     )

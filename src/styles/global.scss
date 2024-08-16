@@ -39,6 +39,18 @@ button {
     color: $c-first;
 }
 
+.title {
+    border-bottom: 2px solid $c-first-450;
+    margin-bottom: 2rem;
+
+    h1 {
+        display: inline;
+        color: $c-secondary;
+        font-weight: 700;
+        border-bottom: 2px solid $c-secondary;
+    }
+}
+
 .btn-red {
     background-color: $c-red-200;
     color: $c-gray-100;
