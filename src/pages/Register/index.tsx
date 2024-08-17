@@ -5,6 +5,8 @@ import { api } from '../../lib/axios'
 import { useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
 import logo from '../../assets/logobranca.svg'
+import { useContext } from 'react'
+import { ModalMessageContext } from '../../context/ModalMessageContext'
 
 
 const newAccountFormSchema = z.object({
@@ -28,6 +30,8 @@ const newAccountFormSchema = z.object({
 type NewAccountInputs = z.infer<typeof newAccountFormSchema>
 
 export function Register() {
+  const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
+
   const {
     register,
     handleSubmit,
@@ -40,17 +44,25 @@ export function Register() {
 
   async function handleCreatAccount(data: NewAccountInputs) {
     try {
-      await api.post('/register', {
+      const response = await api.post('/register', {
         username: data.username,
         email: data.email,
         password: data.password
       })
 
       navigate('/')
+      if (response.data.message) {
+        console.log(response.data.message)
+        TextModalMessage(response.data.message)
+        ShowModalMessage(true)
+      }
+
 
     } catch (err) {
       if (err instanceof AxiosError && err?.response?.data?.message) {
-        alert(err.response.data.message)
+        TextModalMessage(err.response.data.message)
+        ShowModalMessage(true)
+        ErrorModalMessage(err.response.data.error)
         return
       }
       console.log(err)

@@ -1,0 +1,40 @@
+@import '../../styles/config/variables';
+
+.ModalMessage {
+    background-color: $c-green-200;
+    width: 230px;
+    height: auto;
+    position: fixed;
+    top: 20px;
+    z-index: 2;
+    right: 30%;   
+    transition: 0.5s ease-in-out;
+    padding: 10px;
+
+    button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 12pt;
+        margin: 6px;
+        color: $c-gray-100;
+    }
+}
+
+.showModal {
+    right: 60px;  
+    opacity: 1;
+    visibility: visible;
+    transition: 0.5s ease-in-out;
+}
+
+.showModalError {
+    background-color: $c-red-200;
+    right: 60px;  
+    opacity: 1;
+    visibility: visible;
+    transition: 0.5s ease-in-out;
+}

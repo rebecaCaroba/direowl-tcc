@@ -1,12 +1,13 @@
 import { IoSearch } from "react-icons/io5";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import axios from "axios";
-import { useState, useCallback, useEffect } from "react";
+import axios, { AxiosError } from "axios";
+import { useState, useCallback, useEffect, useContext } from "react";
 import { BookList } from "../../../components/BookList";
 import './style.scss'
 import * as z from 'zod'
 import { api } from "../../../lib/axios";
+import { ModalMessageContext } from "../../../context/ModalMessageContext";
 
 const SearchBookSchema = z.object({
     searchbook: z.string().min(2, { message: "No mínimo 2 caracteres." }).max(50, { message: "Limite de 50 caracteres." }),
@@ -48,7 +49,7 @@ export function AddBook() {
     const [books, setBooks] = useState<BookType[]>([])
     const [catalogs, setCatalogs] = useState<CatalogType[]>([])
     const [optionCatalogSelect, setOptionCatalogSelect] = useState<number>()
-
+    const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
 
     async function getCatalogs() {
         try {
@@ -59,7 +60,21 @@ export function AddBook() {
                 }
             })
             setCatalogs(response.data.result)
+            if (response.data.message) {
+
+                console.log(response.data.message)
+                TextModalMessage(response.data.message)
+                ShowModalMessage(true)
+            }
+
+
         } catch (err) {
+            if (err instanceof AxiosError && err?.response?.data?.message) {
+                TextModalMessage(err.response.data.message)
+                ShowModalMessage(true)
+                ErrorModalMessage(err.response.data.error)
+                return
+            }
             console.log(err)
         }
     }

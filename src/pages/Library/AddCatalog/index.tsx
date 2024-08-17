@@ -4,6 +4,8 @@ import { api } from '../../../lib/axios'
 import { AxiosError } from 'axios'
 import * as z from 'zod'
 import './style.scss'
+import { useContext } from 'react'
+import { ModalMessageContext } from '../../../context/ModalMessageContext'
 
 const CreateCatalogSchema = z.object({
     nameCatalog: z.string().min(2, { message: "O nome do catálogo deve ter no mínimo 2 caracteres." }).max(50, { message: "Limite de 50 caracteres." })
@@ -12,6 +14,8 @@ const CreateCatalogSchema = z.object({
 type CreateCatalogtInputs = z.infer<typeof CreateCatalogSchema>
 
 export function AddCatalog() {
+    const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
+
     const {
         register,
         handleSubmit,
@@ -25,7 +29,7 @@ export function AddCatalog() {
             const idUser = localStorage.getItem('id')
             const token = localStorage.getItem('token')
 
-             await api.post('/create-catalog',
+            const response = await api.post('/create-catalog',
                 {
                     idUser: idUser,
                     nameCatalog: data.nameCatalog,
@@ -37,9 +41,18 @@ export function AddCatalog() {
                 }
             )
 
+            if (response.data.message) {
+                console.log(response.data.message)
+                TextModalMessage(response.data.message)
+                ShowModalMessage(true)
+            }
+
+
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
-                alert(err.response.data.message)
+                TextModalMessage(err.response.data.message)
+                ShowModalMessage(true)
+                ErrorModalMessage(err.response.data.error)
                 return
             }
             console.log(err)

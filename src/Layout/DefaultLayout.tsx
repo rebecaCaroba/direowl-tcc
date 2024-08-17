@@ -3,6 +3,7 @@ import { api } from '../lib/axios'
 import { useContext, useEffect } from "react";
 import './style.scss'
 import { UserContext } from "../context/UserContext.tsx";
+import { ModalMessage } from "../components/ModalMessage/index.tsx";
 
 export function DefaultLayout() {
     const navigate = useNavigate()
@@ -33,6 +34,7 @@ export function DefaultLayout() {
     return (
         <div className="layout-container">
             <Outlet />
+            <ModalMessage />
         </div>
     )
 }
