@@ -4,12 +4,6 @@
     margin-top: 3rem;
 }
 
-.bookshelves-container {
-    h1 {
-        margin-bottom: 2rem;
-    }
-}
-
 .bookshelves-content {
     width: 100%;
     display: flex;
@@ -51,6 +45,17 @@
 
 .no-categories {
     text-align: center;
+}
+
+.bookshelves-title-catalog {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+
+    a {
+        color: $c-gray-100;
+    }
 }
 
 @media (max-width: 1020px) {

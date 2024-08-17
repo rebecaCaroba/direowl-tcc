@@ -1,14 +1,9 @@
 import { Link } from 'react-router-dom'
-import './style.scss'
 import { useContext, useEffect } from 'react'
 import { CatalogContext } from '../../context/CatalogContext'
 import { UserContext } from '../../context/UserContext.tsx'
-
-interface CatalogType {
-    id: number
-    name: string
-    imageLinks: string
-}
+import { FaAngleRight } from "react-icons/fa6"
+import './style.scss'
 
 export function BookShelves() {
 
@@ -16,33 +11,43 @@ export function BookShelves() {
     const { user } = useContext(UserContext)
 
     useEffect(() => {
-        if(user) {
+        if (user) {
             getCatalogAndBooks()
         }
-        
     }, [user])
-    
-    const categories = catalogs.reduce((acc, book) => {
-        if (!acc[book.name]) {
-            acc[book.name] = [];
+
+    console.log(catalogs)
+
+    const categories = catalogs.reduce((acc, item) => {
+        if (!acc[item.catalog_name]) {
+            acc[item.catalog_name] = { catalogId: item.catalog_id, books: [] }
         }
-        acc[book.name].push(book);
-        return acc;
-    }, {} as Record<string, CatalogType[]>)
+        acc[item.catalog_name].books.push({
+            id: item.book_id,
+            name: item.catalog_name,
+            imageLinks: item.book_image,
+        })
+        return acc
+    }, {} as Record<string, { catalogId: number; books: { id: number; name: string; imageLinks: string }[] }>)
 
     const hasCategories = Object.keys(categories).length > 0
 
     return (
         <main className='bookshelves'>
-            {hasCategories ? Object.entries(categories).map(([categoryName, books], index) => {
+            {hasCategories ? Object.entries(categories).map(([catalogName, data], index) => {
                 return (
                     <div className='bookshelves-container' key={index}>
-                        <h1 className='text-yellow'>{categoryName}</h1>
+                        <div className="bookshelves-title-catalog">
+                            <h1 className='text-yellow'>{catalogName}</h1>
+                            <Link to={`catalog/${data.catalogId}`}>
+                                <FaAngleRight />
+                            </Link>
+                        </div>
                         <section className='bookshelves-content'>
                             <div className='bookshelves-book'>
-                                {books.map((book) => (
-                                    <div key={book.id} >
-                                        <Link to={`book/${book.id}`} >
+                                {data.books.map((book) => (
+                                    <div key={book.id}>
+                                        <Link to={`book/${book.id}`}>
                                             <img src={book.imageLinks} alt={book.name} />
                                         </Link>
                                     </div>
@@ -52,12 +57,10 @@ export function BookShelves() {
                         </section>
                     </div>
                 )
-            })
-                :
+            }) :
                 <div className='no-categories'>
                     <h1 className='text-yellow'>Nenhum catálogo disponível</h1>
                 </div>
-
             }
         </main>
     )

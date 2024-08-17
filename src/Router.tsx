@@ -9,6 +9,7 @@ import { Profile } from './pages/Library/Profile/index.tsx';
 import { Header } from './components/header/index.tsx';
 import { Book } from './pages/Library/Book/index.tsx';
 import { CalculateTime } from './pages/CalculateTime/index.tsx'; 
+import { Catalog } from './pages/Library/Catalog/index.tsx';
 
 export function Router() {
   const location = useLocation();
@@ -27,6 +28,7 @@ export function Router() {
             <Route path="/library/add-book" element={<AddBook />} />
             <Route path="/library/profile" element={<Profile />} />
             <Route path="/library/book/:bookId" element={<Book />} />
+            <Route path="/library/catalog/:catalogId" element={<Catalog />} />
             <Route path="/calculate-time/:bookId/:totalPages" element={<CalculateTime />} />
           </Route>
         </Routes>

@@ -16,9 +16,10 @@ interface VolumeInfoType {
 }
 
 interface CatalogType {
-    id: number
-    name: string
-    imageLinks: string
+    book_id: number
+    book_image: string
+    catalog_id: number
+    catalog_name: string
 }
 
 interface AddBookProps {
@@ -43,8 +44,8 @@ export const CatalogContext = createContext({} as CatalogContextType)
 export function CatalogContextProvider({
     children
 }: CatalogContextProviderProps) {
-    const [ isAddBook, setIsAddBook ] = useState<boolean>(false)
-    const [ catalogs, setCatalogs ] = useState<CatalogType[]>([])
+    const [isAddBook, setIsAddBook] = useState<boolean>(false)
+    const [catalogs, setCatalogs] = useState<CatalogType[]>([])
 
     async function AddBook({ book, CatalogSelect }: AddBookProps) {
         try {
@@ -74,7 +75,7 @@ export function CatalogContextProvider({
                 }
             )
 
-            response ? setIsAddBook(true) : setIsAddBook(false)            
+            response ? setIsAddBook(true) : setIsAddBook(false)
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
                 alert(err.response.data.message)
@@ -88,18 +89,18 @@ export function CatalogContextProvider({
         const token = localStorage.getItem('token');
 
         try {
-            const response = await api.get('get-catalog-and-books',{
+            const response = await api.get('get-catalog-and-books', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             }
-        )
+            )
             setCatalogs(response.data.result)
         } catch (err) {
             if (err instanceof AxiosError && err.response?.data?.message) {
                 console.error(err.response.data.message)
-            } 
-           console.error(err)    
+            }
+            console.error(err)
         }
     }
 

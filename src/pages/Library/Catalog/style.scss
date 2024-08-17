@@ -1,0 +1,42 @@
+@import '../../../styles/config/variables';
+
+.catalog-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: $c-first-450;
+    margin-top: 3rem;
+
+
+    .catalog-info {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+
+        .catalog-text {
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        a {
+            color: $c-gray-100;
+        }
+
+        .collapsed {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            max-height: 4.5em;
+            line-height: 1.5em;
+          }
+          
+          .expanded {
+            max-height: none;
+            display: block;
+          }
+
+        img {
+            width: 100px;
+        }
+    }
+}
