@@ -1,6 +1,7 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { api } from "../lib/axios";
 import { AxiosError } from "axios";
+import { ModalMessageContext } from "./ModalMessageContext";
 
 interface VolumeInfoType {
     title: string;
@@ -46,6 +47,7 @@ export function CatalogContextProvider({
 }: CatalogContextProviderProps) {
     const [isAddBook, setIsAddBook] = useState<boolean>(false)
     const [catalogs, setCatalogs] = useState<CatalogType[]>([])
+    const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
 
     async function AddBook({ book, CatalogSelect }: AddBookProps) {
         try {
@@ -74,11 +76,18 @@ export function CatalogContextProvider({
                     }
                 }
             )
+            if (response.data.message) {
+                console.log(response.data.message)
+                TextModalMessage(response.data.message)
+                ShowModalMessage(true)
+            }
 
             response ? setIsAddBook(true) : setIsAddBook(false)
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
-                alert(err.response.data.message)
+                TextModalMessage(err.response.data.message)
+                ShowModalMessage(true)
+                ErrorModalMessage(err.response.data.error)
                 return
             }
             console.log(err)

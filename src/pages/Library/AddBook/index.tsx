@@ -60,13 +60,6 @@ export function AddBook() {
                 }
             })
             setCatalogs(response.data.result)
-            if (response.data.message) {
-
-                console.log(response.data.message)
-                TextModalMessage(response.data.message)
-                ShowModalMessage(true)
-            }
-
 
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {

@@ -5,15 +5,18 @@ import { IoMdClose } from "react-icons/io";
 import './style.scss'
 
 export function ModalMessage() {
-    const { textModalMessage, isShowModalMessage, ShowModalMessage, isErrorModalMessage } = useContext(ModalMessageContext)
+    const { textModalMessage, isShowModalMessage, ShowModalMessage, isErrorModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
 
-    if(isShowModalMessage) {
+    if(isShowModalMessage || isErrorModalMessage) {
         setTimeout(() => {
             ShowModalMessage(false)
+            ErrorModalMessage(false)
         }, 5000)
     }
 
+
     //tooltip
+    console.log(isErrorModalMessage)
 
     return (
         <div className={`ModalMessage ${isShowModalMessage ? 'showModal' : ''} ${isErrorModalMessage ? 'showModalError' : ''}`}>

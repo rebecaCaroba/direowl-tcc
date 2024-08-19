@@ -3,7 +3,7 @@ import { Login } from './pages/Login'
 import { Register } from './pages/Register'
 import { DefaultLayout } from './Layout/DefaultLayout.tsx'
 import { Library } from './pages/Library/index.tsx';
-import { AddCatalog } from './pages/Library/AddCatalog/index.tsx';
+import { CreateCatalog } from './pages/Library/CreateCatalog/index.tsx';
 import { AddBook } from './pages/Library/AddBook/index.tsx';
 import { Profile } from './pages/Library/Profile/index.tsx';
 import { Header } from './components/header/index.tsx';
@@ -24,7 +24,7 @@ export function Router() {
             <Route path="/register" element={<Register />} />
           <Route element={<DefaultLayout />}>
             <Route path="/library" element={<Library />} />
-            <Route path="/library/add-catalog" element={<AddCatalog />} />
+            <Route path="/library/add-catalog" element={<CreateCatalog />} />
             <Route path="/library/add-book" element={<AddBook />} />
             <Route path="/library/profile" element={<Profile />} />
             <Route path="/library/book/:bookId" element={<Book />} />

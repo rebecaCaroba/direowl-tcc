@@ -13,7 +13,7 @@ const CreateCatalogSchema = z.object({
 
 type CreateCatalogtInputs = z.infer<typeof CreateCatalogSchema>
 
-export function AddCatalog() {
+export function CreateCatalog() {
     const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
 
     const {
