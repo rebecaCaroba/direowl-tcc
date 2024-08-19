@@ -82,8 +82,18 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
         localStorage.setItem('isRunning', JSON.stringify(true))
     }
 
+    async function day() {
+        api.get('/put-day-read')
+        .then(res => console.log(res))
+    }
+
     const handleStop = () => {
         setIsRunning(false)
+
+        if(time >= (schedule[0].minutes_per_day * 60)) {
+            day()       
+        }
+
         if (timerRef.current !== null) {
             clearInterval(timerRef.current)
             timerRef.current = null
@@ -120,6 +130,8 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
     //         return
     //     }
     // }
+
+    console.log({schedule})
 
     return (
         <>
