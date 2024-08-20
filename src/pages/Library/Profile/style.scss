@@ -96,10 +96,13 @@
 }
 
 #profile-password {
-    display: flex;
-    align-items: flex-end;
-    gap: 1rem;
-    flex-wrap: wrap;
+
+    .inputs {
+        display: flex;
+        align-items: flex-end;
+        gap: 1rem;
+    }
+    
 }
 
 .profile-dados-gerais li .profile-label {

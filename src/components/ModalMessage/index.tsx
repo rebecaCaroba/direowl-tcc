@@ -14,10 +14,7 @@ export function ModalMessage() {
         }, 5000)
     }
 
-
     //tooltip
-    console.log(isErrorModalMessage)
-
     return (
         <div className={`ModalMessage ${isShowModalMessage ? 'showModal' : ''} ${isErrorModalMessage ? 'showModalError' : ''}`}>
             <span>{ textModalMessage }</span>

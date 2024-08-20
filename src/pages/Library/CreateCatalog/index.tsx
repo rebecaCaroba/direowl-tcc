@@ -42,7 +42,6 @@ export function CreateCatalog() {
             )
 
             if (response.data.message) {
-                console.log(response.data.message)
                 TextModalMessage(response.data.message)
                 ShowModalMessage(true)
             }

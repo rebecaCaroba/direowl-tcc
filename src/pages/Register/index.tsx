@@ -8,13 +8,11 @@ import logo from '../../assets/logobranca.svg'
 import { useContext } from 'react'
 import { ModalMessageContext } from '../../context/ModalMessageContext'
 
-
 const newAccountFormSchema = z.object({
   username: z
     .string()
     .min(3, { message: 'O nome de usuário deve ter pelo menos 3 caracteres' })
-    .regex(/^([a-z\\-]+)$/i, { message: 'Use apenas letras, números ou traços' })
-    .transform((username) => username.toLowerCase()),
+    .regex(/^([a-z\\-]+)$/i, { message: 'Use apenas letras, números ou traços' }),
   email: z.
     string()
     .min(1, { message: 'Email inválido' })
@@ -52,7 +50,6 @@ export function Register() {
 
       navigate('/')
       if (response.data.message) {
-        console.log(response.data.message)
         TextModalMessage(response.data.message)
         ShowModalMessage(true)
       }
