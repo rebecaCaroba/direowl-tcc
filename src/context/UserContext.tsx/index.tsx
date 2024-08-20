@@ -15,6 +15,7 @@ interface User {
 interface UserContextType {
     user: User | null
     getUser: () => Promise<void>
+    logout: () => void
 }
 
 export const UserContext = createContext({} as UserContextType)
@@ -41,10 +42,16 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
             }
         }
 
+    function logout() {
+        localStorage.clear()
+        setUser(null)
+    }
+
     return (
         <UserContext.Provider value={{
             user,
-            getUser
+            getUser,
+            logout,
         }} >
             {children}
         </UserContext.Provider>

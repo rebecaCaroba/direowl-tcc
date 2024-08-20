@@ -6,9 +6,17 @@ import { useContext } from 'react'
 import { UserContext } from '../../../context/UserContext.tsx'
 import { FormUsename } from '../../../components/FormUsername/index.tsx'
 import { FormPassword } from '../../../components/FormPassword/index.tsx'
+import { useNavigate } from 'react-router-dom'
 
 export function Profile() {
-    const { user } = useContext(UserContext)
+    const { user, logout } = useContext(UserContext)
+    const navigate = useNavigate()
+
+    function handleLogout() {
+        logout()
+        navigate('/')
+
+    }
 
     return (
         <div className="Profile-container">
@@ -22,25 +30,25 @@ export function Profile() {
                 </div>
 
                 <div className="profile-header-button">
-                    <button>Sair</button>
+                    <button onClick={() => handleLogout()} >Sair</button>
                 </div>
             </header>
 
             <section className="profile-leituras-em-andamento">
                 <div className="title">
                     <h1>Leituras em andamento</h1>
-                    <div className="profile-leituras-container">
-                        <div className="profile-leituras-info">
-                            <img src={exLivro} alt="" />
-                            <div>
-                                <h2>Diário de um banana</h2>
-                                <p>Em andamento</p>
-                            </div>
+                </div>
+                <div className="profile-leituras-container">
+                    <div className="profile-leituras-info">
+                        <img src={exLivro} alt="" />
+                        <div>
+                            <h2>Diário de um banana</h2>
+                            <p>Em andamento</p>
                         </div>
-                        <button className='button-timer'>
-                            <FaPlayCircle />
-                        </button>
                     </div>
+                    <button className='button-timer'>
+                        <FaPlayCircle />
+                    </button>
                 </div>
             </section>
 

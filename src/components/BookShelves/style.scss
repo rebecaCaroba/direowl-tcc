@@ -1,9 +1,5 @@
 @import '../../styles/config/variables';
 
-.bookshelves {
-    margin-top: 3rem;
-}
-
 .bookshelves-content {
     width: 100%;
     display: flex;
@@ -56,6 +52,10 @@
     a {
         color: $c-gray-100;
     }
+}
+
+.bookshelves-container {
+    margin-top: 6.25rem;
 }
 
 @media (max-width: 1020px) {
