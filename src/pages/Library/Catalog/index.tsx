@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { api } from "../../../lib/axios"
 import './style.scss'
 
@@ -40,25 +40,27 @@ export function Catalog() {
         getBooksFromCatalog(catalogId)
     }, [catalogId])
 
-    return (
-        <div className="Catalog">
-            {allBooks.map((book) => (
-                <div className="catalog-container">
-                    <div className="catalog-content">
-                        <div className="catalog-info">
-                            <img src={book.imageLinks} alt="" />
-                            <div>
-                                <h2>{book.title}</h2>
-                                <div className={'catalog-text collapsed'}>
-                                    <p>{book.description}</p>
-                                </div>
-                                <br />
-                                <Link to={`/library/book/${book.id}`}>
-                                    Ver mais
-                                </Link>
-                            </div>
-                        </div>
+    const navigate = useNavigate();
 
+
+    function handleBook(bookId: number) {
+        navigate(`/library/book/${bookId}`)
+    }
+
+    return (
+        <div className="catalog">
+            {allBooks.map((book) => (
+                <div className="book-card" onClick={() => handleBook(book.id)}>
+                    <div className="book-image">
+                        <img src={book.imageLinks} alt="Book Cover" />
+                    </div>
+                    <div className="book-details">
+                        <h2>{book.title}</h2>
+                        <p className="author">{book.author}</p>
+                        <p className="year-pages">{book.pages} páginas</p>
+                        <p className="description">
+                            {book.description}
+                        </p>
                     </div>
                 </div>
             ))}
