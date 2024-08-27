@@ -10,20 +10,21 @@ interface TimelineProps {
 }
 
 interface ScheduleEntry {
-    id: number
+    schedule_id: number
     book_id: number
-    user_id: number
-    total_days: number
-    pages_per_day: number
-    minutes_per_day: number
-    total_pages: number
+    dayread_id: number
+    day: number
+    is_read: boolean
     last_day_read: number
-    created_at: string
+    minutes_per_day: number
+    seconds: number
+    total_days: number
 }
 
 export function ReadingSchedule({ bookId }: TimelineProps) {
 
     const [schedule, setSchedule] = useState<ScheduleEntry[]>([])
+    const [teste, setTeste] = useState<number>(0)
     const [time, setTime] = useState<number>(() => {
         const savedTime = localStorage.getItem('timer')
         return savedTime ? JSON.parse(savedTime) : 0
@@ -32,8 +33,9 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
     const timerRef = useRef<number | null>(null)
 
     useEffect(() => {
-        async function GetTimeline(bookId: string | undefined) {
+        async function getSchedule(bookId: string | undefined) {
             const token = localStorage.getItem('token')
+
             try {
                 const bookIdNumber = Number(bookId)
                 const response = await api.get(`get-schedule/${bookIdNumber}`, {
@@ -51,9 +53,9 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
             }
         }
 
-        GetTimeline(bookId)
+        getSchedule(bookId)
 
-    }, [bookId])
+    }, [bookId, teste])
 
 
     useEffect(() => {
@@ -84,14 +86,14 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
 
     async function day() {
         api.get('/put-day-read')
-        .then(res => console.log(res))
+            .then(res => console.log(res))
     }
 
-    const handleStop = () => {
+    const handleStop = async () => {
         setIsRunning(false)
 
-        if(time >= (schedule[0].minutes_per_day * 60)) {
-            day()       
+        if (time >= (schedule[0].minutes_per_day * 60)) {
+            await day()
         }
 
         if (timerRef.current !== null) {
@@ -107,69 +109,91 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
         return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
     }
 
-    // async function handleCompleted(dayRead, timeInSeconds): any {
-    //     const minutes = Math.floor((timeInSeconds % 3600) / 60)
+    async function handleCompleted( dayRead: number, timeInSeconds: number, dayreadId: number): Promise<void> {
+        // const minutes = Math.floor((timeInSeconds % 3600) / 60)
 
-    //     if(timeInSeconds) {
-    //         const token = localStorage.getItem('token')
-    //         const response = await api.post('/completed-timeline', {
-    //             dayRead: dayRead + 1,
-    //             timeInSeconds,
-    //             bookId
-    //         }, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`
-    //             }
-    //         })
+        try {
 
-    //         localStorage.removeItem('timer')
-    //         setTime(0)
-    //         setSchedule(response.data.result)
-    //     } else {
-    //         alert(`Leia por no mínimo ${timeline[0].minutes_per_day} minutos`)
-    //         return
-    //     }
-    // }
+            // if(timeInSeconds) {
+            const token = localStorage.getItem('token')
+            await api.post('/completed-day', {
+                timeInSeconds,
+                is_read: true,
+                dayreadId,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
 
-    console.log({schedule})
+            await api.post('/create-dayRead', {
+                schedule_id: schedule[0].schedule_id,
+                day: dayRead + 1,
+                seconds: 0,
+                is_read: false,
+            })
+
+            localStorage.removeItem('timer')
+            setTime(0)
+            const n = Math.random()
+            setTeste(n)
+
+            // } else {
+            // alert(`Leia por no mínimo ${timeline[0].minutes_per_day} minutos`)
+            // return
+            // }
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    console.log({ schedule })
 
     return (
         <>
             <h1>Cronograma</h1>
             {schedule.length > 0 ? (
-                <section className="timeline">
-                    <div className="timeline-container">
-                        <div className="timeline-day">
-                            <span>Dia</span>
-                            <h1>{ schedule[0].last_day_read + 1 }</h1>
-                        </div>
-                        <div className="timeline-info">
-                            <div className="timeline-text">
-                                <h2>Página 1 a 5</h2>
-                                <p>Leia por no mínimo {schedule[0].minutes_per_day} minutos</p>
+                schedule.map((item, index) => (
+                    <section className="timeline" key={index} >
+                        <div className={`timeline-container ${item.is_read == true ? 'isread' : ''}`}>
+                            <div className={`${!item.is_read ? 'timeline-line-no-read' : 'timeline-line-read'}`}>
+                                <button onClick={() => handleCompleted(item.day, time, item.dayread_id)}>oi</button>
                             </div>
+                            <div className="timeline-day ">
+                                <span>Dia</span>
+                                <h1>{item.day}</h1>
+                            </div>
+                            <div className="timeline-info ">
+                                <div className="timeline-text">
+                                    <h2>Página 1 a 5</h2>
+                                    <p>Leia por no mínimo {item.minutes_per_day} minutos</p>
+                                </div>
 
-                            <div className="timeline-timer">
+                                <div className="timeline-timer">
+                                    {item.is_read == false ? (
+                                        !isRunning ? (
+                                            <button onClick={handleStart}>
+                                                <FaPlayCircle />
+                                            </button>
 
-                                {
-                                    isRunning == false ? (
-                                        <button onClick={handleStart}>
+                                        ) : (
+                                            <button onClick={handleStop}>
+                                                <FaRegStopCircle />
+                                            </button>
+                                        )
+                                    ) : (
+                                        <button>
                                             <FaPlayCircle />
                                         </button>
-
-                                    ) : (
-                                        <button onClick={handleStop}>
-                                            <FaRegStopCircle />
-                                        </button>
-                                    )
-                                }
-                                <span>{formatTime(time)}</span>
+                                    )}
+                                    <span>{item.seconds ? formatTime(item.seconds) : formatTime(time)}</span>
+                                </div>
                             </div>
-
                         </div>
-                    </div>
-                    <br /><br />
-                </section>
+                        <br /><br />
+                    </section>
+                ))
             ) : (
                 <h2>Crie uma rotina de leitura :)</h2>
             )}

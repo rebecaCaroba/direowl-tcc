@@ -11,7 +11,7 @@
 
     .timeline-line-no-read {
         width: 1px;
-        height: calc(100% + 20px);
+        height: 160px;
         display: block;
         border: 1px dashed rgb(91, 91, 91);
         margin-right: 30px;
@@ -20,25 +20,26 @@
         top: 50%;
         transform: translateX(-50%);
 
-        &::before {
+        button {
             content: '';
             display: block;
             position: absolute;
             top: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 18px;
-            height: 18px;
+            width: 30px;
+            height: 30px;
             background-color: rgb(91, 91, 91);
             border: 6px solid rgb(91, 91, 91);
             border-radius: 50%;
+            
         }
 
     }
-    
+
     .timeline-line-read {
         width: 1px;
-        height: calc(100% + 20px);
+        height: 160px;
         display: block;
         border: 1px dashed #fff;
         margin-right: 30px;
@@ -46,22 +47,21 @@
         left: -20px;
         top: 50%;
         transform: translateX(-50%);
-        
-        &::before {
-            content: '';
+
+        button {
             display: block;
             position: absolute;
             top: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 18px;
-            height: 18px;
+            width: 30px;
+            height: 30px;
             background-color: #fff;
             border: 6px solid #333;
             border-radius: 50%;
         }
     }
-    
+
     .timeline-day {
         display: flex;
         flex-direction: column;
@@ -72,11 +72,11 @@
         color: $c-first-450;
         width: 130px;
         height: 100%;
-    
+
         h1 {
             font-size: $h1;
         }
-    
+
         span {
             font-weight: bold;
         }
@@ -88,44 +88,53 @@
             svg {
                 font-size: 1rem;
                 color: $c-first-450;
-                
+
             }
         }
     }
-    
+
     .timeline-info {
         width: 100%;
         padding: 1rem;
         display: flex;
         gap: 1rem;
         justify-content: space-between;
-    
+
         .timeline-timer {
             margin-right: 0.5rem;
             display: flex;
             flex-direction: column;
-    
+
             button {
                 background: transparent;
                 color: #fbce76;
+
                 &:disabled {
                     color: silver;
+                    cursor: not-allowed;
                 }
-    
+
                 svg {
                     font-size: $h-mobile;
                 }
             }
 
         }
-    
-    
+
+
     }
 }
 
-    
+
 .teste {
-    .timeline-line-read, .timeline-line-no-read {
+
+    .timeline-line-read,
+    .timeline-line-no-read {
         border: none;
     }
+}
+
+.isread {
+    opacity: 0.5;
+    cursor: not-allowed;
 }

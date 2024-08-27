@@ -16,8 +16,6 @@ export function BookShelves() {
         }
     }, [user])
 
-    console.log(catalogs)
-
     const categories = catalogs.reduce((acc, item) => {
         if (!acc[item.catalog_name]) {
             acc[item.catalog_name] = { catalogId: item.catalog_id, books: [] }
