@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { api } from '../../../lib/axios';
 import { AxiosError } from 'axios';
+import { Notes } from "../../../components/Notes";
 
 interface BookType {
     title: string,
@@ -63,6 +64,7 @@ export function Book() {
                     <img src={book.imageLinks} alt="" />
                 </div>
             </section>
+            <Notes bookId={bookId}/>
             <ReadingSchedule bookId={bookId} />
         </main>
     )

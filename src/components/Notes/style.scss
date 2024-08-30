@@ -1,0 +1,25 @@
+@import '../../styles/config/variables';
+
+.Notes {
+    margin: 2rem 0;
+}
+
+.notes-content {
+    background-color: $c-first-450;
+    padding: 20px;
+
+    header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    button {
+        height: 0;
+        background-color: transparent;
+        color: $c-gray-100;
+    }
+
+    p {
+        margin-top: 1rem;
+    }
+}
