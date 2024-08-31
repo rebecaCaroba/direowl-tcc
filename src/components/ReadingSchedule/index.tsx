@@ -24,7 +24,6 @@ interface ScheduleEntry {
 export function ReadingSchedule({ bookId }: TimelineProps) {
 
     const [schedule, setSchedule] = useState<ScheduleEntry[]>([])
-    const [teste, setTeste] = useState<number>(0)
     const [time, setTime] = useState<number>(() => {
         const savedTime = localStorage.getItem('timer')
         return savedTime ? JSON.parse(savedTime) : 0
@@ -33,29 +32,29 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
     const timerRef = useRef<number | null>(null)
 
     useEffect(() => {
-        async function getSchedule(bookId: string | undefined) {
-            const token = localStorage.getItem('token')
-
-            try {
-                const bookIdNumber = Number(bookId)
-                const response = await api.get(`get-schedule/${bookIdNumber}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                setSchedule(response.data.result)
-            } catch (err) {
-                if (err instanceof AxiosError && err?.response?.data?.message) {
-                    alert(err.response.data.message)
-                    return
-                }
-                console.log(err)
-            }
-        }
-
         getSchedule(bookId)
+    }, [bookId])
 
-    }, [bookId, teste])
+
+    async function getSchedule(bookId: string | undefined) {
+        const token = localStorage.getItem('token')
+
+        try {
+            const bookIdNumber = Number(bookId)
+            const response = await api.get(`get-schedule/${bookIdNumber}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setSchedule(response.data.result)
+        } catch (err) {
+            if (err instanceof AxiosError && err?.response?.data?.message) {
+                alert(err.response.data.message)
+                return
+            }
+            console.log(err)
+        }
+    }
 
 
     useEffect(() => {
@@ -66,7 +65,7 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
                     localStorage.setItem('timer', JSON.stringify(newTime))
                     return newTime
                 })
-            }, 1000)
+            }, 100)
         } else {
             if (timerRef.current) {
                 clearInterval(timerRef.current)
@@ -84,21 +83,18 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
         localStorage.setItem('isRunning', JSON.stringify(true))
     }
 
-    async function day() {
-        api.get('/put-day-read')
-            .then(res => console.log(res))
-    }
-
-    const handleStop = async () => {
+    const handleStop = async (timeInSeconds: number, dayRead: number, dayreadId: number) => {
         setIsRunning(false)
-
-        if (time >= (schedule[0].minutes_per_day * 60)) {
-            await day()
-        }
 
         if (timerRef.current !== null) {
             clearInterval(timerRef.current)
             timerRef.current = null
+        }
+
+        const minutes = Math.floor((timeInSeconds % 3600) / 60)
+
+        if(minutes >= schedule[0].minutes_per_day) {
+            await handleCompleted(dayRead, timeInSeconds, dayreadId)
         }
     }
 
@@ -110,11 +106,7 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
     }
 
     async function handleCompleted( dayRead: number, timeInSeconds: number, dayreadId: number): Promise<void> {
-        // const minutes = Math.floor((timeInSeconds % 3600) / 60)
-
         try {
-
-            // if(timeInSeconds) {
             const token = localStorage.getItem('token')
             await api.post('/completed-day', {
                 timeInSeconds,
@@ -126,29 +118,28 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
                 }
             })
 
-            await api.post('/create-dayRead', {
-                schedule_id: schedule[0].schedule_id,
-                day: dayRead + 1,
-                seconds: 0,
-                is_read: false,
-            })
+            if(dayRead == schedule[0].total_days) {
+                alert('Parabens você concluiu o seu livro!')
+
+            } else {
+                await api.post('/create-dayRead', {
+                    schedule_id: schedule[0].schedule_id,
+                    day: dayRead + 1,
+                    seconds: 0,
+                    is_read: false,
+                })
+    
+            }
 
             localStorage.removeItem('timer')
             setTime(0)
-            const n = Math.random()
-            setTeste(n)
 
-            // } else {
-            // alert(`Leia por no mínimo ${timeline[0].minutes_per_day} minutos`)
-            // return
-            // }
+            await getSchedule(bookId)
         } catch (err) {
             console.log(err)
         }
 
     }
-
-    console.log({ schedule })
 
     return (
         <>
@@ -157,9 +148,6 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
                 schedule.map((item, index) => (
                     <section className="timeline" key={index} >
                         <div className={`timeline-container ${item.is_read == true ? 'isread' : ''}`}>
-                            <div className={`${!item.is_read ? 'timeline-line-no-read' : 'timeline-line-read'}`}>
-                                <button onClick={() => handleCompleted(item.day, time, item.dayread_id)}>oi</button>
-                            </div>
                             <div className="timeline-day ">
                                 <span>Dia</span>
                                 <h1>{item.day}</h1>
@@ -177,8 +165,12 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
                                                 <FaPlayCircle />
                                             </button>
 
-                                        ) : (
-                                            <button onClick={handleStop}>
+                                        ) : ( 
+                                            <button onClick={() => handleStop(
+                                                time,
+                                                item.day, 
+                                                item.dayread_id,
+                                            )}>
                                                 <FaRegStopCircle />
                                             </button>
                                         )
