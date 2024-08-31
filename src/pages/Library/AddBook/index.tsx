@@ -8,6 +8,7 @@ import './style.scss'
 import * as z from 'zod'
 import { api } from "../../../lib/axios";
 import { ModalMessageContext } from "../../../context/ModalMessageContext";
+import { Link } from "react-router-dom";
 
 const SearchBookSchema = z.object({
     searchbook: z.string().min(2, { message: "No mínimo 2 caracteres." }).max(50, { message: "Limite de 50 caracteres." }),
@@ -73,6 +74,8 @@ export function AddBook() {
     }
 
     const handleSearchBook = useCallback(async (data: SearchBookInput) => {
+        console.log(data.optionCatalog)
+
         setOptionCatalogSelect(data.optionCatalog)
         const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(data.searchbook)}`
 
@@ -92,6 +95,13 @@ export function AddBook() {
         getCatalogs()
     }, [])
 
+    function handleSelectCatalog() {
+        setBooks([])
+    }
+
+    if(catalogs.length == 0) {
+        return <h1><Link to='/library/create-catalog' className="text-yellow">Crie um catálogo</Link> antes de adicionar um livro</h1>
+    }
 
     return (
         <>
@@ -101,7 +111,7 @@ export function AddBook() {
                     <section>
                         <form className="addbook-form" onSubmit={handleSubmit(handleSearchBook)}>
                             <label htmlFor="catalog">Selecione o catálogo</label>
-                            <select {...register('optionCatalog', { valueAsNumber: true })}>
+                            <select {...register('optionCatalog', { valueAsNumber: true })} onChange={handleSelectCatalog}>
                                 {catalogs.map((catalog, index) => {
                                     return (
                                         <option key={index} value={catalog.id}>{catalog.name}</option>
@@ -128,9 +138,8 @@ export function AddBook() {
                     </section>
                 </div>
                 {
-                    isSubmitSuccessful ? <BookList books={books} CatalogSelect={optionCatalogSelect} /> : ''
+                    books.length > 0 && isSubmitSuccessful ? <BookList books={books} CatalogSelect={optionCatalogSelect} /> : ''
                 }
-
             </div>
         </>
     )

@@ -24,7 +24,7 @@ export function Router() {
             <Route path="/register" element={<Register />} />
           <Route element={<DefaultLayout />}>
             <Route path="/library" element={<Library />} />
-            <Route path="/library/add-catalog" element={<CreateCatalog />} />
+            <Route path="/library/create-catalog" element={<CreateCatalog />} />
             <Route path="/library/add-book" element={<AddBook />} />
             <Route path="/library/profile" element={<Profile />} />
             <Route path="/library/book/:bookId" element={<Book />} />

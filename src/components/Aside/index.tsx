@@ -39,7 +39,7 @@ export function Aside() {
           <li className={activeLink === 'library/add-collection' ? 'active' : ''}>
             <Link
               onClick={() => handleLinkClick('library/add-collection')}
-              to="/library/add-catalog">
+              to="/library/create-catalog">
               <GrCatalog size={26} />
               Criar catálogo
             </Link>
