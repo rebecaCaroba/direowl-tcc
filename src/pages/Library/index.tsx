@@ -12,9 +12,12 @@ export function Library() {
     const { user } = useContext(UserContext)
 
     useEffect(() => {
-        if (user) {
-            getCatalogAndBooks()
+        async function fetchData() {
+            if (user) {
+                await getCatalogAndBooks()
+            }
         }
+        fetchData()
     }, [user])
 
     const categories = catalogs.reduce((acc, item) => {
@@ -38,6 +41,8 @@ export function Library() {
             </div>
         )
     }
+
+    console.log("catalog", catalogs)
 
     return (
         <div>

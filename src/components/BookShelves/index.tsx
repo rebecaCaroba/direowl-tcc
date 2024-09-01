@@ -32,7 +32,7 @@ export function BookShelves({ categories }: PropsBookShelves) {
                         </div>
                         <section className='bookshelves-content'>
                             <div className='bookshelves-book'>
-                                {data.books.map((book) => (
+                                {data.books.slice(0, 5).map((book) => (  
                                     <div key={book.id}>
                                         <Link to={`book/${book.id}`}>
                                             <img src={book.imageLinks} alt={book.name} />

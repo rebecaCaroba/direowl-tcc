@@ -49,8 +49,8 @@ export function Catalog() {
 
     return (
         <div className="catalog">
-            {allBooks.map((book) => (
-                <div className="book-card" onClick={() => handleBook(book.id)}>
+            {allBooks.map((book , index) => (
+                <div key={index} className="book-card" onClick={() => handleBook(book.id)}>
                     <div className="book-image">
                         <img src={book.imageLinks} alt="Book Cover" />
                     </div>

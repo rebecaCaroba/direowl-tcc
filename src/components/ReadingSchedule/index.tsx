@@ -56,6 +56,44 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
         }
     }
 
+    async function handleCompleted( dayRead: number, timeInSeconds: number, dayreadId: number): Promise<void> {
+        try {
+            const token = localStorage.getItem('token')
+            await api.patch('/completed-day', {
+                timeInSeconds,
+                is_read: true,
+                dayreadId,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            if(dayRead == schedule[0].total_days) {
+                await api.put('/completed-schedule', {
+                    schedule_id: schedule[0].schedule_id,
+                    complete: true
+                })
+
+            } else {
+                await api.post('/create-dayRead', {
+                    schedule_id: schedule[0].schedule_id,
+                    day: dayRead + 1,
+                    seconds: 0,
+                    is_read: false,
+                })
+    
+            }
+
+            localStorage.removeItem('timer')
+            setTime(0)
+
+            await getSchedule(bookId)
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
 
     useEffect(() => {
         if (isRunning) {
@@ -103,42 +141,6 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
         const minutes = Math.floor((timeInSeconds % 3600) / 60)
         const seconds = timeInSeconds % 60
         return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
-    }
-
-    async function handleCompleted( dayRead: number, timeInSeconds: number, dayreadId: number): Promise<void> {
-        try {
-            const token = localStorage.getItem('token')
-            await api.post('/completed-day', {
-                timeInSeconds,
-                is_read: true,
-                dayreadId,
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-
-            if(dayRead == schedule[0].total_days) {
-                alert('Parabens você concluiu o seu livro!')
-
-            } else {
-                await api.post('/create-dayRead', {
-                    schedule_id: schedule[0].schedule_id,
-                    day: dayRead + 1,
-                    seconds: 0,
-                    is_read: false,
-                })
-    
-            }
-
-            localStorage.removeItem('timer')
-            setTime(0)
-
-            await getSchedule(bookId)
-        } catch (err) {
-            console.log(err)
-        }
-
     }
 
     return (
