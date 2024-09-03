@@ -1,15 +1,26 @@
 import { FaRegCircleUser } from 'react-icons/fa6'
-import exLivro from '../../../assets/exLivro.jpg'
-import './style.scss'
 import { FaPlayCircle } from 'react-icons/fa'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../../context/UserContext.tsx'
 import { FormUsename } from '../../../components/FormUsername/index.tsx'
 import { FormPassword } from '../../../components/FormPassword/index.tsx'
 import { useNavigate } from 'react-router-dom'
+import { api } from '../../../lib/axios/index.ts'
+import './style.scss'
+
+interface BookReadType {
+    schedule_id: number,
+    user_id: number,
+    created_at: Date,
+    book_id: number,
+    book_title: string,
+    imageLinks: string
+    complete: boolean
+}
 
 export function Profile() {
     const { user, logout } = useContext(UserContext)
+    const [bookRead, setBookRead] = useState<BookReadType[]>([])
     const navigate = useNavigate()
 
     function handleLogout() {
@@ -17,6 +28,32 @@ export function Profile() {
         navigate('/')
 
     }
+
+    function GoToBook(bookId: number) {
+        navigate(`/library/book/${bookId}`)
+    }
+
+    useEffect(() => {
+        async function getAllSchedule() {
+            const token = localStorage.getItem('token')
+            try {
+                const response = await api.get('/get-all-schedule', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+
+                setBookRead(response.data.result)
+
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
+        getAllSchedule()
+    }, [])
+
+
 
     return (
         <div className="Profile-container">
@@ -52,21 +89,27 @@ export function Profile() {
                     </li>
                 </ul >
             </section>
-            <section className="profile-leituras-em-andamento">
+
+            <section  className='leituras'>
                 <div className="title">
                     <h1>Leituras</h1>
                 </div>
-                <div className="profile-leituras-container">
-                    <div className="profile-leituras-info">
-                        <img src={exLivro} alt="" />
-                        <div>
-                            <h2>Diário de um banana</h2>
-                            <p>Em andamento</p>
+                <div className="profile-leituras-em-andamento">
+                    {bookRead.map((item, index) => (
+                        <div className="profile-leituras-container">
+                            <div className="profile-leituras-info" key={index}>
+                                <img src={item.imageLinks} alt={item.book_title} />
+                                <div>
+                                    <h2>{item.book_title}</h2>
+                                    <p>{item.complete == true ? 'Finalizado' : 'Em andamento'}</p>
+                                </div>
+                            </div>
+                            <button onClick={() => GoToBook(item.book_id)} className='button-timer'>
+                                <FaPlayCircle />
+                            </button>
                         </div>
-                    </div>
-                    <button className='button-timer'>
-                        <FaPlayCircle />
-                    </button>
+                    ))
+                    }
                 </div>
             </section>
         </div >
