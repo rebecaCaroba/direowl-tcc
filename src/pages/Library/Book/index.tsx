@@ -1,4 +1,3 @@
-import { RiTimerLine } from "react-icons/ri";
 import './style.scss'
 import { ReadingSchedule } from '../../../components/ReadingSchedule';
 import { Link, useParams } from 'react-router-dom';
@@ -50,8 +49,7 @@ export function Book() {
                     
                     <h1 className='text-yellow'>{book.title}</h1>
                     <cite>By {book.author}</cite> <span>&nbsp;&nbsp;&nbsp; Editora {book.publisher}</span>
-                    <span className='timer'><RiTimerLine /> 18 horas e 30 mins</span>
-
+                    <span>&nbsp;&nbsp;&nbsp; {book.pages} páginas</span>
                     <p>{book.description}</p>
 
                     <div className="book-btn">

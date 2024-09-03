@@ -5,7 +5,7 @@ interface ResCalculateTimeProps {
     resCalculateTime: {
         minutesDay: number,
         amoutPags: number,
-        horus: number
+        minutesTotal: number
         pagesDay: number
         daysToRead: number
     }
@@ -14,12 +14,12 @@ interface ResCalculateTimeProps {
 interface ResCalculateTimeType {
     minutesDay: number,
     amoutPags: number,
-    horus: number
-    pagesDay: number
+    minutesTotal: number
     daysToRead: number
 }
 
 export function ResCalculateTime({ resCalculateTime }: ResCalculateTimeProps) {
+    console.log(resCalculateTime)
     const { bookId } = useParams()
     const navigate = useNavigate()
 
@@ -30,8 +30,8 @@ export function ResCalculateTime({ resCalculateTime }: ResCalculateTimeProps) {
             const response = await api.post('/create-schedule', {
                 minutesDay: data.minutesDay,
                 amoutPags: data.amoutPags,
-                pagesDay: data.pagesDay,
                 daysToRead: data.daysToRead,
+                totalMinutes: data.minutesTotal,
                 bookId: bookId,
             }
             ,
@@ -60,11 +60,11 @@ export function ResCalculateTime({ resCalculateTime }: ResCalculateTimeProps) {
     }
 
 
-    const formatHours = (horus: number) => {
-        const h = Math.floor(horus)
-        const m = Math.round((horus - h) * 60)
-
-        return `${h}${m}min`
+    const formatHours = (minutes: number) => {
+        const h = Math.floor(minutes / 60); 
+        const m = Math.round(minutes % 60); 
+    
+        return `${h}h ${m}min`;
     }
 
 
@@ -72,10 +72,10 @@ export function ResCalculateTime({ resCalculateTime }: ResCalculateTimeProps) {
         <div className="result-time-container">
             <h1>Resultado</h1>
             <p>
-                {`Para concluir a leitura de ${resCalculateTime.amoutPags} páginas, você precisará ler:`}
+                {`Para concluir a leitura de ${resCalculateTime.amoutPags} páginas em ${resCalculateTime.daysToRead}, você precisará ler:`}
             </p>
             <h1>{`${resCalculateTime.minutesDay} minutos por dia`}</h1>
-            <span>{`Total estimado: ${formatHours(resCalculateTime.horus)}`}</span>
+            <span>{`Total estimado: ${formatHours(resCalculateTime.minutesTotal)}`}</span>
             <button className="btn-yellow" onClick={() => handleCreateTimeLine(resCalculateTime)}>Concluir</button>
         </div>
     )

@@ -1,7 +1,7 @@
 import './style.scss'
 
 interface PropsNotes {
-    bookId: number
+    bookId: string | undefined
 }
 
 export function Notes({ bookId }: PropsNotes) {

@@ -7,14 +7,13 @@ import './style.scss'
 interface ResCalculateTimeType {
     minutesDay: number,
     amoutPags: number,
-    horus: number
-    pagesDay: number
+    minutesTotal: number
     daysToRead: number
 }
 
 interface TimeType {
-  minutes: number,
-  seconds: number
+    minutes: number,
+    seconds: number
 }
 
 interface FormTimeProps {
@@ -24,13 +23,14 @@ interface FormTimeProps {
 }
 
 const FormTimeSchema = z.object({
-    pagRead: z.number().min(1, {message: 'No mínimo 1 página'}),
-    daysToRead: z.number().min(1, {message: 'No mínimo 1 dia'})
+    pagI: z.number().min(1, { message: 'No mínimo 1 página' }),
+    pagF: z.number().min(1, { message: 'No mínimo 1 página' }),
+    daysToRead: z.number().min(1, { message: 'No mínimo 1 dia' })
 })
 
 type FormTimeInput = z.infer<typeof FormTimeSchema>
 
-export function FormTime({setStep, time, setResCalculateTime}: FormTimeProps) {
+export function FormTime({ setStep, time, setResCalculateTime }: FormTimeProps) {
     const { totalPages } = useParams()
 
     const {
@@ -41,24 +41,23 @@ export function FormTime({setStep, time, setResCalculateTime}: FormTimeProps) {
         resolver: zodResolver(FormTimeSchema),
     })
 
-    function handleCalculateTime(data:FormTimeInput) {
- 
-        const {daysToRead, pagRead} = data
+    function handleCalculateTime(data: FormTimeInput) {
 
-        const numericTotalPages = Number(totalPages)
-        const timePages = (time.minutes + (time.seconds / 60)) / pagRead
-        const pagesDay = Math.round(numericTotalPages / daysToRead)
-        const totalReadingTime = numericTotalPages * timePages
-        const tHours = Math.ceil(totalReadingTime / 60)
-        const dailyTime = Math.ceil(pagesDay * timePages)
+        const { daysToRead, pagF, pagI } = data
         
+        const totalPagesNum = Number(totalPages)
+        const paginasRestantes = totalPagesNum - pagF
+        const paginasPorMinuto = (pagF - pagI) / (time.minutes + (time.seconds / 60))
+        const tempoPorPag = 1 / paginasPorMinuto
+        const tempoTotal = Math.ceil(paginasRestantes * tempoPorPag)
+        const leituraPorDia = Math.round(tempoTotal / daysToRead)
+
         setResCalculateTime({
-            minutesDay: dailyTime,
-            amoutPags: numericTotalPages,
-            horus: tHours,
-            pagesDay: pagesDay,
+            minutesDay: leituraPorDia,
+            amoutPags: totalPagesNum,
+            minutesTotal: tempoTotal,
             daysToRead: daysToRead
-          })
+        })
         setStep((state: number) => state + 1)
     }
 
@@ -66,12 +65,16 @@ export function FormTime({setStep, time, setResCalculateTime}: FormTimeProps) {
         <div className='form-time-container'>
             <h1>Calcule seu tempo</h1>
             <form className='form-time-form' onSubmit={handleSubmit(handleCalculateTime)}>
-                <label htmlFor="pagRead">Quantas páginas você leu? </label>
-                <input type="number" id="pagRead" {...register('pagRead', {valueAsNumber: true})} />
-                <span className='span-erros'>{errors.pagRead?.message ? errors.pagRead?.message : ''}</span>
+                <label htmlFor="pagRead">Qual página você iniciou? </label>
+                <input type="number" id="pagRead" {...register('pagI', { valueAsNumber: true })} />
+                <span className='span-erros'>{errors.pagI?.message ? errors.pagI?.message : ''}</span>
+
+                <label htmlFor="pagRead">Qual página você parou? </label>
+                <input type="number" id="pagRead" {...register('pagF', { valueAsNumber: true })} />
+                <span className='span-erros'>{errors.pagF?.message ? errors.pagF?.message : ''}</span>
 
                 <label htmlFor="daysToRead">Em quantos dias você deseja ler seu livro? </label>
-                <input type="number" id="daysToRead" {...register('daysToRead', {valueAsNumber: true})}/>
+                <input type="number" id="daysToRead" {...register('daysToRead', { valueAsNumber: true })} />
                 <span className='span-erros'>{errors.daysToRead?.message ? errors.daysToRead?.message : ''}</span>
 
                 <button className='btn-yellow' type="submit"> Calcular </button>

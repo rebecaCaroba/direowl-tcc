@@ -34,23 +34,6 @@ export function Profile() {
                 </div>
             </header>
 
-            <section className="profile-leituras-em-andamento">
-                <div className="title">
-                    <h1>Leituras em andamento</h1>
-                </div>
-                <div className="profile-leituras-container">
-                    <div className="profile-leituras-info">
-                        <img src={exLivro} alt="" />
-                        <div>
-                            <h2>Diário de um banana</h2>
-                            <p>Em andamento</p>
-                        </div>
-                    </div>
-                    <button className='button-timer'>
-                        <FaPlayCircle />
-                    </button>
-                </div>
-            </section>
 
             <section className="profile-dados-gerais">
                 <div className="title">
@@ -68,6 +51,23 @@ export function Profile() {
                         <FormPassword />
                     </li>
                 </ul >
+            </section>
+            <section className="profile-leituras-em-andamento">
+                <div className="title">
+                    <h1>Leituras</h1>
+                </div>
+                <div className="profile-leituras-container">
+                    <div className="profile-leituras-info">
+                        <img src={exLivro} alt="" />
+                        <div>
+                            <h2>Diário de um banana</h2>
+                            <p>Em andamento</p>
+                        </div>
+                    </div>
+                    <button className='button-timer'>
+                        <FaPlayCircle />
+                    </button>
+                </div>
             </section>
         </div >
     )
