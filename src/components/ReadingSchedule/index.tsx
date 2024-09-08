@@ -3,7 +3,6 @@ import { FaRegStopCircle } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
 import { api } from "../../lib/axios";
 import { AxiosError } from "axios";
-import { RiTimerLine } from "react-icons/ri";
 import './style.scss'
 
 interface TimelineProps {
@@ -151,64 +150,54 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
         return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
     }
 
-
-    const formatHours = (minutes: number) => {
-        const h = Math.floor(minutes / 60);
-        const m = Math.round(minutes % 60);
-
-        return `${h}h ${m}min`;
-    }
-
-
     return (
         <>
-            {schedule.length > 0 && (
-                <>
-                    <header>
-                        <h1>Cronograma</h1>
-                        <span className='timer'>
-                            <RiTimerLine /> {`Total estimado: ${formatHours(schedule[0].total_minutes)}`}
-                        </span>
-                    </header>
-                    {schedule.map((item, index) => (
-                        <section className="timeline" key={index}>
-                            <div className={`timeline-container ${item.is_read ? 'isread' : ''}`}>
-                                <div className="timeline-day">
-                                    <span>Dia</span>
-                                    <h1>{item.day}</h1>
+            <h1>Cronograma</h1>
+            {schedule.length > 0 ? (
+                schedule.map((item, index) => (
+                    <section className="timeline" key={index} >
+                        <div className={`timeline-container ${item.is_read == true ? 'isread' : ''}`}>
+                            <div className="timeline-day ">
+                                <span>Dia</span>
+                                <h1>{item.day}</h1>
+                            </div>
+                            <div className="timeline-info ">
+                                <div className="timeline-text">
+                                    <h2>Página 1 a 5</h2>
+                                    <p>Leia por no mínimo {item.minutes_per_day} minutos</p>
                                 </div>
-                                <div className="timeline-info">
-                                    <div className="timeline-text">
-                                        <h2>Página 1 a 5</h2>
-                                        <p>Leia por no mínimo {item.minutes_per_day} minutos</p>
-                                    </div>
 
-                                    <div className="timeline-timer">
-                                        {item.is_read === false ? (
-                                            !isRunning ? (
-                                                <button onClick={handleStart}>
-                                                    <FaPlayCircle />
-                                                </button>
-                                            ) : (
-                                                <button onClick={() => handleStop(time, item.day, item.dayread_id)}>
-                                                    <FaRegStopCircle />
-                                                </button>
-                                            )
-                                        ) : (
-                                            <button>
+                                <div className="timeline-timer">
+                                    {item.is_read == false ? (
+                                        !isRunning ? (
+                                            <button onClick={handleStart}>
                                                 <FaPlayCircle />
                                             </button>
-                                        )}
-                                        <span>{item.seconds ? formatTime(item.seconds) : formatTime(time)}</span>
-                                    </div>
+
+                                        ) : ( 
+                                            <button onClick={() => handleStop(
+                                                time,
+                                                item.day, 
+                                                item.dayread_id,
+                                            )}>
+                                                <FaRegStopCircle />
+                                            </button>
+                                        )
+                                    ) : (
+                                        <button>
+                                            <FaPlayCircle />
+                                        </button>
+                                    )}
+                                    <span>{item.seconds ? formatTime(item.seconds) : formatTime(time)}</span>
                                 </div>
                             </div>
-                            <br /><br />
-                        </section>
-                    ))}
-                </>
-            )
-            }
+                        </div>
+                        <br /><br />
+                    </section>
+                ))
+            ) : (
+                <h2>Crie uma rotina de leitura :)</h2>
+            )}
         </>
     )
 }

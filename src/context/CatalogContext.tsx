@@ -35,7 +35,7 @@ interface CatalogContextProviderProps {
 
 interface CatalogContextType {
     AddBook: ({ book, CatalogSelect }: AddBookProps) => Promise<void>
-    getCatalogAndBooks: () => Promise<void>
+    getCatalogAndBooks: (searchValue: string) => Promise<void>
     catalogs: CatalogType[]
     isAddBook: boolean
 }
@@ -77,7 +77,6 @@ export function CatalogContextProvider({
                 }
             )
             if (response.data.message) {
-                console.log(response.data.message)
                 TextModalMessage(response.data.message)
                 ShowModalMessage(true)
             }
@@ -94,14 +93,15 @@ export function CatalogContextProvider({
         }
     }
 
-    async function getCatalogAndBooks() {
+    async function getCatalogAndBooks(searchValue: string) {
         const token = localStorage.getItem('token');
 
         try {
             const response = await api.get('get-catalog-and-books', {
                 headers: {
                     Authorization: `Bearer ${token}`
-                }
+                },
+                params: { search: searchValue },
             }
             )
             setCatalogs(response.data.result)
@@ -112,6 +112,7 @@ export function CatalogContextProvider({
             console.error(err)
         }
     }
+
 
     return (
         <CatalogContext.Provider value={{
