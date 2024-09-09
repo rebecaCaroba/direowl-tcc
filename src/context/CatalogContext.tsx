@@ -1,7 +1,10 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useCallback, useContext, useState } from "react";
 import { api } from "../lib/axios";
 import { AxiosError } from "axios";
 import { ModalMessageContext } from "./ModalMessageContext";
+
+
+//Mudar a tipagem do catalog hehe
 
 interface VolumeInfoType {
     title: string;
@@ -16,12 +19,19 @@ interface VolumeInfoType {
     }
 }
 
-interface CatalogType {
+interface CatalogsAndBooksType {
     book_id: number
     book_image: string
     catalog_id: number
     catalog_name: string
 }
+
+
+interface CatalogsType {
+    id: number,
+    name: string,
+}
+
 
 interface AddBookProps {
     book: VolumeInfoType
@@ -36,7 +46,9 @@ interface CatalogContextProviderProps {
 interface CatalogContextType {
     AddBook: ({ book, CatalogSelect }: AddBookProps) => Promise<void>
     getCatalogAndBooks: (searchValue: string) => Promise<void>
-    catalogs: CatalogType[]
+    getCatalogs: () => Promise<void>
+    catalogsAndBooks: CatalogsAndBooksType[]
+    catalogs: CatalogsType[]
     isAddBook: boolean
 }
 
@@ -46,7 +58,8 @@ export function CatalogContextProvider({
     children
 }: CatalogContextProviderProps) {
     const [isAddBook, setIsAddBook] = useState<boolean>(false)
-    const [catalogs, setCatalogs] = useState<CatalogType[]>([])
+    const [catalogsAndBooks, setCatalogsAndBooks] = useState<CatalogsAndBooksType[]>([])
+    const [catalogs, setCatalogs] = useState<CatalogsType[]>([])
     const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
 
     async function AddBook({ book, CatalogSelect }: AddBookProps) {
@@ -94,7 +107,7 @@ export function CatalogContextProvider({
     }
 
     async function getCatalogAndBooks(searchValue: string) {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token')
 
         try {
             const response = await api.get('get-catalog-and-books', {
@@ -104,7 +117,7 @@ export function CatalogContextProvider({
                 params: { search: searchValue },
             }
             )
-            setCatalogs(response.data.result)
+            setCatalogsAndBooks(response.data.result)
         } catch (err) {
             if (err instanceof AxiosError && err.response?.data?.message) {
                 console.error(err.response.data.message)
@@ -113,11 +126,33 @@ export function CatalogContextProvider({
         }
     }
 
+    const getCatalogs = useCallback(async () => {
+        try {
+            const token = localStorage.getItem('token')
+            const response = await api.get('get-catalog', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setCatalogs(response.data.result)
+        } catch (err) {
+            if (err instanceof AxiosError && err?.response?.data?.message) {
+                TextModalMessage(err.response.data.message)
+                ShowModalMessage(true)
+                ErrorModalMessage(err.response.data.error)
+                return
+            }
+            console.log(err)
+        }
+    }, [])
+
 
     return (
         <CatalogContext.Provider value={{
             AddBook,
             getCatalogAndBooks,
+            getCatalogs,
+            catalogsAndBooks,
             catalogs,
             isAddBook
         }}

@@ -23,7 +23,7 @@ export function Library() {
         resolver: zodResolver(SearchFormSchema),
     })
 
-    const { getCatalogAndBooks, catalogs } = useContext(CatalogContext)
+    const { getCatalogAndBooks, catalogsAndBooks } = useContext(CatalogContext)
     const { user } = useContext(UserContext)
     const [searchValue, setSearchValue] = useState<string>('show')
 
@@ -42,7 +42,7 @@ export function Library() {
         setSearchValue(searchValue || 'show')
     }
 
-    const categories = catalogs.reduce((acc, item) => {
+    const categories = catalogsAndBooks.reduce((acc, item) => {
         if (!acc[item.catalog_name]) {
             acc[item.catalog_name] = { catalogId: item.catalog_id, books: [] }
         }

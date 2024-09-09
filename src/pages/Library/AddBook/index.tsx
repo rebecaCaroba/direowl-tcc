@@ -1,14 +1,13 @@
 import { IoSearch } from "react-icons/io5";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import axios, { AxiosError } from "axios";
 import { useState, useCallback, useEffect, useContext } from "react";
 import { BookList } from "../../../components/BookList";
+import { CatalogContext } from '../../../context/CatalogContext'
+import { Link } from "react-router-dom";
 import './style.scss'
 import * as z from 'zod'
-import { api } from "../../../lib/axios";
-import { ModalMessageContext } from "../../../context/ModalMessageContext";
-import { Link } from "react-router-dom";
+import axios from "axios";
 
 const SearchBookSchema = z.object({
     searchbook: z.string().min(2, { message: "No mínimo 2 caracteres." }).max(50, { message: "Limite de 50 caracteres." }),
@@ -30,11 +29,6 @@ interface VolumeInfoType {
     };
 }
 
-interface CatalogType {
-    id: number,
-    name: string,
-}
-
 interface BookType {
     volumeInfo: VolumeInfoType;
 }
@@ -48,33 +42,10 @@ export function AddBook() {
         resolver: zodResolver(SearchBookSchema),
     })
     const [books, setBooks] = useState<BookType[]>([])
-    const [catalogs, setCatalogs] = useState<CatalogType[]>([])
     const [optionCatalogSelect, setOptionCatalogSelect] = useState<number>()
-    const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
-
-    async function getCatalogs() {
-        try {
-            const token = localStorage.getItem('token')
-            const response = await api.get('get-catalog', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            setCatalogs(response.data.result)
-
-        } catch (err) {
-            if (err instanceof AxiosError && err?.response?.data?.message) {
-                TextModalMessage(err.response.data.message)
-                ShowModalMessage(true)
-                ErrorModalMessage(err.response.data.error)
-                return
-            }
-            console.log(err)
-        }
-    }
+    const { getCatalogs, catalogs } = useContext(CatalogContext)
 
     const handleSearchBook = useCallback(async (data: SearchBookInput) => {
-        console.log(data.optionCatalog)
 
         setOptionCatalogSelect(data.optionCatalog)
         const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(data.searchbook)}`
@@ -92,8 +63,14 @@ export function AddBook() {
     }, [])
 
     useEffect(() => {
-        getCatalogs()
+        async function fetchData() {
+            await getCatalogs()
+        }
+
+        fetchData()
     }, [])
+
+    console.log(catalogs)
 
     function handleSelectCatalog() {
         setBooks([])

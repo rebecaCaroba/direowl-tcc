@@ -7,6 +7,7 @@ import { FormPassword } from '../../../components/FormPassword/index.tsx'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../../../lib/axios/index.ts'
 import './style.scss'
+import { DeleteCatalog } from '../../../components/DeleteCatalog/index.tsx'
 
 interface BookReadType {
     schedule_id: number,
@@ -86,6 +87,11 @@ export function Profile() {
                         <input type='radio' name='data' id='second' className="toggle-button" value="Mudar nome" />
                         <label className='profile-label' htmlFor="second">Mudar senha</label>
                         <FormPassword />
+                    </li>
+                    <li>
+                        <input type='radio' name='data' id='third' className="toggle-button" value="Mudar nome" />
+                        <label className='profile-label' htmlFor="third">Deletar catálogo</label>
+                        <DeleteCatalog />
                     </li>
                 </ul >
             </section>
