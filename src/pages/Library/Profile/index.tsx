@@ -102,8 +102,8 @@ export function Profile() {
                 </div>
                 <div className="profile-leituras-em-andamento">
                     {bookRead.map((item, index) => (
-                        <div className="profile-leituras-container">
-                            <div className="profile-leituras-info" key={index}>
+                        <div className="profile-leituras-container" key={index}>
+                            <div className="profile-leituras-info">
                                 <img src={item.imageLinks} alt={item.book_title} />
                                 <div>
                                     <h2>{item.book_title}</h2>
