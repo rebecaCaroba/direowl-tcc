@@ -42,6 +42,7 @@ export function AddBook() {
         resolver: zodResolver(SearchBookSchema),
     })
     const [books, setBooks] = useState<BookType[]>([])
+    const [loading, setLoading] = useState<boolean>(false)
     const [optionCatalogSelect, setOptionCatalogSelect] = useState<number>()
     const { getCatalogs, catalogs } = useContext(CatalogContext)
 
@@ -51,14 +52,18 @@ export function AddBook() {
         const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(data.searchbook)}`
 
         try {
+            setLoading(true)
             const response = await axios.get(url)
             if (response.data.items) {
+
                 setBooks(response.data.items)
             } else {
                 alert('Nenhum livro encontrado.')
             }
         } catch (err) {
             console.log(err)
+        } finally {
+            setLoading(false)
         }
     }, [])
 
@@ -113,8 +118,14 @@ export function AddBook() {
                         </form>
                     </section>
                 </div>
-                {
+                {loading ? (
+                    <div className="loading">
+                    <p>Carregando...</p>
+                </div>
+                ) : (
                     books.length > 0 && isSubmitSuccessful ? <BookList books={books} CatalogSelect={optionCatalogSelect} /> : ''
+                )
+                    
                 }
             </div>
         </>

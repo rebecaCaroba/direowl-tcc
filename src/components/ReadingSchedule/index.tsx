@@ -22,7 +22,7 @@ interface ScheduleEntry {
     seconds: number
 }
 
-export function ReadingSchedule({ bookId }: TimelineProps) {
+export function ReadingSchedule({ bookId,  }: TimelineProps) {
 
     const [schedule, setSchedule] = useState<ScheduleEntry[]>([])
     const [time, setTime] = useState<number>(() => {
@@ -34,6 +34,7 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
 
     useEffect(() => {
         getSchedule(bookId)
+        
     }, [bookId])
 
 
@@ -50,7 +51,7 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
             setSchedule(response.data.result)
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
-                alert(err.response.data.message)
+                console.log(err)
                 return
             }
             console.log(err)

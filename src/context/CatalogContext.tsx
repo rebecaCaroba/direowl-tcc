@@ -63,8 +63,8 @@ export function CatalogContextProvider({
     async function AddBook({ book, CatalogSelect }: AddBookProps) {
         try {
             const token = localStorage.getItem('token')
-            const isbn10 = book.industryIdentifiers?.find(id => id.type === 'ISBN_10')?.identifier || ''
-            const isbn13 = book.industryIdentifiers?.find(id => id.type === 'ISBN_13')?.identifier || ''
+            const isbn = book.industryIdentifiers?.[0]?.identifier || 'ISBN não disponível'
+            console.log(isbn)
 
             const response = await api.post('add-book',
                 {
@@ -76,8 +76,7 @@ export function CatalogContextProvider({
                         pages: book.pageCount,
                         description: book.description,
                         imageLinks: book.imageLinks?.thumbnail,
-                        isbn10,
-                        isbn13,
+                        isbn,
                     },
                     CatalogSelect
                 },
