@@ -37,6 +37,24 @@ button {
     background: rgb(255,237,118);
     background: linear-gradient(139deg, rgba(255,237,118,1) 0%, rgba(247,177,118,1) 100%);
     color: $c-first;
+    width: 120px;
+
+    &:disabled {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: calc(120px + 25px);
+        background: $c-first-450;
+        color: $c-gray-200;
+        cursor: not-allowed;
+
+    }
+
+}
+
+.btn-loading {
+
 }
 
 .title {

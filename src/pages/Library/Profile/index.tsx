@@ -1,5 +1,4 @@
 import { FaRegCircleUser } from 'react-icons/fa6'
-import { FaPlayCircle } from 'react-icons/fa'
 import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../../context/UserContext.tsx'
 import { FormUsename } from '../../../components/FormUsername/index.tsx'
@@ -8,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { api } from '../../../lib/axios/index.ts'
 import './style.scss'
 import { DeleteCatalog } from '../../../components/DeleteCatalog/index.tsx'
+import { Readings } from '../../../components/Readings/index.tsx'
 
 interface BookReadType {
     schedule_id: number,
@@ -28,10 +28,6 @@ export function Profile() {
         logout()
         navigate('/')
 
-    }
-
-    function GoToBook(bookId: number) {
-        navigate(`/library/book/${bookId}`)
     }
 
     useEffect(() => {
@@ -100,23 +96,7 @@ export function Profile() {
                 <div className="title">
                     <h1>Leituras</h1>
                 </div>
-                <div className="profile-leituras-em-andamento">
-                    {bookRead.map((item, index) => (
-                        <div className="profile-leituras-container" key={index}>
-                            <div className="profile-leituras-info">
-                                <img src={item.imageLinks} alt={item.book_title} />
-                                <div>
-                                    <h2>{item.book_title}</h2>
-                                    <p>{item.complete == true ? 'Finalizado' : 'Em andamento'}</p>
-                                </div>
-                            </div>
-                            <button onClick={() => GoToBook(item.book_id)} className='button-timer'>
-                                <FaPlayCircle />
-                            </button>
-                        </div>
-                    ))
-                    }
-                </div>
+                <Readings bookRead={bookRead} />
             </section>
         </div >
     )

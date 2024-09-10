@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import './style.scss'
 import * as z from 'zod'
 import axios from "axios";
+import { Spinner } from "../../../components/Spinner";
 
 const SearchBookSchema = z.object({
     searchbook: z.string().min(2, { message: "No mínimo 2 caracteres." }).max(50, { message: "Limite de 50 caracteres." }),
@@ -80,7 +81,7 @@ export function AddBook() {
         setBooks([])
     }
 
-    if(catalogs.length == 0) {
+    if (catalogs.length == 0) {
         return <h1><Link to='/library/create-catalog' className="text-yellow">Crie um catálogo</Link> antes de adicionar um livro</h1>
     }
 
@@ -114,18 +115,19 @@ export function AddBook() {
                                 <span className='span-erros'>{errors.searchbook?.message ? errors.searchbook?.message : ''}</span>
 
                             </div>
-                            <button className="btn-yellow" type="submit">Pesquisar</button>
+                            <button className="btn-yellow" disabled={loading} type="submit">
+                                {loading ?
+                                    (
+                                        <>Pesquisando <Spinner /></>
+                                    )
+                                    :
+                                    'Pesquisar'}
+                            </button>
                         </form>
                     </section>
                 </div>
-                {loading ? (
-                    <div className="loading">
-                    <p>Carregando...</p>
-                </div>
-                ) : (
+                {
                     books.length > 0 && isSubmitSuccessful ? <BookList books={books} CatalogSelect={optionCatalogSelect} /> : ''
-                )
-                    
                 }
             </div>
         </>

@@ -23,7 +23,7 @@ export function Library() {
         resolver: zodResolver(SearchFormSchema),
     })
 
-    const { getCatalogAndBooks, catalogsAndBooks } = useContext(CatalogContext)
+    const { getCatalogAndBooks, catalogsAndBooks, loading } = useContext(CatalogContext)
     const { user } = useContext(UserContext)
     const [searchValue, setSearchValue] = useState<string>('show')
 
@@ -56,7 +56,7 @@ export function Library() {
     }, {} as Record<string, { catalogId: number; books: { id: number; name: string; imageLinks: string }[] }>)
 
     const hasCategories = Object.keys(categories).length > 0
-    
+
     return (
         <div>
             <header className="library-header">
@@ -73,12 +73,18 @@ export function Library() {
                     />
                 </form>
             </header>
-            {!hasCategories ? (
-                <div className='no-categories'>
-                    <h1>Parece que não tem nada aqui, que tal <Link className='text-yellow' to='create-catalog'>criar um catálogo</Link>? </h1>
+            {loading ? (
+                <div className="loading">
+                    <p>Carregando...</p>
                 </div>
             ) : (
-                <BookShelves categories={categories} />
+                !hasCategories ? (
+                    <div className='no-categories'>
+                        <h1>Parece que não tem nada aqui, que tal <Link className='text-yellow' to='create-catalog'>criar um catálogo</Link>? </h1>
+                    </div>
+                ) : (
+                    <BookShelves categories={categories} />
+                )
             )}
         </div>
     )

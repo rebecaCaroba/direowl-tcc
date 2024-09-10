@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import { CatalogContext } from '../../../context/CatalogContext'
 import * as z from 'zod'
 import './style.scss'
+import { Spinner } from '../../../components/Spinner'
 
 const CreateCatalogSchema = z.object({
     nameCatalog: z.string().min(2, { message: "O nome do catálogo deve ter no mínimo 2 caracteres." }).max(50, { message: "Limite de 50 caracteres." })
@@ -17,7 +18,7 @@ export function CreateCatalog() {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isSubmitting },
     } = useForm<CreateCatalogtInputs>({
         resolver: zodResolver(CreateCatalogSchema),
     })
@@ -44,7 +45,14 @@ export function CreateCatalog() {
                             {...register('nameCatalog')}
                         />
                         <span>{errors.nameCatalog?.message ? errors.nameCatalog?.message : ' '}</span>
-                        <button className='btn-yellow' type="submit">Criar</button>
+                        <button className='btn-yellow' disabled={isSubmitting} type="submit">
+                            
+                            {isSubmitting ? (
+                                <>Criando {<Spinner />}</>
+                            ): (
+                                <>Criar</>
+                            )}
+                            </button>
                     </form>
                 </div>
             </div>

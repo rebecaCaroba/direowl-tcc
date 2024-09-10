@@ -47,7 +47,7 @@ interface CatalogContextType {
     createCatalog: (catalogName: string) => Promise<void>
     catalogsAndBooks: CatalogsAndBooksType[]
     catalogs: CatalogsType[]
-    isAddBook: boolean
+    loading: boolean
 }
 
 export const CatalogContext = createContext({} as CatalogContextType)
@@ -55,7 +55,7 @@ export const CatalogContext = createContext({} as CatalogContextType)
 export function CatalogContextProvider({
     children
 }: CatalogContextProviderProps) {
-    const [isAddBook, setIsAddBook] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
     const [catalogsAndBooks, setCatalogsAndBooks] = useState<CatalogsAndBooksType[]>([])
     const [catalogs, setCatalogs] = useState<CatalogsType[]>([])
     const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
@@ -91,7 +91,6 @@ export function CatalogContextProvider({
                 ShowModalMessage(true)
             }
 
-            response ? setIsAddBook(true) : setIsAddBook(false)
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
                 TextModalMessage(err.response.data.message)
@@ -107,6 +106,7 @@ export function CatalogContextProvider({
         const token = localStorage.getItem('token')
 
         try {
+            setLoading(true)
             const response = await api.get('get-catalog-and-books', {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -120,6 +120,8 @@ export function CatalogContextProvider({
                 console.error(err.response.data.message)
             }
             console.error(err)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -186,7 +188,7 @@ export function CatalogContextProvider({
             createCatalog,
             catalogsAndBooks,
             catalogs,
-            isAddBook
+            loading
         }}
         >
             {children}
