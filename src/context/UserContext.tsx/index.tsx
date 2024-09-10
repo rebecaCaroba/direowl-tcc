@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react"
+import { createContext, Dispatch, ReactNode, SetStateAction, useState } from "react"
 import { api } from "../../lib/axios"
 import { AxiosError } from "axios"
 
@@ -16,6 +16,7 @@ interface UserContextType {
     user: User | null
     getUser: () => Promise<void>
     logout: () => void
+    setUser: Dispatch<SetStateAction<User | null>>
 }
 
 export const UserContext = createContext({} as UserContextType)
@@ -52,6 +53,7 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
             user,
             getUser,
             logout,
+            setUser,
         }} >
             {children}
         </UserContext.Provider>

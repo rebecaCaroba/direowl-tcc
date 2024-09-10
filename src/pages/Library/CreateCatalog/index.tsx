@@ -1,11 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { api } from '../../../lib/axios'
-import { AxiosError } from 'axios'
+import { useContext } from 'react'
+import { CatalogContext } from '../../../context/CatalogContext'
 import * as z from 'zod'
 import './style.scss'
-import { useContext } from 'react'
-import { ModalMessageContext } from '../../../context/ModalMessageContext'
 
 const CreateCatalogSchema = z.object({
     nameCatalog: z.string().min(2, { message: "O nome do catálogo deve ter no mínimo 2 caracteres." }).max(50, { message: "Limite de 50 caracteres." })
@@ -14,7 +12,7 @@ const CreateCatalogSchema = z.object({
 type CreateCatalogtInputs = z.infer<typeof CreateCatalogSchema>
 
 export function CreateCatalog() {
-    const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
+    const { createCatalog } = useContext(CatalogContext)
 
     const {
         register,
@@ -25,37 +23,10 @@ export function CreateCatalog() {
     })
 
     async function handleCreateCatalog(data: CreateCatalogtInputs) {
-        try {
-            const idUser = localStorage.getItem('id')
-            const token = localStorage.getItem('token')
+        const nameCatalog = data.nameCatalog
 
-            const response = await api.post('/create-catalog',
-                {
-                    idUser: idUser,
-                    nameCatalog: data.nameCatalog,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            )
+        await createCatalog(nameCatalog)
 
-            if (response.data.message) {
-                TextModalMessage(response.data.message)
-                ShowModalMessage(true)
-            }
-
-
-        } catch (err) {
-            if (err instanceof AxiosError && err?.response?.data?.message) {
-                TextModalMessage(err.response.data.message)
-                ShowModalMessage(true)
-                ErrorModalMessage(err.response.data.error)
-                return
-            }
-            console.log(err)
-        }
     }
 
     return (

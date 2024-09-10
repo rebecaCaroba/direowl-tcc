@@ -28,17 +28,18 @@ export function Library() {
     const [searchValue, setSearchValue] = useState<string>('show')
 
     useEffect(() => {
-        async function fetchData() {
-            if (user && searchValue) {
-                await getCatalogAndBooks(searchValue)
-            }
+        if (user && searchValue) {
+            fetchData()
         }
-        fetchData()
-    }, [user, searchValue])
+    }, [user])
+
+    async function fetchData() {
+        await getCatalogAndBooks(searchValue)
+    }
 
     function handleSearchCatalog(data: SearchInputs) {
         const searchValue = data.search.toLowerCase()
-        
+
         setSearchValue(searchValue || 'show')
     }
 

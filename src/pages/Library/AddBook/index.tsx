@@ -70,7 +70,6 @@ export function AddBook() {
         fetchData()
     }, [])
 
-    console.log(catalogs)
 
     function handleSelectCatalog() {
         setBooks([])

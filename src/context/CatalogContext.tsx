@@ -3,9 +3,6 @@ import { api } from "../lib/axios";
 import { AxiosError } from "axios";
 import { ModalMessageContext } from "./ModalMessageContext";
 
-
-//Mudar a tipagem do catalog hehe
-
 interface VolumeInfoType {
     title: string;
     authors?: string[];
@@ -47,6 +44,7 @@ interface CatalogContextType {
     AddBook: ({ book, CatalogSelect }: AddBookProps) => Promise<void>
     getCatalogAndBooks: (searchValue: string) => Promise<void>
     getCatalogs: () => Promise<void>
+    createCatalog: (catalogName: string) => Promise<void>
     catalogsAndBooks: CatalogsAndBooksType[]
     catalogs: CatalogsType[]
     isAddBook: boolean
@@ -147,11 +145,46 @@ export function CatalogContextProvider({
     }, [])
 
 
+    const createCatalog = useCallback( async (catalogName: string) => {
+        try {
+            const idUser = localStorage.getItem('id')
+            const token = localStorage.getItem('token')
+
+            const response = await api.post('/create-catalog',
+                {
+                    idUser: idUser,
+                    nameCatalog: catalogName,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            )
+
+            if (response.data.message) {
+                TextModalMessage(response.data.message)
+                ShowModalMessage(true)
+            }
+
+
+        } catch (err) {
+            if (err instanceof AxiosError && err?.response?.data?.message) {
+                TextModalMessage(err.response.data.message)
+                ShowModalMessage(true)
+                ErrorModalMessage(err.response.data.error)
+                return
+            }
+            console.log(err)
+        }
+    },[])
+
     return (
         <CatalogContext.Provider value={{
             AddBook,
             getCatalogAndBooks,
             getCatalogs,
+            createCatalog,
             catalogsAndBooks,
             catalogs,
             isAddBook
