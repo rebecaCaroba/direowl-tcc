@@ -2,12 +2,13 @@ import './style.scss'
 import { BookShelves } from "../../components/BookShelves";
 import { IoSearch } from 'react-icons/io5';
 import { CatalogContext } from '../../context/CatalogContext';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { UserContext } from '../../context/UserContext.tsx';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
+import { Spinner } from '../../components/Spinner/index.tsx';
 
 const SearchFormSchema = z.object({
     search: z.string()
@@ -25,22 +26,21 @@ export function Library() {
 
     const { getCatalogAndBooks, catalogsAndBooks, loading } = useContext(CatalogContext)
     const { user } = useContext(UserContext)
-    const [searchValue, setSearchValue] = useState<string>('show')
 
     useEffect(() => {
-        if (user && searchValue) {
+        if (user) {
             fetchData()
         }
     }, [user])
 
     async function fetchData() {
-        await getCatalogAndBooks(searchValue)
+        await getCatalogAndBooks()
     }
 
-    function handleSearchCatalog(data: SearchInputs) {
+    async function handleSearchCatalog(data: SearchInputs) {
         const searchValue = data.search.toLowerCase()
 
-        setSearchValue(searchValue || 'show')
+        await getCatalogAndBooks(searchValue)
     }
 
     const categories = catalogsAndBooks.reduce((acc, item) => {
@@ -54,6 +54,8 @@ export function Library() {
         })
         return acc
     }, {} as Record<string, { catalogId: number; books: { id: number; name: string; imageLinks: string }[] }>)
+
+    console.log(categories)
 
     const hasCategories = Object.keys(categories).length > 0
 
@@ -74,8 +76,8 @@ export function Library() {
                 </form>
             </header>
             {loading ? (
-                <div className="loading">
-                    <p>Carregando...</p>
+                <div className='loading'> 
+                    <Spinner />
                 </div>
             ) : (
                 !hasCategories ? (

@@ -43,9 +43,9 @@ export function AddBook() {
         resolver: zodResolver(SearchBookSchema),
     })
     const [books, setBooks] = useState<BookType[]>([])
-    const [loading, setLoading] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const [optionCatalogSelect, setOptionCatalogSelect] = useState<number>()
-    const { getCatalogs, catalogs } = useContext(CatalogContext)
+    const { getCatalogs, catalogs, loading } = useContext(CatalogContext)
 
     const handleSearchBook = useCallback(async (data: SearchBookInput) => {
 
@@ -53,7 +53,7 @@ export function AddBook() {
         const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(data.searchbook)}`
 
         try {
-            setLoading(true)
+            setIsLoading(true)
             const response = await axios.get(url)
             if (response.data.items) {
 
@@ -64,7 +64,7 @@ export function AddBook() {
         } catch (err) {
             console.log(err)
         } finally {
-            setLoading(false)
+            setIsLoading(false)
         }
     }, [])
 
@@ -81,55 +81,59 @@ export function AddBook() {
         setBooks([])
     }
 
-    if (catalogs.length == 0) {
-        return <h1><Link to='/library/create-catalog' className="text-yellow">Crie um catálogo</Link> antes de adicionar um livro</h1>
+    if (loading) {
+        return <div className="loading"><Spinner /></div>
+    } else {
+        if (catalogs.length == 0) {
+            return <h1><Link to='/library/create-catalog' className="text-yellow">Crie um catálogo</Link> antes de adicionar um livro</h1> 
+        }
     }
 
-    return (
-        <>
-            <div className="addbook-container">
-                <h1 className="text-yelow">Adicionar livro</h1>
-                <div className="addbook-content">
-                    <section>
-                        <form className="addbook-form" onSubmit={handleSubmit(handleSearchBook)}>
-                            <label htmlFor="catalog">Selecione o catálogo</label>
-                            <select {...register('optionCatalog', { valueAsNumber: true })} onChange={handleSelectCatalog}>
-                                {catalogs.map((catalog, index) => {
-                                    return (
-                                        <option key={index} value={catalog.id}>{catalog.name}</option>
-                                    )
-                                })}
-                            </select>
-                            <span className='span-erros'>{errors.optionCatalog?.message}</span>
+        return (
+            <>
+                <div className="addbook-container">
+                    <h1 className="text-yelow">Adicionar livro</h1>
+                    <div className="addbook-content">
+                        <section>
+                            <form className="addbook-form" onSubmit={handleSubmit(handleSearchBook)}>
+                                <label htmlFor="catalog">Selecione o catálogo</label>
+                                <select {...register('optionCatalog', { valueAsNumber: true })} onChange={handleSelectCatalog}>
+                                    {catalogs.map((catalog, index) => {
+                                        return (
+                                            <option key={index} value={catalog.id}>{catalog.name}</option>
+                                        )
+                                    })}
+                                </select>
+                                <span className='span-erros'>{errors.optionCatalog?.message}</span>
 
-                            <label htmlFor="searchbook">Pesquise o livro</label>
-                            <div className="search-book">
-                                <input
-                                    type="text"
-                                    autoComplete="off"
-                                    id="searchbook"
-                                    placeholder="Pesquise por nome, autor, ISBN"
-                                    {...register("searchbook")}
-                                />
-                                <IoSearch size={32} />
-                                <span className='span-erros'>{errors.searchbook?.message ? errors.searchbook?.message : ''}</span>
+                                <label htmlFor="searchbook">Pesquise o livro</label>
+                                <div className="search-book">
+                                    <input
+                                        type="text"
+                                        autoComplete="off"
+                                        id="searchbook"
+                                        placeholder="Pesquise por nome, autor, ISBN"
+                                        {...register("searchbook")}
+                                    />
+                                    <IoSearch size={32} />
+                                    <span className='span-erros'>{errors.searchbook?.message ? errors.searchbook?.message : ''}</span>
 
-                            </div>
-                            <button className="btn-yellow" disabled={loading} type="submit">
-                                {loading ?
-                                    (
-                                        <>Pesquisando <Spinner /></>
-                                    )
-                                    :
-                                    'Pesquisar'}
-                            </button>
-                        </form>
-                    </section>
+                                </div>
+                                <button className="btn-yellow" disabled={isLoading} type="submit">
+                                    {isLoading ?
+                                        (
+                                            <>Pesquisando <Spinner /></>
+                                        )
+                                        :
+                                        'Pesquisar'}
+                                </button>
+                            </form>
+                        </section>
+                    </div>
+                    {
+                        books.length > 0 && isSubmitSuccessful ? <BookList books={books} CatalogSelect={optionCatalogSelect} /> : ''
+                    }
                 </div>
-                {
-                    books.length > 0 && isSubmitSuccessful ? <BookList books={books} CatalogSelect={optionCatalogSelect} /> : ''
-                }
-            </div>
-        </>
-    )
-}
+            </>
+        )
+    }

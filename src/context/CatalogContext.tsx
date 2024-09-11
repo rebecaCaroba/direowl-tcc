@@ -42,9 +42,9 @@ interface CatalogContextProviderProps {
 
 interface CatalogContextType {
     AddBook: ({ book, CatalogSelect }: AddBookProps) => Promise<void>
-    getCatalogAndBooks: (searchValue: string) => Promise<void>
+    getCatalogAndBooks: (searchValue?: string) => Promise<void>
     getCatalogs: () => Promise<void>
-    createCatalog: (catalogName: string) => Promise<void>
+    createCatalog: (catalogName: string ) => Promise<void>
     catalogsAndBooks: CatalogsAndBooksType[]
     catalogs: CatalogsType[]
     loading: boolean
@@ -64,7 +64,6 @@ export function CatalogContextProvider({
         try {
             const token = localStorage.getItem('token')
             const isbn = book.industryIdentifiers?.[0]?.identifier || 'ISBN não disponível'
-            console.log(isbn)
 
             const response = await api.post('add-book',
                 {
@@ -102,7 +101,7 @@ export function CatalogContextProvider({
         }
     }
 
-    async function getCatalogAndBooks(searchValue: string) {
+    async function getCatalogAndBooks(searchValue?: string | undefined) {
         const token = localStorage.getItem('token')
 
         try {
@@ -127,6 +126,7 @@ export function CatalogContextProvider({
 
     const getCatalogs = useCallback(async () => {
         try {
+            setLoading(true)
             const token = localStorage.getItem('token')
             const response = await api.get('get-catalog', {
                 headers: {
@@ -142,12 +142,15 @@ export function CatalogContextProvider({
                 return
             }
             console.log(err)
+        } finally {
+            setLoading(false)
         }
     }, [])
 
 
     const createCatalog = useCallback( async (catalogName: string) => {
         try {
+            setLoading(true)
             const idUser = localStorage.getItem('id')
             const token = localStorage.getItem('token')
 
@@ -177,6 +180,8 @@ export function CatalogContextProvider({
                 return
             }
             console.log(err)
+        } finally {
+            setLoading(false)
         }
     },[])
 

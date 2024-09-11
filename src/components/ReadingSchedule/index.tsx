@@ -22,7 +22,7 @@ interface ScheduleEntry {
     seconds: number
 }
 
-export function ReadingSchedule({ bookId,  }: TimelineProps) {
+export function ReadingSchedule({ bookId, }: TimelineProps) {
 
     const [schedule, setSchedule] = useState<ScheduleEntry[]>([])
     const [time, setTime] = useState<number>(() => {
@@ -34,7 +34,7 @@ export function ReadingSchedule({ bookId,  }: TimelineProps) {
 
     useEffect(() => {
         getSchedule(bookId)
-        
+
     }, [bookId])
 
 
@@ -72,6 +72,8 @@ export function ReadingSchedule({ bookId,  }: TimelineProps) {
             })
 
             if (dayRead == schedule[0].total_days) {
+                console.log(schedule[0].schedule_id)
+
                 await api.put('/completed-schedule', {
                     schedule_id: schedule[0].schedule_id,
                     complete: true
@@ -83,14 +85,14 @@ export function ReadingSchedule({ bookId,  }: TimelineProps) {
                     }
                 )
 
-            } else {
+                alert('parabens!')
+            }else {
                 await api.post('/create-dayRead', {
                     schedule_id: schedule[0].schedule_id,
                     day: dayRead + 1,
                     seconds: 0,
                     is_read: false,
                 })
-
             }
 
             localStorage.removeItem('timer')
@@ -111,7 +113,7 @@ export function ReadingSchedule({ bookId,  }: TimelineProps) {
                     localStorage.setItem('timer', JSON.stringify(newTime))
                     return newTime
                 })
-            }, 100)
+            }, 1000)
         } else {
             if (timerRef.current) {
                 clearInterval(timerRef.current)
@@ -175,10 +177,10 @@ export function ReadingSchedule({ bookId,  }: TimelineProps) {
                                                 <FaPlayCircle />
                                             </button>
 
-                                        ) : ( 
+                                        ) : (
                                             <button onClick={() => handleStop(
                                                 time,
-                                                item.day, 
+                                                item.day,
                                                 item.dayread_id,
                                             )}>
                                                 <FaRegStopCircle />
