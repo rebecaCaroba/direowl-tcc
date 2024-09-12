@@ -17,10 +17,10 @@ export function Notes({ bookId }: PropsNotes) {
             </div>
             <div className="notes-container">
                 <div className="notes-content">
-                    <header>
+                    <div>
                         <data value="">30/07/2007</data>
                         <button onClick={() => handleDeleteNote(1)}>x</button>
-                    </header>
+                    </div>
                     <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga esse, quasi eius ratione nobis quia mollitia placeat blanditiis consectetur quaerat ex sequi minima rerum neque sit obcaecati. Vel, magnam nisi.
                     </p>

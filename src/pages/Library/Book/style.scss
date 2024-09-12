@@ -4,9 +4,46 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-top: 1rem;
-    margin: 2rem 1rem 1rem 1rem;
+    margin: 0rem 1rem 1rem 1rem;
 
+    header {
+        margin-bottom: 2rem;
+        padding: 20px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        display: flex;
+        align-items: flex-end;
+        gap: 1rem;
+
+        .button-delete {
+            background: transparent;
+            color: $c-gray-100;
+            padding: 20px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: 0.3s ease-in;
+            border-radius: 8px;
+
+            &:hover {
+                background-color: $c-red-200;
+            }
+            
+        }
+
+        .button-fav {
+            letter-spacing: 1px;
+            padding: 1rem;
+            background: transparent;
+            color: $c-gray-200;
+            border-radius: 8px;
+            transition: 0.3s ease-in;
+
+            &:hover {
+                background-color: $c-first-450;
+            }
+        }
+    }
 }
 
 .book-container {
@@ -59,12 +96,13 @@
 
 .book-btn {
     display: flex;
+    align-items: flex-end;
     gap: 1rem;
 
     .button-read {
         background: rgb(255, 237, 118);
         background: linear-gradient(139deg, rgba(255, 237, 118, 1) 0%, rgba(247, 177, 118, 1) 100%);
-        width: 50%;
+        width: 30%;
         letter-spacing: 1px;
         margin-top: 2rem;
 
@@ -78,13 +116,6 @@
         }
     }
 
-    .button-fav {
-        background-color: $c-first-450;
-        color: $c-gray-100;
-        width: 50%;
-        letter-spacing: 1px;
-        margin-top: 2rem;
-    }
 }
 
 @media (max-width: 630px) {

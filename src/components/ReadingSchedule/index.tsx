@@ -113,7 +113,7 @@ export function ReadingSchedule({ bookId, }: TimelineProps) {
                     localStorage.setItem('timer', JSON.stringify(newTime))
                     return newTime
                 })
-            }, 1000)
+            }, 10)
         } else {
             if (timerRef.current) {
                 clearInterval(timerRef.current)
