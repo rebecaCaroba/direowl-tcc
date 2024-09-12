@@ -6,7 +6,7 @@ import { api } from '../../../lib/axios';
 import { AxiosError } from 'axios';
 import { Notes } from "../../../components/Notes";
 import { MdDelete } from "react-icons/md";
-import { ModalMessageContext } from '../../../context/ModalMessageContext';
+import { TooltipContext } from '../../../context/TooltipContext';
 
 
 interface BookType {
@@ -23,7 +23,7 @@ interface BookType {
 export function Book() {
     const { bookId } = useParams()
     const [book, setBook] = useState<BookType | null>(null)
-    const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
+    const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -48,16 +48,16 @@ export function Book() {
             const response = await api.delete(`delete-book/${bookId}`)
 
             if (response.data.message) {
-                TextModalMessage(response.data.message)
-                ShowModalMessage(true)
+                TextTooltip(response.data.message)
+                ShowTooltip(true)
             }
 
             navigate('/library')
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
-                TextModalMessage(err.response.data.message)
-                ShowModalMessage(true)
-                ErrorModalMessage(err.response.data.error)
+                TextTooltip(err.response.data.message)
+                ShowTooltip(true)
+                ErrorTooltip(err.response.data.error)
                 return
             }
             console.log(err)

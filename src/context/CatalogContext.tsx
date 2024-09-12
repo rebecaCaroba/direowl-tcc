@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useCallback, useContext, useState } from "react";
 import { api } from "../lib/axios";
 import { AxiosError } from "axios";
-import { ModalMessageContext } from "./ModalMessageContext";
+import { TooltipContext } from "./TooltipContext";
 
 interface VolumeInfoType {
     title: string;
@@ -58,7 +58,7 @@ export function CatalogContextProvider({
     const [loading, setLoading] = useState<boolean>(false)
     const [catalogsAndBooks, setCatalogsAndBooks] = useState<CatalogsAndBooksType[]>([])
     const [catalogs, setCatalogs] = useState<CatalogsType[]>([])
-    const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
+    const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
 
     async function AddBook({ book, CatalogSelect }: AddBookProps) {
         try {
@@ -86,15 +86,15 @@ export function CatalogContextProvider({
                 }
             )
             if (response.data.message) {
-                TextModalMessage(response.data.message)
-                ShowModalMessage(true)
+                TextTooltip(response.data.message)
+                ShowTooltip(true)
             }
 
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
-                TextModalMessage(err.response.data.message)
-                ShowModalMessage(true)
-                ErrorModalMessage(err.response.data.error)
+                TextTooltip(err.response.data.message)
+                ShowTooltip(true)
+                ErrorTooltip(err.response.data.error)
                 return
             }
             console.log(err)
@@ -136,9 +136,9 @@ export function CatalogContextProvider({
             setCatalogs(response.data.result)
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
-                TextModalMessage(err.response.data.message)
-                ShowModalMessage(true)
-                ErrorModalMessage(err.response.data.error)
+                TextTooltip(err.response.data.message)
+                ShowTooltip(true)
+                ErrorTooltip(err.response.data.error)
                 return
             }
             console.log(err)
@@ -167,16 +167,16 @@ export function CatalogContextProvider({
             )
 
             if (response.data.message) {
-                TextModalMessage(response.data.message)
-                ShowModalMessage(true)
+                TextTooltip(response.data.message)
+                ShowTooltip(true)
             }
 
 
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
-                TextModalMessage(err.response.data.message)
-                ShowModalMessage(true)
-                ErrorModalMessage(err.response.data.error)
+                TextTooltip(err.response.data.message)
+                ShowTooltip(true)
+                ErrorTooltip(err.response.data.error)
                 return
             }
             console.log(err)

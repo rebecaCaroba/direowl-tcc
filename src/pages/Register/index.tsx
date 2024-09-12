@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
 import logo from '../../assets/logobranca.svg'
 import { useContext } from 'react'
-import { ModalMessageContext } from '../../context/ModalMessageContext'
+import { TooltipContext } from '../../context/TooltipContext'
 
 const newAccountFormSchema = z.object({
   username: z
@@ -28,7 +28,7 @@ const newAccountFormSchema = z.object({
 type NewAccountInputs = z.infer<typeof newAccountFormSchema>
 
 export function Register() {
-  const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
+  const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
 
   const {
     register,
@@ -50,16 +50,16 @@ export function Register() {
 
       navigate('/')
       if (response.data.message) {
-        TextModalMessage(response.data.message)
-        ShowModalMessage(true)
+        TextTooltip(response.data.message)
+        ShowTooltip(true)
       }
 
 
     } catch (err) {
       if (err instanceof AxiosError && err?.response?.data?.message) {
-        TextModalMessage(err.response.data.message)
-        ShowModalMessage(true)
-        ErrorModalMessage(err.response.data.error)
+        TextTooltip(err.response.data.message)
+        ShowTooltip(true)
+        ErrorTooltip(err.response.data.error)
         return
       }
       console.log(err)

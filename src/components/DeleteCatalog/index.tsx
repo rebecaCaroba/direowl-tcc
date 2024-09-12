@@ -4,7 +4,7 @@ import { useCallback, useContext, useEffect } from 'react'
 import * as z from 'zod'
 import './style.scss'
 import { CatalogContext } from '../../context/CatalogContext'
-import { ModalMessageContext } from '../../context/ModalMessageContext'
+import { TooltipContext } from '../../context/TooltipContext'
 import { AxiosError } from 'axios'
 import { api } from '../../lib/axios'
 
@@ -16,7 +16,7 @@ type DeleteCatalogInput = z.infer<typeof DeleteCatalogSchema>
 
 
 export function DeleteCatalog() {
-    const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
+    const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
     const { getCatalogs, catalogs } = useContext(CatalogContext)
     const {
         register,
@@ -43,16 +43,16 @@ export function DeleteCatalog() {
             })
 
             if (response.data.message) {
-                TextModalMessage(response.data.message)
-                ShowModalMessage(true)
+                TextTooltip(response.data.message)
+                ShowTooltip(true)
             }
 
 
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
-                TextModalMessage(err.response.data.message)
-                ShowModalMessage(true)
-                ErrorModalMessage(err.response.data.error)
+                TextTooltip(err.response.data.message)
+                ShowTooltip(true)
+                ErrorTooltip(err.response.data.error)
                 return
             }
             console.log(err)

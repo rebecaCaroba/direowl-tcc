@@ -1,4 +1,4 @@
-import { ModalMessageContext } from '../../context/ModalMessageContext'
+import { TooltipContext } from '../../context/TooltipContext'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useContext } from 'react'
@@ -25,7 +25,7 @@ export function FormPassword() {
     } = useForm<FormPasswordInput>({
         resolver: zodResolver(FormPasswordSchema),
     })
-    const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
+    const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
 
 
     async function handlePassword(data: FormPasswordInput) {
@@ -41,15 +41,15 @@ export function FormPassword() {
             })
 
             if (response.data.message) {
-                TextModalMessage(response.data.message)
-                ShowModalMessage(true)
+                TextTooltip(response.data.message)
+                ShowTooltip(true)
             }
 
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
-                TextModalMessage(err.response.data.message)
-                ShowModalMessage(true)
-                ErrorModalMessage(err.response.data.error)
+                TextTooltip(err.response.data.message)
+                ShowTooltip(true)
+                ErrorTooltip(err.response.data.error)
                 return
             }
             console.log(err)

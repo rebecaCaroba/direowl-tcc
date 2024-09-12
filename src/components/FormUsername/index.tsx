@@ -4,7 +4,7 @@ import * as z from 'zod'
 import { api } from '../../lib/axios/index.ts'
 import { AxiosError } from 'axios'
 import { useContext } from 'react'
-import { ModalMessageContext } from '../../context/ModalMessageContext/index.tsx'
+import { TooltipContext } from '../../context/TooltipContext/index.tsx'
 import { UserContext } from '../../context/UserContext.tsx/index.tsx'
 
 const FormUsernameSchema = z.object({
@@ -32,15 +32,15 @@ export function FormUsename({ user }: FormUsernameProps) {
     } = useForm<FormUsernameInput>({
         resolver: zodResolver(FormUsernameSchema),
     })
-    const { ShowModalMessage, TextModalMessage, ErrorModalMessage } = useContext(ModalMessageContext)
+    const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
     const { getUser } = useContext(UserContext)
 
     async function handleusername(data: FormUsernameInput) {
         if (data.username == user?.name) {
 
-            TextModalMessage('O nome que você inseriu já é o seu nome atual. Por favor, insira um nome diferente.')
-            ShowModalMessage(true)
-            ErrorModalMessage(true)
+            TextTooltip('O nome que você inseriu já é o seu nome atual. Por favor, insira um nome diferente.')
+            ShowTooltip(true)
+            ErrorTooltip(true)
             return
         }
 
@@ -57,15 +57,15 @@ export function FormUsename({ user }: FormUsernameProps) {
             getUser()
 
             if (response.data.message) {
-                TextModalMessage(response.data.message)
-                ShowModalMessage(true)
+                TextTooltip(response.data.message)
+                ShowTooltip(true)
             }
             
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
-                TextModalMessage(err.response.data.message)
-                ShowModalMessage(true)
-                ErrorModalMessage(err.response.data.error)
+                TextTooltip(err.response.data.message)
+                ShowTooltip(true)
+                ErrorTooltip(err.response.data.error)
                 return
             }
             console.log(err)
