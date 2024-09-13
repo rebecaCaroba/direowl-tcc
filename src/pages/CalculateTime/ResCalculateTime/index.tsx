@@ -19,12 +19,10 @@ interface ResCalculateTimeType {
 }
 
 export function ResCalculateTime({ resCalculateTime }: ResCalculateTimeProps) {
-    console.log(resCalculateTime)
     const { bookId } = useParams()
     const navigate = useNavigate()
 
     async function handleCreateTimeLine(data: ResCalculateTimeType) {
-        const token = localStorage.getItem('token')
         
         try {
             const response = await api.post('/create-schedule', {
@@ -33,14 +31,7 @@ export function ResCalculateTime({ resCalculateTime }: ResCalculateTimeProps) {
                 daysToRead: data.daysToRead,
                 totalMinutes: data.minutesTotal,
                 bookId: bookId,
-            }
-            ,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            )
+            })
 
 
             await api.post('/create-dayRead', {
@@ -48,7 +39,6 @@ export function ResCalculateTime({ resCalculateTime }: ResCalculateTimeProps) {
                 day: 1,
                 seconds: 0,
                 is_read: false,
-
             })
 
 

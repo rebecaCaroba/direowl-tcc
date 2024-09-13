@@ -7,8 +7,10 @@ import { UserContext } from '../../context/UserContext.tsx';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import  Gif  from '../../assets/corujinhaaaaa .gif'
 import * as z from 'zod'
-import { Spinner } from '../../components/Spinner/index.tsx';
+
+// import { Spinner } from '../../components/Spinner/index.tsx';
 
 const SearchFormSchema = z.object({
     search: z.string()
@@ -76,8 +78,8 @@ export function Library() {
                 </form>
             </header>
             {loading ? (
-                <div className='loading'> 
-                    <Spinner />
+                <div className='gif-container'> 
+                    <img src={Gif} width={200} />
                 </div>
             ) : (
                 !hasCategories ? (

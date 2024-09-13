@@ -45,13 +45,8 @@ export function FormUsename({ user }: FormUsernameProps) {
         }
 
         try {
-            const token = localStorage.getItem('token')
             const response = await api.patch('update-username', {
                 newUsername: data.username,
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
             })
             console.log(response)
             getUser()

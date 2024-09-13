@@ -62,7 +62,6 @@ export function CatalogContextProvider({
 
     async function AddBook({ book, CatalogSelect }: AddBookProps) {
         try {
-            const token = localStorage.getItem('token')
             const isbn = book.industryIdentifiers?.[0]?.identifier || 'ISBN não disponível'
 
             const response = await api.post('add-book',
@@ -78,11 +77,6 @@ export function CatalogContextProvider({
                         isbn,
                     },
                     CatalogSelect
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
                 }
             )
             if (response.data.message) {
@@ -102,14 +96,9 @@ export function CatalogContextProvider({
     }
 
     async function getCatalogAndBooks(searchValue?: string | undefined) {
-        const token = localStorage.getItem('token')
-
         try {
             setLoading(true)
             const response = await api.get('get-catalog-and-books', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
                 params: { search: searchValue },
             }
             )
@@ -127,12 +116,7 @@ export function CatalogContextProvider({
     const getCatalogs = useCallback(async () => {
         try {
             setLoading(true)
-            const token = localStorage.getItem('token')
-            const response = await api.get('get-catalog', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
+            const response = await api.get('/get-catalog')
             setCatalogs(response.data.result)
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
@@ -151,20 +135,11 @@ export function CatalogContextProvider({
     const createCatalog = useCallback( async (catalogName: string) => {
         try {
             setLoading(true)
-            const idUser = localStorage.getItem('id')
-            const token = localStorage.getItem('token')
-
             const response = await api.post('/create-catalog',
                 {
-                    idUser: idUser,
                     nameCatalog: catalogName,
                 },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            )
+                )
 
             if (response.data.message) {
                 TextTooltip(response.data.message)

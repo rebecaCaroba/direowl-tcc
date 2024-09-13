@@ -5,6 +5,7 @@ import { UserContext } from "../context/UserContext.tsx";
 import { Tooltip } from '../components/Tooltip/index.tsx';
 import { AxiosError } from "axios";
 import './style.scss'
+import { NotificationModal } from "../components/NotificationModal/index.tsx";
 
 export function DefaultLayout() {
     const navigate = useNavigate()
@@ -39,6 +40,7 @@ export function DefaultLayout() {
         <div className="layout-container">
             <Outlet />
             <Tooltip />
+            <NotificationModal />
         </div>
     )
 }

@@ -7,6 +7,7 @@ import { AxiosError } from 'axios';
 import { Notes } from "../../../components/Notes";
 import { MdDelete } from "react-icons/md";
 import { TooltipContext } from '../../../context/TooltipContext';
+import { NotificationModalContext } from '../../../context/NotificationModalContext';
 
 
 interface BookType {
@@ -24,6 +25,7 @@ export function Book() {
     const { bookId } = useParams()
     const [book, setBook] = useState<BookType | null>(null)
     const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
+    const { showModal, messageModal } = useContext(NotificationModalContext)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -43,7 +45,7 @@ export function Book() {
         getBook(bookId)
     }, [bookId])
 
-    async function handleDeleteBook(bookId: string | undefined) {
+    async function handleDeleteBook() {
         try {
             const response = await api.delete(`delete-book/${bookId}`)
 
@@ -65,6 +67,11 @@ export function Book() {
 
     }
 
+    function confirmDelete() {
+        messageModal('Você tem certeza que quer deletar este livro? Está ação ira apagar o cronogrâma deste livro.')
+        showModal(handleDeleteBook)
+    }
+
     if (!book) {
         return <div>Loading...</div>
     }
@@ -72,7 +79,7 @@ export function Book() {
     return (
         <main className='book'>
             <header>
-                <button onClick={() => handleDeleteBook(bookId)} className='button-delete'><MdDelete size={22} /> Deletar</button>
+                <button onClick={confirmDelete} className='button-delete'><MdDelete size={22} /> Deletar</button>
                 <button className='button-fav'>ADICIONAR NOTAS</button>
             </header>
             <section className='book-container'>

@@ -1,9 +1,11 @@
 import { FaPlayCircle } from "react-icons/fa";
 import { FaRegStopCircle } from "react-icons/fa";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { api } from "../../lib/axios";
 import { AxiosError } from "axios";
+import confetti from 'canvas-confetti';
 import './style.scss'
+import { TooltipContext } from "../../context/TooltipContext";
 
 interface TimelineProps {
     bookId: string | undefined
@@ -25,6 +27,7 @@ interface ScheduleEntry {
 export function ReadingSchedule({ bookId, }: TimelineProps) {
 
     const [schedule, setSchedule] = useState<ScheduleEntry[]>([])
+    const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
     const [time, setTime] = useState<number>(() => {
         const savedTime = localStorage.getItem('timer')
         return savedTime ? JSON.parse(savedTime) : 0
@@ -37,73 +40,6 @@ export function ReadingSchedule({ bookId, }: TimelineProps) {
 
     }, [bookId])
 
-
-    async function getSchedule(bookId: string | undefined) {
-        const token = localStorage.getItem('token')
-
-        try {
-            const bookIdNumber = Number(bookId)
-            const response = await api.get(`get-schedule/${bookIdNumber}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            setSchedule(response.data.result)
-        } catch (err) {
-            if (err instanceof AxiosError && err?.response?.data?.message) {
-                console.log(err)
-                return
-            }
-            console.log(err)
-        }
-    }
-
-    async function handleCompleted(dayRead: number, timeInSeconds: number, dayreadId: number): Promise<void> {
-        try {
-            const token = localStorage.getItem('token')
-            await api.patch('/completed-day', {
-                timeInSeconds,
-                is_read: true,
-                dayreadId,
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-
-            if (dayRead == schedule[0].total_days) {
-                console.log(schedule[0].schedule_id)
-
-                await api.put('/completed-schedule', {
-                    schedule_id: schedule[0].schedule_id,
-                    complete: true
-                },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }
-                )
-
-                alert('parabens!')
-            }else {
-                await api.post('/create-dayRead', {
-                    schedule_id: schedule[0].schedule_id,
-                    day: dayRead + 1,
-                    seconds: 0,
-                    is_read: false,
-                })
-            }
-
-            localStorage.removeItem('timer')
-            setTime(0)
-
-            await getSchedule(bookId)
-        } catch (err) {
-            console.log(err)
-        }
-
-    }
 
     useEffect(() => {
         if (isRunning) {
@@ -152,6 +88,101 @@ export function ReadingSchedule({ bookId, }: TimelineProps) {
         const seconds = timeInSeconds % 60
         return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
     }
+
+    async function getSchedule(bookId: string | undefined) {
+
+        try {
+            const bookIdNumber = Number(bookId)
+            const response = await api.get(`get-schedule/${bookIdNumber}`)
+            setSchedule(response.data.result)
+        } catch (err) {
+            if (err instanceof AxiosError && err?.response?.data?.message) {
+                console.log(err)
+                return
+            }
+            console.log(err)
+        }
+    }
+
+    async function handleCompleted(dayRead: number, timeInSeconds: number, dayreadId: number): Promise<void> {
+        try {
+            const token = localStorage.getItem('token')
+            await api.patch('/completed-day', {
+                timeInSeconds,
+                is_read: true,
+                dayreadId,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            if (dayRead == schedule[0].total_days) {
+                console.log(schedule[0].schedule_id)
+
+                const response = await api.put('/completed-schedule', {
+                    schedule_id: schedule[0].schedule_id,
+                    complete: true
+                },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                )
+                if (response.data.message) {
+                    TextTooltip(response.data.message)
+                    ShowTooltip(true)
+                }
+                
+                teste()
+            } else {
+                await api.post('/create-dayRead', {
+                    schedule_id: schedule[0].schedule_id,
+                    day: dayRead + 1,
+                    seconds: 0,
+                    is_read: false,
+                })
+            }
+
+            localStorage.removeItem('timer')
+            setTime(0)
+
+            await getSchedule(bookId)
+        } catch (err) {
+            if (err instanceof AxiosError && err?.response?.data?.message) {
+                TextTooltip(err.response.data.message)
+                ShowTooltip(true)
+                ErrorTooltip(err.response.data.error)
+                return
+            }
+            console.log(err)
+        }
+
+    }
+
+    async function teste() {
+        // Configurações para o confete
+        const params = {
+            particleCount: 1000,
+            spread: 1000,
+            startVelocity: 150,
+            origin: { x: 0.000000001, y: 0.000000001 },
+            angle: 90
+        };
+
+        // Joga confetes da esquerda para a direita
+        params.origin.y = 1;
+        params.angle = 360;
+        confetti(params);
+
+        // Joga confetes da direita para a esquerda
+        params.origin.x = 1;
+        params.angle = 175;
+        confetti(params);
+    }
+
+
 
     return (
         <>

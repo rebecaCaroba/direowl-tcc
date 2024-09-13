@@ -1,0 +1,47 @@
+@import '../../styles/config/variables';
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: $c-first-500;
+    padding: 3rem;
+    border-radius: 5px;
+    text-align: left;
+    margin: 1rem;
+    max-width: 450px;
+
+    p {
+        margin-bottom: 1rem;
+        max-width: 100%;
+    }
+
+    section {
+        display: flex;
+        align-items: center;
+    }
+    
+    .modal-confirm {
+        background-color: $c-red-200;
+        color: $c-gray-100;
+        margin-right: 1rem;
+        width: 100%;
+        
+    }
+
+    .modal-cancel {
+        background-color: $c-first-450;
+        color: $c-gray-100;
+        margin-right: 1rem;
+        width: 100%;
+    }
+}

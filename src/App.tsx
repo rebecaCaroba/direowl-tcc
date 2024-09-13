@@ -3,16 +3,19 @@ import { Router } from "./Router"
 import { CatalogContextProvider } from "./context/CatalogContext"
 import { UserContextProvider } from "./context/UserContext.tsx"
 import { TooltipProvider } from "./context/TooltipContext/index.tsx"
+import { NotificationModalProvider } from "./context/NotificationModalContext/index.tsx"
 
 function App() {
   return (
     <BrowserRouter>
       <TooltipProvider>
-        <UserContextProvider>
-          <CatalogContextProvider>
-            <Router />
-          </CatalogContextProvider>
-        </UserContextProvider>
+        <NotificationModalProvider>
+          <UserContextProvider>
+            <CatalogContextProvider>
+              <Router />
+            </CatalogContextProvider>
+          </UserContextProvider>
+        </NotificationModalProvider>
       </TooltipProvider>
     </BrowserRouter>
   )

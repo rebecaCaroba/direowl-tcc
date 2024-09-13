@@ -7,6 +7,7 @@ import { CatalogContext } from '../../context/CatalogContext'
 import { TooltipContext } from '../../context/TooltipContext'
 import { AxiosError } from 'axios'
 import { api } from '../../lib/axios'
+import { NotificationModalContext } from '../../context/NotificationModalContext'
 
 const DeleteCatalogSchema = z.object({
     optionCatalog: z.number()
@@ -24,6 +25,7 @@ export function DeleteCatalog() {
     } = useForm<DeleteCatalogInput>({
         resolver: zodResolver(DeleteCatalogSchema),
     })
+    const { messageModal, showModal } = useContext(NotificationModalContext)
 
     useEffect(() => {
         async function fetchData() {
@@ -59,8 +61,13 @@ export function DeleteCatalog() {
         }
     }, [])
 
+    function confirmDelete(data: DeleteCatalogInput) {
+        messageModal('Você tem certeza que quer apagar o catálogo?')
+        showModal(() => handleDeleteCatalog(data))
+    }
+    
     return (
-        <form onSubmit={handleSubmit(handleDeleteCatalog)} className='cont delete-catalog' id='profile-password'>
+        <form onSubmit={handleSubmit(confirmDelete)} className='cont delete-catalog' id='profile-password'>
             <section className='inputs'>
                 <div>
                     <label htmlFor="catalog">Selecione o catálogo</label>

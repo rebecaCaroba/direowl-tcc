@@ -29,15 +29,9 @@ export function FormPassword() {
 
 
     async function handlePassword(data: FormPasswordInput) {
-        console.log(data.newPassword)
-        const token = localStorage.getItem('token')
         try {
             const response = await api.patch('update-password', {
                 password: data.newPassword
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
             })
 
             if (response.data.message) {

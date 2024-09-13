@@ -21,14 +21,8 @@ export function Catalog() {
 
     useEffect(() => {
         async function getBooksFromCatalog(catalogId: string | undefined) {
-            const token = localStorage.getItem('token')
-
             try {
-                const response = await api.get(`get-books-from-catalog/${catalogId}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
+                const response = await api.get(`get-books-from-catalog/${catalogId}`)
 
                 setAllBooks(response.data.result)
             } catch (err) {

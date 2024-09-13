@@ -32,13 +32,8 @@ export function Profile() {
 
     useEffect(() => {
         async function getAllSchedule() {
-            const token = localStorage.getItem('token')
             try {
-                const response = await api.get('/get-all-schedule', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
+                const response = await api.get('/get-all-schedule')
 
                 setBookRead(response.data.result)
 
