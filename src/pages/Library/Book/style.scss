@@ -7,11 +7,11 @@
     margin: 0rem 1rem 1rem 1rem;
 
     header {
-        margin-bottom: 2rem;
-        padding: 20px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        margin-bottom: 1rem;
+        padding: 20px 0;
         display: flex;
-        align-items: flex-end;
+        align-items: center;
+        justify-content: end;
         gap: 1rem;
 
         .button-delete {
@@ -29,19 +29,6 @@
                 background-color: $c-red-200;
             }
             
-        }
-
-        .button-fav {
-            letter-spacing: 1px;
-            padding: 1rem;
-            background: transparent;
-            color: $c-gray-200;
-            border-radius: 8px;
-            transition: 0.3s ease-in;
-
-            &:hover {
-                background-color: $c-first-450;
-            }
         }
     }
 }
@@ -98,12 +85,24 @@
     display: flex;
     align-items: flex-end;
     gap: 1rem;
+    max-width: 400px;
+
+    .button-fav {
+        padding: 1rem;
+        width: 100%;
+        background-color: $c-first-450;
+        color: $c-gray-200;
+        transition: 0.3s ease-in;
+        
+        &:hover {
+            background: transparent;
+        }
+    }
 
     .button-read {
         background: rgb(255, 237, 118);
         background: linear-gradient(139deg, rgba(255, 237, 118, 1) 0%, rgba(247, 177, 118, 1) 100%);
-        width: 30%;
-        letter-spacing: 1px;
+        width: 100%;
         margin-top: 2rem;
 
         a {

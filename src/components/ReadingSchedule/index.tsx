@@ -6,6 +6,7 @@ import { AxiosError } from "axios";
 import confetti from 'canvas-confetti';
 import './style.scss'
 import { TooltipContext } from "../../context/TooltipContext";
+import { DeleteScheduleBtn } from "./DeleteScheduleBtn";
 
 interface TimelineProps {
     bookId: string | undefined
@@ -134,8 +135,8 @@ export function ReadingSchedule({ bookId, }: TimelineProps) {
                     TextTooltip(response.data.message)
                     ShowTooltip(true)
                 }
-                
-                teste()
+
+                confetes()
             } else {
                 await api.post('/create-dayRead', {
                     schedule_id: schedule[0].schedule_id,
@@ -161,7 +162,7 @@ export function ReadingSchedule({ bookId, }: TimelineProps) {
 
     }
 
-    async function teste() {
+    async function confetes() {
         // Configurações para o confete
         const params = {
             particleCount: 1000,
@@ -182,56 +183,62 @@ export function ReadingSchedule({ bookId, }: TimelineProps) {
         confetti(params);
     }
 
-
-
     return (
-        <>
-            <h1>Cronograma</h1>
-            {schedule.length > 0 ? (
-                schedule.map((item, index) => (
-                    <section className="timeline" key={index} >
-                        <div className={`timeline-container ${item.is_read == true ? 'isread' : ''}`}>
-                            <div className="timeline-day ">
-                                <span>Dia</span>
-                                <h1>{item.day}</h1>
-                            </div>
-                            <div className="timeline-info ">
-                                <div className="timeline-text">
-                                    <h2>Página 1 a 5</h2>
-                                    <p>Leia por no mínimo {item.minutes_per_day} minutos</p>
+        <div>
+            {schedule.length > 0 ? ((
+                <>
+                    <div className="title">
+                        <h1>Cronograma</h1>
+                    </div>
+                    {schedule.map((item, index) => (
+                        <section className="timeline" key={index} >
+                            <div className={`timeline-container ${item.is_read == true ? 'isread' : ''}`}>
+                                <div className="timeline-day ">
+                                    <span>Dia</span>
+                                    <h1>{item.day}</h1>
                                 </div>
+                                <div className="timeline-info ">
+                                    <div className="timeline-text">
+                                        <h2>Página 1 a 5</h2>
+                                        <p>Leia por no mínimo {item.minutes_per_day} minutos</p>
+                                    </div>
 
-                                <div className="timeline-timer">
-                                    {item.is_read == false ? (
-                                        !isRunning ? (
-                                            <button onClick={handleStart}>
+                                    <div className="timeline-timer">
+                                        {item.is_read == false ? (
+                                            !isRunning ? (
+                                                <button onClick={handleStart}>
+                                                    <FaPlayCircle />
+                                                </button>
+
+                                            ) : (
+                                                <button onClick={() => handleStop(
+                                                    time,
+                                                    item.day,
+                                                    item.dayread_id,
+                                                )}>
+                                                    <FaRegStopCircle />
+                                                </button>
+                                            )
+                                        ) : (
+                                            <button>
                                                 <FaPlayCircle />
                                             </button>
-
-                                        ) : (
-                                            <button onClick={() => handleStop(
-                                                time,
-                                                item.day,
-                                                item.dayread_id,
-                                            )}>
-                                                <FaRegStopCircle />
-                                            </button>
-                                        )
-                                    ) : (
-                                        <button>
-                                            <FaPlayCircle />
-                                        </button>
-                                    )}
-                                    <span>{item.seconds ? formatTime(item.seconds) : formatTime(time)}</span>
+                                        )}
+                                        <span>{item.seconds ? formatTime(item.seconds) : formatTime(time)}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <br /><br />
-                    </section>
-                ))
+                            <br /><br />
+                        </section>
+                    ))}
+                    <div className="btn-schedule">
+                        <DeleteScheduleBtn schedule_id={schedule[0].total_days} />
+                    </div>
+                </>
+            )
             ) : (
                 <h2>Crie uma rotina de leitura :)</h2>
             )}
-        </>
+        </div>
     )
 }

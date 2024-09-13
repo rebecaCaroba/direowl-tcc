@@ -68,7 +68,7 @@ export function Book() {
     }
 
     function confirmDelete() {
-        messageModal('Você tem certeza que quer deletar este livro? Está ação ira apagar o cronogrâma deste livro.')
+        messageModal('Você tem certeza que quer deletar este livro? Está ação ira apagar o cronograma deste livro.')
         showModal(handleDeleteBook)
     }
 
@@ -80,7 +80,6 @@ export function Book() {
         <main className='book'>
             <header>
                 <button onClick={confirmDelete} className='button-delete'><MdDelete size={22} /> Deletar</button>
-                <button className='button-fav'>ADICIONAR NOTAS</button>
             </header>
             <section className='book-container'>
                 <div className='book-info'>
@@ -94,6 +93,7 @@ export function Book() {
                         <button className='button-read'>
                             <Link to={`/calculate-time/${bookId}/${book.pages}`} >LER AGORA</Link>
                         </button>
+                        <button className='button-fav'>ADICIONAR NOTAS</button>
                     </div>
                 </div>
                 <div className="book-image">

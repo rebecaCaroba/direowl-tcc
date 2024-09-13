@@ -1,5 +1,11 @@
 @import '../../styles/config/variables';
 
+.btn-schedule {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
 .timeline-container {
     background-color: $c-first-450;
     width: 100%;
