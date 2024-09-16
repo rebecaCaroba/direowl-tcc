@@ -62,7 +62,7 @@ export function DeleteCatalog() {
     }, [])
 
     function confirmDelete(data: DeleteCatalogInput) {
-        messageModal('Você tem certeza que quer apagar o catálogo?')
+        messageModal('Você tem certeza que deseja deletar o catálogo? Todos os livros e cronogramas deste catálogo serão deletados.')
         showModal(() => handleDeleteCatalog(data))
     }
     

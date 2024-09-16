@@ -6,33 +6,30 @@
 
     .header-sidebar-logo { 
         display: none;
-        
+        width: 100%;
+
         a:hover {
             background: $c-first-450;
             color: $c-secondary;
         }
-    }
 
-    .show-navbar {
-        display: none;
-        margin: 0 1rem;
-        background: transparent;
-        border: 0;
-        cursor: pointer;
-
-        svg {
-            color: $c-gray-100;
+        .show-navbar {
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+    
+            svg {
+                color: $c-gray-100;
+            }
         }
     }
+
+    
 
 }
 
 @media (max-width: 1120px) {
-
-    .header-sidebar-logo {
-        display: block;
-    }
-
+    
     .Header {
         padding: 1rem;
         width: 100%;
@@ -44,8 +41,10 @@
         left: 0;
         z-index: 1;
 
-        .show-navbar {
-            display: block;
+        .header-sidebar-logo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
     }
 

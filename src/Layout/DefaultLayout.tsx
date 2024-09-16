@@ -14,14 +14,8 @@ export function DefaultLayout() {
     useEffect(() => {
         async function verifyAuthUser() {
             try {
-                const token = localStorage.getItem('token');
-                await api.get('/checkauth', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-
-                await getUser();
+                await api.get('/checkauth')
+                await getUser()
             } catch (err) {
                 if (err instanceof AxiosError && err?.response?.data?.message) {
                     alert(err.response.data.message)

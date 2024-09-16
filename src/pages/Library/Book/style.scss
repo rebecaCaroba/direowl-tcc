@@ -23,7 +23,6 @@
             align-items: center;
             gap: 0.5rem;
             transition: 0.3s ease-in;
-            border-radius: 8px;
 
             &:hover {
                 background-color: $c-red-200;
@@ -60,6 +59,7 @@
     flex: 1 1 50px;
 
     p {
+        text-align: justify;
         margin-top: 1rem;
     }
 

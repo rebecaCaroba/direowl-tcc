@@ -19,12 +19,17 @@
             border: 0;
             background: transparent;
             cursor: pointer;
-
+            
             svg {
                 position: absolute;
                 top: 13%;
                 right: 1%;
-                color: $c-gray-300;
+                color: $c-first-300;
+                transition: 0.4s ease-in-out;   
+
+                &:hover {
+                    color: $c-first-400;
+                }
             }
         }
     }

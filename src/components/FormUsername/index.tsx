@@ -73,7 +73,7 @@ export function FormUsename({ user }: FormUsernameProps) {
             <input type="text" id="name" {...register('username')} placeholder={user?.name} />
             <span>{errors.username?.message ? errors.username?.message : ''}</span>
 
-            <button type='submit' className="btn-yellow btn-deletar">Alterar</button>
+            <button type='submit' className="btn-yellow" style={{marginLeft: '1rem'}}>Alterar</button>
         </form>
     )
 }

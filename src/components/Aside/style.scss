@@ -10,6 +10,16 @@ aside {
 
 .sidebar-logo {
     margin: 1rem 1rem 1rem 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    .sidebar-logo-text {
+
+      span {
+        font-size: 2rem;
+        display: block;
+      }
+    }
 }
 
 .sidebar-nav {
@@ -46,7 +56,7 @@ aside {
 }
 
 
-@media (max-width: 1020px) {
+@media (max-width: 1120px) {
   .sidebar-logo {
     display: none;
   }

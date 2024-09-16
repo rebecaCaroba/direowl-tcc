@@ -12,8 +12,8 @@ export function NotificationModal() {
                     <div className="modal-content">
                         <p>{message}</p>
                         <section>
-                            <button className="modal-confirm" onClick={confirmAction}>Confirmar</button>
                             <button className="modal-cancel" onClick={closeConfirmModal}>Cancelar</button>
+                            <button className="modal-confirm" onClick={confirmAction}>Confirmar</button>
                         </section>
                     </div>
                 </div>

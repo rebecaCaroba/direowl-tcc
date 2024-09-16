@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import logo from '../../assets/logobranca.svg'
 import { api } from '../../lib/axios'
 import { AxiosError } from 'axios'
+import { useEffect } from 'react'
 
 const LoginAccountFormSchema = z.object({
   email: z.
@@ -26,7 +27,24 @@ export function Login() {
   } = useForm<LoginAccountInputs>({
     resolver: zodResolver(LoginAccountFormSchema),
   })
-  const navigate = useNavigate();
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    async function verifyAuthUser() {
+      try {
+        await api.get('/checkauth')
+        navigate('/library')
+
+      } catch (err) {
+        localStorage.clear()
+        console.log(err)
+        return
+      }
+    }
+
+    verifyAuthUser()
+  }, [])
 
   async function handleLoginAccount(data: LoginAccountInputs) {
     try {
@@ -55,7 +73,7 @@ export function Login() {
       <img src={logo} width={80} />
       <form onSubmit={handleSubmit(handleLoginAccount)} className='form-container'>
         <div className='logo-title'>
-          <h1>Login do usuário</h1>            
+          <h1>Login do usuário</h1>
         </div>
 
         <label htmlFor="email">Email</label>

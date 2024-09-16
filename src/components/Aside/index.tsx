@@ -10,10 +10,10 @@ import { UserContext } from '../../context/UserContext.tsx';
 
 
 export function Aside() {
-  const [activeLink, setActiveLink] = useState(null)
+  const [activeLink, setActiveLink] = useState<string>('')
   const { user } = useContext(UserContext)
 
-  const handleLinkClick = (link: any) => {
+  const handleLinkClick = (link: string) => {
     setActiveLink(link)
 
     const element = document.querySelector('#aside') as HTMLElement
@@ -26,6 +26,7 @@ export function Aside() {
       <nav className="sidebar-nav">
         <div className="sidebar-logo">
           <img src={logobranca} width={55} />
+          <div className="sidebar-logo-text"><span>DireOwl</span></div>
         </div>
         <ul>
           <li className={activeLink === 'library' ? 'active' : ''}>
