@@ -39,3 +39,21 @@
 .showModalError {
     background-color: $c-red-200;
 }
+
+@media (max-width: 1120px) {
+    .Tooltip {
+        right: -100%;
+    }
+    
+    .showModal {
+        background-color: $c-green-200;
+        right: 10px;
+        opacity: 1;
+        visibility: visible;
+        transition: 0.5s ease-in-out;
+    }
+
+    .showModalError {
+        background-color: $c-red-200;
+    }
+}

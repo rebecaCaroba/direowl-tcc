@@ -1,4 +1,3 @@
-import { IoSearch } from "react-icons/io5";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useState, useCallback, useEffect, useContext } from "react";
@@ -115,7 +114,6 @@ export function AddBook() {
                                         placeholder="Pesquise por nome, autor, ISBN"
                                         {...register("searchbook")}
                                     />
-                                    <IoSearch size={32} />
                                     <span className='span-erros'>{errors.searchbook?.message ? errors.searchbook?.message : ''}</span>
 
                                 </div>
