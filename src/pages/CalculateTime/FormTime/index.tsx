@@ -23,9 +23,9 @@ interface FormTimeProps {
 }
 
 const FormTimeSchema = z.object({
-    pagI: z.number().min(1, { message: 'No mínimo 1 página' }),
-    pagF: z.number().min(1, { message: 'No mínimo 1 página' }),
-    daysToRead: z.number().min(1, { message: 'No mínimo 1 dia' })
+    pagI: z.string().min(1, {message: 'No mínimo 1 página'}).regex(/^\d+$/, {message: 'Apenas números inteiros'}),
+    pagF: z.string().min(1, {message: 'No mínimo 1 página'}).regex(/^\d+$/, {message: 'Apenas números inteiros'}),
+    daysToRead: z.string().min(1, {message: 'No mínimo 1 dia'}).regex(/^\d+$/, {message: 'Apenas números inteiros'})
 })
 
 type FormTimeInput = z.infer<typeof FormTimeSchema>
@@ -44,19 +44,22 @@ export function FormTime({ setStep, time, setResCalculateTime }: FormTimeProps) 
     function handleCalculateTime(data: FormTimeInput) {
 
         const { daysToRead, pagF, pagI } = data
+        const daysToReadNum = Number(daysToRead)
+        const pagFNum = Number(pagF)
+        const pagINum = Number(pagI)
         
         const totalPagesNum = Number(totalPages)
-        const paginasRestantes = totalPagesNum - pagF
-        const paginasPorMinuto = (pagF - pagI) / (time.minutes + (time.seconds / 60))
+        const paginasRestantes = totalPagesNum - pagFNum
+        const paginasPorMinuto = (pagFNum - pagINum) / (time.minutes + (time.seconds / 60))
         const tempoPorPag = 1 / paginasPorMinuto
         const tempoTotal = Math.ceil(paginasRestantes * tempoPorPag)
-        const leituraPorDia = Math.round(tempoTotal / daysToRead)
+        const leituraPorDia = Math.round(tempoTotal / daysToReadNum)
 
         setResCalculateTime({
             minutesDay: leituraPorDia,
             amoutPags: totalPagesNum,
             minutesTotal: tempoTotal,
-            daysToRead: daysToRead
+            daysToRead: daysToReadNum
         })
         setStep((state: number) => state + 1)
     }
@@ -66,15 +69,15 @@ export function FormTime({ setStep, time, setResCalculateTime }: FormTimeProps) 
             <h1>Calcule seu tempo</h1>
             <form className='form-time-form' onSubmit={handleSubmit(handleCalculateTime)}>
                 <label htmlFor="pagRead">Qual página você iniciou? </label>
-                <input type="number" id="pagRead" {...register('pagI', { valueAsNumber: true })} />
+                <input type="text" id="pagRead" {...register('pagI')} />
                 <span className='span-erros'>{errors.pagI?.message ? errors.pagI?.message : ''}</span>
 
                 <label htmlFor="pagRead">Qual página você parou? </label>
-                <input type="number" id="pagRead" {...register('pagF', { valueAsNumber: true })} />
+                <input type="text" id="pagRead" {...register('pagF')} />
                 <span className='span-erros'>{errors.pagF?.message ? errors.pagF?.message : ''}</span>
 
                 <label htmlFor="daysToRead">Em quantos dias você deseja ler seu livro? </label>
-                <input type="number" id="daysToRead" {...register('daysToRead', { valueAsNumber: true })} />
+                <input type="text" id="daysToRead" {...register('daysToRead')} />
                 <span className='span-erros'>{errors.daysToRead?.message ? errors.daysToRead?.message : ''}</span>
 
                 <button className='btn-yellow' type="submit"> Calcular </button>

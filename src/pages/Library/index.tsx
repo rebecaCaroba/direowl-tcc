@@ -10,8 +10,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import  Gif  from '../../assets/corujinhaaaaa .gif'
 import * as z from 'zod'
 
-// import { Spinner } from '../../components/Spinner/index.tsx';
-
 const SearchFormSchema = z.object({
     search: z.string()
 })
@@ -57,10 +55,6 @@ export function Library() {
         return acc
     }, {} as Record<string, { catalogId: number; books: { id: number; name: string; imageLinks: string }[] }>)
 
-    console.log(categories)
-
-    const hasCategories = Object.keys(categories).length > 0
-
     return (
         <div>
             <header className="library-header">
@@ -82,7 +76,7 @@ export function Library() {
                     <img src={Gif} width={200} />
                 </div>
             ) : (
-                !hasCategories ? (
+                Object.keys(categories).length > 0 ? (
                     <div className='no-categories'>
                         <h1>Parece que não tem nada aqui, que tal <Link className='text-yellow' to='create-catalog'>criar um catálogo</Link>? </h1>
                     </div>

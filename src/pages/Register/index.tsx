@@ -12,12 +12,13 @@ const newAccountFormSchema = z.object({
   username: z
     .string()
     .min(3, { message: 'O nome de usuário deve ter pelo menos 3 caracteres' })
-    .regex(/^([a-z\\-]+)$/i, { message: 'Use apenas letras, números ou traços' }),
+    .regex(/^([a-z\\-]+)$/i, { message: 'Use apenas letras, números ou traços e sem espaço' }),
   email: z.
     string()
     .min(1, { message: 'Email inválido' })
     .email('Email inválido'),
-  password: z.string().min(4, { message: 'A senha deve conter pelo menos 4 caracteres' }),
+  password: z.string().min(8, { message: 'A senha deve conter pelo menos 8 caracteres' })
+    .regex(/^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).{8,30}$/, { message: 'Use caracteres especias, números e letras minúsculas e maiúsculas' }),
   confirmPassword: z.string(),
 })
   .refine((data) => data.password === data.confirmPassword, {
@@ -93,7 +94,7 @@ export function Register() {
         <input
           type="password"
           id="password"
-          placeholder='Pelo menos 4 caracteres'
+          placeholder='Pelo menos 8 caracteres'
           {...register('password')}
         />
         <span>{errors.password?.message ? errors.password?.message : ''}</span>

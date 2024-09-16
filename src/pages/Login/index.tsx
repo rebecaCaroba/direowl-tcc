@@ -11,9 +11,9 @@ import { useEffect } from 'react'
 const LoginAccountFormSchema = z.object({
   email: z.
     string()
-    .min(1, { message: 'O email não pode ter apenas 1 caracter' })
+    .min(1, { message: 'O email não pode conter menos de 1 caracter' })
     .email('Email inválido'),
-  password: z.string().min(4, { message: 'A senha deve ter no mínimo 4 caracteres.' }),
+  password: z.string().min(8, { message: 'A senha deve ter no mínimo 8 caracteres.' }),
 })
 
 type LoginAccountInputs = z.infer<typeof LoginAccountFormSchema>

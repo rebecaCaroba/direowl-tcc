@@ -7,7 +7,8 @@ import { api } from '../../lib/axios'
 import * as z from 'zod'
 
 const FormPasswordSchema = z.object({
-    newPassword: z.string().min(4, { message: 'A senha deve conter pelo menos 4 caracteres' }),
+    newPassword: z.string().min(8, { message: 'A senha deve conter pelo menos 8 caracteres' })
+    .regex(/^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).{8,30}$/, { message: 'Use caracteres especias, números e letras minúsculas e maiúsculas' }),
     confirmPassword: z.string(),
 })
     .refine((data) => data.newPassword === data.confirmPassword, {
