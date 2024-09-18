@@ -5,11 +5,10 @@ import { Count } from "./Count";
 import { ResCalculateTime } from "./ResCalculateTime";
 
 interface ResCalculateTimeType {
-    minutesDay: number,
-    amoutPags: number,
-    horus: number
-    pagesDay: number
-    daysToRead: number
+  minutesDay: number,
+  amoutPags: number,
+  minutesTotal: number
+  daysToRead: number
 }
 
 interface TimeType {
@@ -23,8 +22,7 @@ export function CalculateTime() {
   const [resCalculateTime, setResCalculateTime] = useState<ResCalculateTimeType>({
     minutesDay: 0,
     amoutPags: 0,
-    horus: 0,
-    pagesDay: 0,
+    minutesTotal: 0,
     daysToRead: 0
   })
 
@@ -45,7 +43,7 @@ export function CalculateTime() {
       }
 
       {step == 3 && (
-         <ResCalculateTime resCalculateTime={resCalculateTime} />
+        <ResCalculateTime resCalculateTime={resCalculateTime} />
       )}
     </div>
   );

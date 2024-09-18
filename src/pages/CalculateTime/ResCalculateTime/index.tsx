@@ -6,7 +6,6 @@ interface ResCalculateTimeProps {
         minutesDay: number,
         amoutPags: number,
         minutesTotal: number
-        pagesDay: number
         daysToRead: number
     }
 }

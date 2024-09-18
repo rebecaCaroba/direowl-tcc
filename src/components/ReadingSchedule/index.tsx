@@ -232,7 +232,7 @@ export function ReadingSchedule({ bookId, }: TimelineProps) {
                         </section>
                     ))}
                     <div className="btn-schedule">
-                        <DeleteScheduleBtn schedule_id={schedule[0].total_days} />
+                        <DeleteScheduleBtn schedule_id={schedule[0].schedule_id} />
                     </div>
                 </>
             )
