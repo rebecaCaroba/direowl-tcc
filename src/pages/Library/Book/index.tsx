@@ -4,8 +4,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { api } from '../../../lib/axios';
 import { AxiosError } from 'axios';
-import { Notes } from "../../../components/Notes";
-import { MdDelete } from "react-icons/md";
 import { TooltipContext } from '../../../context/TooltipContext';
 import { NotificationModalContext } from '../../../context/NotificationModalContext';
 
@@ -67,6 +65,10 @@ export function Book() {
 
     }
 
+    function addNotes() {
+        navigate(`/library/book/notes/${bookId}`)
+    }
+
     function confirmDelete() {
         messageModal('Você tem certeza que quer deletar este livro? Está ação ira apagar o cronograma deste livro.')
         showModal(handleDeleteBook)
@@ -78,9 +80,6 @@ export function Book() {
 
     return (
         <main className='book'>
-            <header>
-                <button onClick={confirmDelete} className='button-delete'><MdDelete size={22} /> Deletar</button>
-            </header>
             <section className='book-container'>
                 <div className='book-info'>
 
@@ -90,18 +89,22 @@ export function Book() {
                     <p>{book.description}</p>
 
                     <div className="book-btn">
+                        <button onClick={addNotes} className='button-fav'>ADICIONAR NOTAS</button>
                         <button className='button-read'>
                             <Link to={`/calculate-time/${bookId}/${book.pages}`} >LER AGORA</Link>
                         </button>
-                        <button className='button-fav'>ADICIONAR NOTAS</button>
                     </div>
                 </div>
-                <div className="book-image">
-                    <img src={book.imageLinks} alt="" />
+                <div className='book-action'>
+                    <div className="book-image">
+                        <img src={book.imageLinks} alt="" />
+                    
+                    </div>
+                    <button onClick={confirmDelete} className='button-delete'> Deletar</button>
+
                 </div>
 
             </section>
-            <Notes bookId={bookId} />
             <ReadingSchedule bookId={bookId} />
         </main>
     )

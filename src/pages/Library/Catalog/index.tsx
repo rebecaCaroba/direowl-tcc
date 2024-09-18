@@ -24,7 +24,7 @@ export function Catalog() {
             try {
                 const response = await api.get(`get-books-from-catalog/${catalogId}`)
 
-                setAllBooks(response.data.result)
+                setAllBooks(response.data.notes)
             } catch (err) {
                 console.log(err)
             }

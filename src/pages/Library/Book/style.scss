@@ -14,21 +14,31 @@
         justify-content: end;
         gap: 1rem;
 
-        .button-delete {
-            background: transparent;
-            color: $c-gray-100;
-            padding: 20px;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: 0.3s ease-in;
+        
 
-            &:hover {
-                background-color: $c-red-200;
-            }
-            
+        
+    }
+}
+
+.book-action {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    max-width: 100%;
+
+    .button-delete {
+        color: $c-gray-100;
+        padding: 10px;
+        gap: 0.5rem;
+        transition: 0.3s ease-in;
+        background-color: $c-red-200;
+        width: 200px;
+        text-align: center;
+        
+        &:hover {
+            background: transparent;
         }
+        
     }
 }
 
@@ -86,12 +96,13 @@
     align-items: flex-end;
     gap: 1rem;
     max-width: 400px;
-
+    }
+    
     .button-fav {
-        padding: 1rem;
-        width: 100%;
+        padding: 0.5rem;
         background-color: $c-first-450;
         color: $c-gray-200;
+        width: 100%;
         transition: 0.3s ease-in;
         
         &:hover {
@@ -106,6 +117,7 @@
         margin-top: 2rem;
 
         a {
+            width: 100%;
             text-decoration: none;
             color: $c-first-450;
         }
@@ -115,7 +127,6 @@
         }
     }
 
-}
 
 @media (max-width: 630px) {
     .book-container {

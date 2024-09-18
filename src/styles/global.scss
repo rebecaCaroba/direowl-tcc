@@ -93,6 +93,13 @@ button {
     margin-left: 2rem;
 }
 
+.span-erros {
+    display: block;
+    font-size: $small;
+    color: $c-first-100;
+    margin: 0.5rem 0;
+}
+
 
 @media (max-width: 1120px) {
     .app {

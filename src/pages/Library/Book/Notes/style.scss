@@ -1,0 +1,45 @@
+@import '../../../../styles/config/variables';
+
+.Notes {
+    margin: 2rem 0;
+
+    form {
+        margin-bottom: 2rem;
+        textarea {
+            padding: 20px;
+            color: $c-gray-100;
+            width: 100%;
+            height: 7rem;
+            resize: none;
+            background-color: $c-first-450;
+        }
+
+        button {
+            &:disabled {
+                cursor: not-allowed;
+                opacity: 1;
+            }
+        }
+    }  
+}
+
+.notes-content {
+    background-color: $c-first-450;
+    padding: 20px;
+    margin-bottom: 1rem;
+
+    div {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    button {
+        height: 0;
+        background-color: transparent;
+        color: $c-gray-100;
+    }
+
+    p {
+        margin-top: 1rem;
+    }
+}

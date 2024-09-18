@@ -44,7 +44,7 @@ export function CreateCatalog() {
                             placeholder='Meus livros, Romance, Comédia, Desejos...'
                             {...register('nameCatalog')}
                         />
-                        <span>{errors.nameCatalog?.message ? errors.nameCatalog?.message : ' '}</span>
+                        <span className='span-erros'>{errors.nameCatalog?.message ? errors.nameCatalog?.message : ' '}</span>
                         <button className='btn-yellow' disabled={isSubmitting} type="submit">
                             
                             {isSubmitting ? (

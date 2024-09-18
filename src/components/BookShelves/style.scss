@@ -9,15 +9,17 @@
         margin-left: 1rem;
         display: flex;
         align-items: self-end;
-        gap: 1rem;    
-overflow-x: auto;
+        gap: 1rem;
+        overflow-x: auto;
+        // justify-content: space-evenly;
+
         a {
             height: 100%;
             display: block;
         }
 
         img {
-            width: 9rem;
+            height: 12rem;
             display: block;
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
@@ -56,36 +58,4 @@ overflow-x: auto;
 
 .bookshelves-container {
     margin-top: 6.25rem;
-}
-
-.content-book {
-    position: relative;
-    z-index: 1000;
-
-    &::after {
-        content: '';
-        display: block;
-        width: 120px;
-        height: 8px;
-        background-color: #e4cda2; /* Tom para a base da prateleira */
-        position: absolute;
-        bottom: -8px;
-        left: 0;
-        border-radius: 4px;
-    }
-    
-    // .barra {
-    //     z-index: 1000;
-    //     position: absolute;
-    //     width: 20px;
-    //     height: 20px;
-    //     background: red;
-    // }
-}
-
-@media (max-width: 1020px) {
-    .bookshelves-book {
-        // overflow-x: scroll;
-        
-    }
 }

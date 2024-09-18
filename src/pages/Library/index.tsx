@@ -27,7 +27,6 @@ export function Library() {
     const { getCatalogAndBooks, catalogsAndBooks, loading } = useContext(CatalogContext)
     const { user } = useContext(UserContext)
 
-    console.log(catalogsAndBooks)
     useEffect(() => {
         if (user) {
             fetchData()
@@ -55,6 +54,7 @@ export function Library() {
         })
         return acc
     }, {} as Record<string, { catalogId: number; books: { id: number; name: string; imageLinks: string }[] }>)
+    console.log(categories)
 
     return (
         <div>
@@ -77,7 +77,7 @@ export function Library() {
                     <img src={Gif} width={200} />
                 </div>
             ) : (
-                Object.keys(categories).length < 0 ? (
+                Object.keys(categories).length == 0 ? (
                     <div className='no-categories'>
                         <h1>Parece que não tem nada aqui, que tal <Link className='text-yellow' to='create-catalog'>criar um catálogo</Link>? </h1>
                     </div>
