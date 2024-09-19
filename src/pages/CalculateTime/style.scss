@@ -31,9 +31,6 @@
         display: flex;
         gap: 1rem;
         width: 100%;
-    }
-
-    .count-container-button button {
         margin: 1rem 0;
     }
 
@@ -77,5 +74,61 @@
 
     button {
         margin-top: 1rem;
+    }
+}
+
+@media (max-width: 610px) {
+    .calculate-time-container button {
+        margin-top: 0.5rem;
+    }
+    .count-container {
+
+        .count-separator {
+            width: 2rem;
+        }
+
+        .count-container-button {
+            margin: 0;
+            flex-direction: column;
+            gap: 0rem;
+    
+            button {
+                margin-top: 0.5rem;
+            }
+        }
+
+        .time {
+            gap: 0.5rem;
+
+            span {
+                font-size: 5rem;
+            }
+        }
+    
+    }
+    
+    .result-time-container {
+        h1 {
+            font-size: 20px;
+        }
+    
+        p {
+            width: 100%;
+            font-size: 14px;
+        }
+    }
+}
+
+@media (max-width: 415px) {
+    .count-container {
+
+        .time {
+            gap: 0.5rem;
+
+            span {
+                font-size: 3rem;
+            }
+        }
+    
     }
 }

@@ -1,6 +1,6 @@
 import './style.scss'
 import { ReadingSchedule } from '../../../components/ReadingSchedule';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { api } from '../../../lib/axios';
 import { AxiosError } from 'axios';
@@ -24,6 +24,7 @@ export function Book() {
     const [book, setBook] = useState<BookType | null>(null)
     const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
     const { showModal, messageModal } = useContext(NotificationModalContext)
+    const [teste, setTeste] = useState<boolean>(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -90,8 +91,13 @@ export function Book() {
 
                     <div className="book-btn">
                         <button onClick={addNotes} className='button-fav'>ADICIONAR NOTAS</button>
-                        <button className='button-read'>
-                            <Link to={`/calculate-time/${bookId}/${book.pages}`} >LER AGORA</Link>
+                        <button onClick={() => 
+                            {navigate(`/calculate-time/${bookId}/${book.pages}`)}
+                        } 
+                        className='button-read'
+                        disabled={teste}
+                        >
+                            LER AGORA
                         </button>
                     </div>
                 </div>
@@ -105,7 +111,7 @@ export function Book() {
                 </div>
 
             </section>
-            <ReadingSchedule bookId={bookId} />
+            <ReadingSchedule setTeste={setTeste} bookId={bookId} />
         </main>
     )
 }

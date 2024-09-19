@@ -10,6 +10,7 @@ import { DeleteScheduleBtn } from "./DeleteScheduleBtn";
 
 interface TimelineProps {
     bookId: string | undefined
+    setTeste: (data: boolean) => void
 }
 
 interface ScheduleEntry {
@@ -25,7 +26,7 @@ interface ScheduleEntry {
     seconds: number
 }
 
-export function ReadingSchedule({ bookId, }: TimelineProps) {
+export function ReadingSchedule({ bookId, setTeste }: TimelineProps) {
 
     const [schedule, setSchedule] = useState<ScheduleEntry[]>([])
     const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
@@ -181,6 +182,10 @@ export function ReadingSchedule({ bookId, }: TimelineProps) {
         params.origin.x = 1;
         params.angle = 175;
         confetti(params);
+    }
+
+    if(schedule.length > 0){
+        setTeste(true)
     }
 
     return (

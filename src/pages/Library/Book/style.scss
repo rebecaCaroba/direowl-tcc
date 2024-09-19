@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin: 0rem 1rem 1rem 1rem;
+    margin-top: 1rem;
 
     header {
         margin-bottom: 1rem;
@@ -12,11 +12,7 @@
         display: flex;
         align-items: center;
         justify-content: end;
-        gap: 1rem;
-
-        
-
-        
+        gap: 1rem;        
     }
 }
 
@@ -115,16 +111,19 @@
         background: linear-gradient(139deg, rgba(255, 237, 118, 1) 0%, rgba(247, 177, 118, 1) 100%);
         width: 100%;
         margin-top: 2rem;
-
-        a {
-            width: 100%;
-            text-decoration: none;
-            color: $c-first-450;
-        }
+        color: $c-first-450;
+        transition: 1.5s ease-out;
 
         &:disabled {
-            display: none;
+            opacity: 0.5;
+            cursor: not-allowed;
         }
+
+        &:not(:disabled):hover {
+            background: $c-first-450;
+            color: $c-gray-100;
+        }
+
     }
 
 
@@ -133,10 +132,4 @@
         flex-direction: column-reverse;
     }
 
-    .timeline-container {
-        h2 {
-            font-size: $h2-mobile;
-        }
-
-    }
 }

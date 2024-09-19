@@ -13,60 +13,6 @@
     margin-top: 2rem;
     display: flex;
     align-items: flex-start;
-    position: relative;
-
-    .timeline-line-no-read {
-        width: 1px;
-        height: 160px;
-        display: block;
-        border: 1px dashed rgb(91, 91, 91);
-        margin-right: 30px;
-        position: absolute;
-        left: -20px;
-        top: 50%;
-        transform: translateX(-50%);
-
-        button {
-            content: '';
-            display: block;
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 30px;
-            background-color: rgb(91, 91, 91);
-            border: 6px solid rgb(91, 91, 91);
-            border-radius: 50%;
-            
-        }
-
-    }
-
-    .timeline-line-read {
-        width: 1px;
-        height: 160px;
-        display: block;
-        border: 1px dashed #fff;
-        margin-right: 30px;
-        position: absolute;
-        left: -20px;
-        top: 50%;
-        transform: translateX(-50%);
-
-        button {
-            display: block;
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 30px;
-            background-color: #fff;
-            border: 6px solid #333;
-            border-radius: 50%;
-        }
-    }
 
     .timeline-day {
         display: flex;
@@ -76,8 +22,8 @@
         background: rgb(255, 237, 118);
         background: linear-gradient(139deg, rgba(255, 237, 118, 1) 0%, rgba(247, 177, 118, 1) 100%);
         color: $c-first-450;
-        width: 130px;
         height: 100%;
+        width: 130px;
 
         h1 {
             font-size: $h1;
@@ -131,9 +77,7 @@
     }
 }
 
-
 .teste {
-
     .timeline-line-read,
     .timeline-line-no-read {
         border: none;
@@ -143,4 +87,39 @@
 .isread {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+@media (max-width: 630px) {
+    .timeline-day  {
+        width: 100px;
+    }
+
+    .book-container {
+        flex-direction: column-reverse;
+    }
+
+    .timeline-container {
+        h2 {
+            font-size: 22px;
+        }
+
+    }
+
+    .timeline-text {
+        h2 {
+            font-size: 18px;
+        }
+
+        p {
+            font-size: 14px;
+        }
+    }
+
+    .timeline-timer {
+
+        span {
+            font-size: 14px;
+        }
+    }
+
 }
