@@ -31,7 +31,7 @@ export function ReadingSchedule({ bookId, setTeste }: TimelineProps) {
     const [schedule, setSchedule] = useState<ScheduleEntry[]>([])
     const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
     const [time, setTime] = useState<number>(() => {
-        const savedTime = localStorage.getItem('timer')
+        const savedTime = localStorage.getItem(`timer-${bookId}`)
         return savedTime ? JSON.parse(savedTime) : 0
     })
     const [isRunning, setIsRunning] = useState<boolean>(false)
@@ -48,7 +48,7 @@ export function ReadingSchedule({ bookId, setTeste }: TimelineProps) {
             timerRef.current = setInterval(() => {
                 setTime((prevTime) => {
                     const newTime = prevTime + 1
-                    localStorage.setItem('timer', JSON.stringify(newTime))
+                    localStorage.setItem(`timer-${bookId}`, JSON.stringify(newTime))
                     return newTime
                 })
             }, 10)
@@ -62,7 +62,7 @@ export function ReadingSchedule({ bookId, setTeste }: TimelineProps) {
                 clearInterval(timerRef.current)
             }
         }
-    }, [isRunning])
+    }, [isRunning, bookId])
 
     const handleStart = () => {
         setIsRunning(true)
@@ -147,7 +147,7 @@ export function ReadingSchedule({ bookId, setTeste }: TimelineProps) {
                 })
             }
 
-            localStorage.removeItem('timer')
+            localStorage.removeItem(`timer-${bookId}`)
             setTime(0)
 
             await getSchedule(bookId)
@@ -184,7 +184,7 @@ export function ReadingSchedule({ bookId, setTeste }: TimelineProps) {
         confetti(params);
     }
 
-    if(schedule.length > 0){
+    if (schedule.length > 0) {
         setTeste(true)
     }
 

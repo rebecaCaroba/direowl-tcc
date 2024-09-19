@@ -25,7 +25,6 @@ export function NotificationModalProvider({children}: NotificationModalProps) {
     }
 
     function showModal(confirmAction: () => Promise<void>) {
-        console.log('shwo')
         setOnConfirm(() => confirmAction)
         setIsModal(true)
     }
