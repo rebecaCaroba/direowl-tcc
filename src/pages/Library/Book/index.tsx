@@ -7,7 +7,6 @@ import { AxiosError } from 'axios';
 import { TooltipContext } from '../../../context/TooltipContext';
 import { NotificationModalContext } from '../../../context/NotificationModalContext';
 
-
 interface BookType {
     title: string,
     author: string[],
@@ -16,7 +15,7 @@ interface BookType {
     pages: number,
     description: string,
     imageLinks: string,
-    isbn13?: number | string
+    isbn?: number | string
 }
 
 export function Book() {
@@ -79,23 +78,31 @@ export function Book() {
         return <div>Loading...</div>
     }
 
+    console.log(book.publishedDate)
+
     return (
         <main className='book'>
             <section className='book-container'>
                 <div className='book-info'>
+                    <h1 className='text-yellow'>
+                        {book.title}&nbsp;&nbsp;
 
-                    <h1 className='text-yellow'>{book.title}</h1>
-                    <cite>By {book.author}</cite> <span>&nbsp;&nbsp;&nbsp; Editora {book.publisher}</span>
+                        <data value={new Date(book.publishedDate).toISOString()}>
+                            {book.publishedDate ? new Date(book.publishedDate).toLocaleDateString() : ''}
+                        </data>
+                    </h1>
+                    <cite><b>By</b> {book.author}</cite> <span>&nbsp;&nbsp;&nbsp; <b>Editora</b> {book.publisher}</span>
+                    <br /><br />
+                    <span><b>ISBN:</b> {book.isbn}</span>
                     <span>&nbsp;&nbsp;&nbsp; {book.pages} páginas</span>
                     <p>{book.description}</p>
 
                     <div className="book-btn">
                         <button onClick={addNotes} className='button-fav'>ADICIONAR NOTAS</button>
-                        <button onClick={() => 
-                            {navigate(`/calculate-time/${bookId}/${book.pages}`)}
-                        } 
-                        className='button-read'
-                        disabled={teste}
+                        <button onClick={() => { navigate(`/calculate-time/${bookId}/${book.pages}`) }
+                        }
+                            className='button-read'
+                            disabled={teste}
                         >
                             LER AGORA
                         </button>
@@ -104,7 +111,7 @@ export function Book() {
                 <div className='book-action'>
                     <div className="book-image">
                         <img src={book.imageLinks} alt="" />
-                    
+
                     </div>
                     <button onClick={confirmDelete} className='button-delete'> Deletar</button>
 

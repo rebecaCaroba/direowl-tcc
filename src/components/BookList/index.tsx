@@ -3,25 +3,27 @@ import { useContext } from 'react';
 import { CatalogContext } from '../../context/CatalogContext';
 
 interface VolumeInfoType {
-    title: string;
-    authors?: string[];
-    publisher?: string;
-    publishedDate?: string;
-    pageCount?: number;
-    industryIdentifiers?: { type: string; identifier: string }[];
-    description?: string;
-    imageLinks?: {
-        thumbnail?: string;
-    };
+  title: string;
+  authors?: string[];
+  publisher?: string;
+  publishedDate?: string;
+  pageCount: number;
+  industryIdentifiers?: { type: string; identifier: string }[];
+  description?: string;
+  idResBook: string;
+  imageLinks: {
+    thumbnail: string;
+  };
 }
 
 interface BookType {
-    volumeInfo: VolumeInfoType;
+  id: string
+  volumeInfo: VolumeInfoType;
 }
 
 interface BookListProps {
-    books: BookType[];
-    CatalogSelect: number | undefined
+  books: BookType[];
+  CatalogSelect: number | undefined
 }
 
 export function BookList({ books, CatalogSelect }: BookListProps) {
@@ -35,37 +37,59 @@ export function BookList({ books, CatalogSelect }: BookListProps) {
     <div className="book-result">
       <h1>Resultados</h1>
       {books.map((book, index) => {
-        const volumeInfo = book.volumeInfo;
-        return (
-          <section key={index}>
-            <div className="image">
-              <img src={volumeInfo.imageLinks?.thumbnail ? volumeInfo.imageLinks?.thumbnail : semImagem } alt={volumeInfo.title} />
-              <button onClick={() => handleAddBook({
-                title: volumeInfo.title,
-                authors: volumeInfo.authors,
-                publisher: volumeInfo.publisher,
-                publishedDate: volumeInfo.publishedDate,
-                pageCount: volumeInfo.pageCount,
-                industryIdentifiers: volumeInfo.industryIdentifiers,
-                description: volumeInfo.description,
-                imageLinks: {
-                  thumbnail: volumeInfo.imageLinks?.thumbnail
-                }
-              })}
-                className="btn-yellow">
-                Adicionar
-              </button>
-            </div>
-            <div className="info">
-              <h2>{volumeInfo.title}</h2>
-              <p>By {volumeInfo.authors?.join(', ')} &nbsp; Editora {volumeInfo.publisher ? volumeInfo.publisher : 'Não registrada'}</p>
-              <b>{volumeInfo.publishedDate}</b> <span>Páginas: {volumeInfo.pageCount ? volumeInfo.pageCount : 'Não registrado' }</span>
-              <p>ISBN:&nbsp; {volumeInfo.industryIdentifiers?.map(identifier => identifier.identifier).join(', ')}</p>
-              <p>{volumeInfo.description}</p>
-            </div>
-          </section>
-        );
-      })}
+          const volumeInfo = book.volumeInfo || {};
+          const idResBook = book.id;
+  
+          if (!volumeInfo.pageCount) {
+            return null;
+          }
+  
+          return (
+            <section key={index}>
+              <div className="image">
+                <img
+                  src={volumeInfo.imageLinks?.thumbnail || semImagem}
+                  alt={volumeInfo.title}
+                />
+                <button
+                  onClick={() =>
+                    handleAddBook({
+                      idResBook,
+                      title: volumeInfo.title,
+                      authors: volumeInfo.authors || ['Autor não registrado'],
+                      publisher: volumeInfo.publisher || 'Editora não registrada',
+                      publishedDate: volumeInfo.publishedDate || 'Data não registrada',
+                      pageCount: volumeInfo.pageCount,
+                      industryIdentifiers: volumeInfo.industryIdentifiers || [{ type: 'ISBN', identifier: 'ISBN Não registrado' }],
+                      description: volumeInfo.description || 'Descrição não registrada',
+                      imageLinks: {
+                        thumbnail: volumeInfo.imageLinks?.thumbnail || semImagem,
+                      },
+                    })
+                  }
+                  className="btn-yellow"
+                >
+                  Adicionar
+                </button>
+              </div>
+              <div className="info">
+                <h2>{volumeInfo.title}</h2>
+                <p>
+                  By {volumeInfo.authors?.join(', ') || 'Autor não registrado'} &nbsp; Editora{' '}
+                  {volumeInfo.publisher || 'Não registrada'}
+                </p>
+                <b>{volumeInfo.publishedDate || 'Data não registrada'}</b> <span>Páginas: {volumeInfo.pageCount}</span>
+                <p>
+                  ISBN:&nbsp;{' '}
+                  {volumeInfo.industryIdentifiers?.map((identifier) => identifier.identifier).join(', ') ||
+                    'ISBN Não registrado'}
+                </p>
+                <p>{volumeInfo.description || 'Descrição não registrada'}</p>
+              </div>
+            </section>
+          );
+        })
+    }
     </div>
-  );
+  )
 }

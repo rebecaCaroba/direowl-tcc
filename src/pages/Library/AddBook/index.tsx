@@ -17,19 +17,21 @@ const SearchBookSchema = z.object({
 type SearchBookInput = z.infer<typeof SearchBookSchema>
 
 interface VolumeInfoType {
+    idResBook: string;
     title: string;
     authors?: string[];
     publisher?: string;
     publishedDate?: string;
-    pageCount?: number;
+    pageCount: number;
     industryIdentifiers?: { type: string; identifier: string }[];
     description?: string;
-    imageLinks?: {
-        thumbnail?: string;
+    imageLinks: {
+        thumbnail: string;
     };
 }
 
 interface BookType {
+    id: string
     volumeInfo: VolumeInfoType;
 }
 

@@ -6,14 +6,6 @@
     flex-direction: column;
     margin-top: 1rem;
 
-    header {
-        margin-bottom: 1rem;
-        padding: 20px 0;
-        display: flex;
-        align-items: center;
-        justify-content: end;
-        gap: 1rem;        
-    }
 }
 
 .book-action {
@@ -30,11 +22,11 @@
         background-color: $c-red-200;
         width: 200px;
         text-align: center;
-        
+
         &:hover {
             background: transparent;
         }
-        
+
     }
 }
 
@@ -64,6 +56,13 @@
 .book-info {
     flex: 1 1 50px;
 
+    b {
+        background: -webkit-linear-gradient(97deg, rgba(255, 237, 118, 1) 0%, rgba(247, 177, 118, 1) 100%);
+        background-clip: border-box;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
     p {
         text-align: justify;
         margin-top: 1rem;
@@ -92,39 +91,39 @@
     align-items: flex-end;
     gap: 1rem;
     max-width: 400px;
+}
+
+.button-fav {
+    padding: 0.5rem;
+    background-color: $c-first-450;
+    color: $c-gray-200;
+    width: 100%;
+    transition: 0.3s ease-in;
+
+    &:hover {
+        background: transparent;
     }
-    
-    .button-fav {
-        padding: 0.5rem;
-        background-color: $c-first-450;
-        color: $c-gray-200;
-        width: 100%;
-        transition: 0.3s ease-in;
-        
-        &:hover {
-            background: transparent;
-        }
+}
+
+.button-read {
+    background: rgb(255, 237, 118);
+    background: linear-gradient(139deg, rgba(255, 237, 118, 1) 0%, rgba(247, 177, 118, 1) 100%);
+    width: 100%;
+    margin-top: 2rem;
+    color: $c-first-450;
+    transition: 1.5s ease-out;
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 
-    .button-read {
-        background: rgb(255, 237, 118);
-        background: linear-gradient(139deg, rgba(255, 237, 118, 1) 0%, rgba(247, 177, 118, 1) 100%);
-        width: 100%;
-        margin-top: 2rem;
-        color: $c-first-450;
-        transition: 1.5s ease-out;
-
-        &:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        &:not(:disabled):hover {
-            background: $c-first-450;
-            color: $c-gray-100;
-        }
-
+    &:not(:disabled):hover {
+        background: $c-first-450;
+        color: $c-gray-100;
     }
+
+}
 
 
 @media (max-width: 630px) {

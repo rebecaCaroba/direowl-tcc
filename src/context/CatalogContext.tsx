@@ -4,15 +4,16 @@ import { AxiosError } from "axios";
 import { TooltipContext } from "./TooltipContext";
 
 interface VolumeInfoType {
+    idResBook: string;
     title: string;
     authors?: string[];
     publisher?: string;
     publishedDate?: string;
-    pageCount?: number;
+    pageCount: number;
     industryIdentifiers?: { type: string; identifier: string }[];
     description?: string;
-    imageLinks?: {
-        thumbnail?: string;
+    imageLinks: {
+        thumbnail: string;
     }
 }
 
@@ -67,6 +68,7 @@ export function CatalogContextProvider({
             const response = await api.post('add-book',
                 {
                     book: {
+                        idResBook: book.idResBook,
                         title: book.title,
                         authors: book.authors,
                         publisher: book.publisher,

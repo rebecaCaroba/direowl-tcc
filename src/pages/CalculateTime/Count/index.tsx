@@ -32,7 +32,7 @@ export function Count({ setTime, time, setStep }: CountProps) {
                 }
                 return { minutes, seconds }
             })
-        }, 100)
+        }, 1000)
     }
 
     const handleStop = () => {
@@ -43,28 +43,19 @@ export function Count({ setTime, time, setStep }: CountProps) {
         }
     }
 
+    const formatUnit = (unit: number) => unit < 10 ? `0${unit}` : `${unit}`;
+
+    const [minuteTens, minuteOnes] = formatUnit(time.minutes).split('');
+    const [secondTens, secondOnes] = formatUnit(time.seconds).split('');
+
     return (
         <>
             <div className='time'>
-                {time.minutes < 10 ? (
-                    <>
-                    <span>0</span>
-                    <span>{`${time.minutes}`}</span>
-                    </>
-                )
-                  : (
-                    <span>{`${time.minutes}`}</span>
-                  )}
+            <span>{minuteTens}</span>
+            <span>{minuteOnes}</span>
                 <div className="count-separator">:</div>
-                {time.seconds < 10 ? (
-                    <>
-                    <span>0</span>
-                    <span>{`${time.seconds}`}</span>
-                    </>
-                )
-                  : (
-                    <span>{`${time.seconds}`}</span>
-                  )}
+            <span>{secondTens}</span>
+            <span>{secondOnes}</span>
             </div>
             <div className='count-container-button'>
                 <button className="btn-yellow" onClick={handleStart}>
