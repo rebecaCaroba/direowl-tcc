@@ -7,7 +7,7 @@ import './style.scss'
 import { Spinner } from '../../../components/Spinner'
 
 const CreateCatalogSchema = z.object({
-    nameCatalog: z.string().min(2, { message: "O nome do catálogo deve ter no mínimo 2 caracteres." }).max(50, { message: "Limite de 50 caracteres." })
+    nameCatalog: z.string().min(2, { message: "O nome do catálogo deve ter no mínimo 2 caracteres." }).max(40, { message: "Limite de 40 caracteres." })
 })
 
 type CreateCatalogtInputs = z.infer<typeof CreateCatalogSchema>
@@ -39,7 +39,7 @@ export function CreateCatalog() {
                         <label htmlFor="addCatalog">Nome do catálogo</label>
                         <input
                             type="text"
-                            max={50}
+                            max={40}
                             id="addCatalog"
                             placeholder='Meus livros, Romance, Comédia, Desejos...'
                             {...register('nameCatalog')}

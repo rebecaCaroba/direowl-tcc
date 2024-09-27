@@ -22,7 +22,7 @@ export function ResCalculateTime({ resCalculateTime }: ResCalculateTimeProps) {
     const navigate = useNavigate()
 
     async function handleCreateTimeLine(data: ResCalculateTimeType) {
-        
+
         try {
             const response = await api.post('/create-schedule', {
                 minutesDay: data.minutesDay,
@@ -43,16 +43,16 @@ export function ResCalculateTime({ resCalculateTime }: ResCalculateTimeProps) {
 
             navigate(`/library/book/${bookId}`)
 
-        }catch (err) {
+        } catch (err) {
             console.log(err)
         }
     }
 
 
     const formatHours = (minutes: number) => {
-        const h = Math.floor(minutes / 60); 
-        const m = Math.round(minutes % 60); 
-    
+        const h = Math.floor(minutes / 60);
+        const m = Math.round(minutes % 60);
+
         return `${h}h ${m}min`;
     }
 
@@ -61,9 +61,9 @@ export function ResCalculateTime({ resCalculateTime }: ResCalculateTimeProps) {
         <div className="result-time-container">
             <h1>Resultado</h1>
             <p>
-                {`Para concluir a leitura de ${resCalculateTime.amoutPags} páginas em ${resCalculateTime.daysToRead}, você precisará ler:`}
+                {`Para concluir a leitura de ${resCalculateTime.amoutPags} páginas em ${resCalculateTime.daysToRead} dias, você precisará ler:`}
             </p>
-            <h1>{`${resCalculateTime.minutesDay} minutos por dia`}</h1>
+            <h1>{`${resCalculateTime.minutesDay} ${resCalculateTime.minutesDay > 1 ? "minutos" : "minuto"} por dia`}</h1>
             <span>{`Total estimado: ${formatHours(resCalculateTime.minutesTotal)}`}</span>
             <button className="btn-yellow" onClick={() => handleCreateTimeLine(resCalculateTime)}>Concluir</button>
         </div>

@@ -65,9 +65,6 @@ export function Book() {
 
     }
 
-    function addNotes() {
-        navigate(`/library/book/notes/${bookId}`)
-    }
 
     function confirmDelete() {
         messageModal('Você tem certeza que quer deletar este livro? Está ação ira apagar o cronograma deste livro.')
@@ -98,7 +95,10 @@ export function Book() {
                     <p>{book.description}</p>
 
                     <div className="book-btn">
-                        <button onClick={addNotes} className='button-fav'>ADICIONAR NOTAS</button>
+                        <button onClick={() => {navigate(`/library/book/notes/${bookId}`)}} 
+                        className='button-fav'>
+                            ADICIONAR NOTAS
+                        </button>
                         <button onClick={() => { navigate(`/calculate-time/${bookId}/${book.pages}`) }
                         }
                             className='button-read'
