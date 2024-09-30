@@ -48,7 +48,6 @@ export function FormUsename({ user }: FormUsernameProps) {
             const response = await api.patch('update-username', {
                 newUsername: data.username,
             })
-            console.log(response)
             getUser()
 
             if (response.data.message) {

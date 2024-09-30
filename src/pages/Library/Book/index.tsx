@@ -6,6 +6,7 @@ import { api } from '../../../lib/axios';
 import { AxiosError } from 'axios';
 import { TooltipContext } from '../../../context/TooltipContext';
 import { NotificationModalContext } from '../../../context/NotificationModalContext';
+import Gif from '../../../assets/corujinhaaaaa .gif'
 
 interface BookType {
     title: string,
@@ -72,10 +73,8 @@ export function Book() {
     }
 
     if (!book) {
-        return <div>Loading...</div>
+        return <div className='gif-container'> <img src={Gif} width={200} /></div>
     }
-
-    console.log(book.publishedDate)
 
     return (
         <main className='book'>

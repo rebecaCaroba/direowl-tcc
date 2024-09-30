@@ -42,6 +42,10 @@
     }
 
     button {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        justify-content: center;
         height: 2.75rem;
         background-color: $c-secondary;
         color: $c-first-200;

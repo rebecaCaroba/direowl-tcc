@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import './style.scss'
 import * as z from 'zod'
 import axios from "axios";
+import  Gif  from '../../../assets/corujinhaaaaa .gif'
 import { Spinner } from "../../../components/Spinner";
 
 const SearchBookSchema = z.object({
@@ -83,7 +84,7 @@ export function AddBook() {
     }
 
     if (loading) {
-        return <div className="loading"><Spinner /></div>
+        return <div className='gif-container'> <img src={Gif} width={200} /></div>
     } else {
         if (catalogs.length == 0) {
             return <h1><Link to='/library/create-catalog' className="text-yellow">Crie um catálogo</Link> antes de adicionar um livro</h1> 

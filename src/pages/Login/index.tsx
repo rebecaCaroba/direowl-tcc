@@ -6,7 +6,8 @@ import { useForm } from 'react-hook-form'
 import logo from '../../assets/logobranca.svg'
 import { api } from '../../lib/axios'
 import { AxiosError } from 'axios'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { Spinner } from '../../components/Spinner'
 
 const LoginAccountFormSchema = z.object({
   email: z.
@@ -19,6 +20,7 @@ const LoginAccountFormSchema = z.object({
 type LoginAccountInputs = z.infer<typeof LoginAccountFormSchema>
 
 export function Login() {
+  const [loading, setLoading] = useState<boolean>(false)
   const {
     register,
     handleSubmit,
@@ -48,6 +50,7 @@ export function Login() {
 
   async function handleLoginAccount(data: LoginAccountInputs) {
     try {
+      setLoading(true)
       const response = await api.post('/login', {
         email: data.email,
         password: data.password,
@@ -62,6 +65,8 @@ export function Login() {
         return
       }
       console.log(err)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -94,7 +99,7 @@ export function Login() {
         <span className='span-erros'>{errors.password?.message ? errors.password?.message : ''}</span>
 
         <p>Não tem uma conta? <Link to="/register">Criar uma</Link></p>
-        <button disabled={isSubmitDisabled} type="submit">Entrar</button>
+        <button disabled={isSubmitDisabled} type="submit">Entrar {loading && <Spinner />}</button>
       </form>
     </div>
   )

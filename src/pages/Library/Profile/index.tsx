@@ -64,6 +64,13 @@ export function Profile() {
             </header>
 
 
+
+            <section  className='leituras'>
+                <div className="title">
+                    <h1>Leituras</h1>
+                </div>
+                <Readings bookRead={bookRead} />
+            </section>
             <section className="profile-dados-gerais">
                 <div className="title">
                     <h1>Dados Gerais</h1>
@@ -85,13 +92,6 @@ export function Profile() {
                         <DeleteCatalog />
                     </li>
                 </ul >
-            </section>
-
-            <section  className='leituras'>
-                <div className="title">
-                    <h1>Leituras</h1>
-                </div>
-                <Readings bookRead={bookRead} />
             </section>
         </div >
     )

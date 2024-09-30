@@ -70,7 +70,6 @@ export function Notes() {
     }
 
     async function handleAddNote(data: AddNotestInputs) {
-        console.log(data.text.trim())
         try {
             const response = await api.post(`/add-notes`, {
                 text: data.text.trim(),

@@ -16,7 +16,6 @@ export function DeleteScheduleBtn({schedule_id}: DeleteScheduleBtnProps) {
     const navigate = useNavigate()
 
     const handleDeleteSchedule = useCallback( async () => {
-        console.log(schedule_id)
         try {
             const response = await api.delete(`/delete-schedule/${schedule_id}`)
 
