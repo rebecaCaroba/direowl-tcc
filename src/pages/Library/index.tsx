@@ -7,7 +7,7 @@ import { UserContext } from '../../context/UserContext/index.tsx';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import  Gif  from '../../assets/corujinhaaaaa .gif'
+import Gif from '../../assets/corujinhaaaaa .gif'
 import * as z from 'zod'
 
 const SearchFormSchema = z.object({
@@ -24,7 +24,7 @@ export function Library() {
         resolver: zodResolver(SearchFormSchema),
     })
 
-    const { getCatalogAndBooks, catalogsAndBooks, loading } = useContext(CatalogContext)
+    const { getCatalogAndBooks, catalogsAndBooks, loading, mes } = useContext(CatalogContext)
     const { user } = useContext(UserContext)
 
     useEffect(() => {
@@ -72,16 +72,24 @@ export function Library() {
                 </form>
             </header>
             {loading && (
-                <div className='gif-container'> 
+                <div className='gif-container'>
                     <img src={Gif} width={200} />
                 </div>
             )}
 
+            
+
             {
                 Object.keys(categories).length == 0 ? (
-                    <div className='no-categories'>
+                    mes ? (
+                        <div className='no-categories'>
+                        <h1>{mes}</h1>
+                    </div>
+                    ) : (
+                        <div className='no-categories'>
                         <h1>Parece que não tem nada aqui, que tal <Link className='text-yellow' to='create-catalog'>criar um catálogo</Link>? </h1>
                     </div>
+                    )
                 ) : (
                     <BookShelves categories={categories} />
                 )

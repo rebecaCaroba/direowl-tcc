@@ -49,6 +49,7 @@ interface CatalogContextType {
     catalogsAndBooks: CatalogsAndBooksType[]
     catalogs: CatalogsType[]
     loading: boolean
+    mes: string
 }
 
 export const CatalogContext = createContext({} as CatalogContextType)
@@ -58,6 +59,7 @@ export function CatalogContextProvider({
 }: CatalogContextProviderProps) {
     const [loading, setLoading] = useState<boolean>(false)
     const [catalogsAndBooks, setCatalogsAndBooks] = useState<CatalogsAndBooksType[]>([])
+    const [mes, setMes] = useState<string>('')
     const [catalogs, setCatalogs] = useState<CatalogsType[]>([])
     const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
 
@@ -104,6 +106,13 @@ export function CatalogContextProvider({
                 params: { search: searchValue },
             }
             )
+
+            if(response.data.message) {
+                setMes(response.data.message)
+            } else  {
+                setMes('')
+            }
+
             setCatalogsAndBooks(response.data.result)
         } catch (err) {
             if (err instanceof AxiosError && err.response?.data?.message) {
@@ -170,7 +179,8 @@ export function CatalogContextProvider({
             createCatalog,
             catalogsAndBooks,
             catalogs,
-            loading
+            loading,
+            mes
         }}
         >
             {children}
