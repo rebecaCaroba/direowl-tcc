@@ -11,7 +11,7 @@ const FormUsernameSchema = z.object({
     username: z
         .string()
         .min(3, { message: 'O nome de usuário deve ter pelo menos 3 caracteres' })
-        .regex(/^([a-z\\-]+)$/i, { message: 'Use apenas letras, números ou traços' }),
+        .regex(/^[a-zA-Z0-9\\-]+$/, { message: 'Use apenas letras, números ou traços' }),
 })
 
 type FormUsernameInput = z.infer<typeof FormUsernameSchema>
@@ -54,7 +54,7 @@ export function FormUsename({ user }: FormUsernameProps) {
                 TextTooltip(response.data.message)
                 ShowTooltip(true)
             }
-            
+
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
                 TextTooltip(err.response.data.message)
@@ -70,9 +70,12 @@ export function FormUsename({ user }: FormUsernameProps) {
         <form onSubmit={handleSubmit(handleusername)} className='cont'>
             <p>Nome:</p>
             <input type="text" id="name" {...register('username')} placeholder={user?.name} />
-            <span>{errors.username?.message ? errors.username?.message : ''}</span>
+            <button type='submit' className="btn-yellow" style={{ marginLeft: '1rem' }}>Alterar</button>
+            <br /><br />
+            <div>
+                <span>{errors.username?.message ? errors.username?.message : ''}</span>
+            </div>
 
-            <button type='submit' className="btn-yellow" style={{marginLeft: '1rem'}}>Alterar</button>
         </form>
     )
 }
