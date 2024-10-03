@@ -4,18 +4,18 @@ import { AxiosError } from "axios";
 import { TooltipContext } from "./TooltipContext";
 
 interface VolumeInfoType {
-    idResBook: string;
     title: string;
-    authors?: string[];
-    publisher?: string;
-    publishedDate?: string;
+    authors: string[] | null;
+    publisher: string | null;
+    publishedDate: string | null;
     pageCount: number;
-    industryIdentifiers?: { type: string; identifier: string }[];
-    description?: string;
+    industryIdentifiers: { type: string; identifier: string }[] | null;
+    description: string | null;
+    idResBook: string;
     imageLinks: {
-        thumbnail: string | null;
-    }
-}
+      thumbnail: string | null;
+    };
+  }
 
 interface CatalogsAndBooksType {
     book_id: number
