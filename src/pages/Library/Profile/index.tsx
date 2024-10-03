@@ -1,6 +1,6 @@
 import { FaRegCircleUser } from 'react-icons/fa6'
 import { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../../context/UserContext.tsx'
+import { UserContext } from '../../../context/UserContext/index.tsx'
 import { FormUsename } from '../../../components/FormUsername/index.tsx'
 import { FormPassword } from '../../../components/FormPassword/index.tsx'
 import { useNavigate } from 'react-router-dom'

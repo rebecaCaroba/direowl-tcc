@@ -3,7 +3,7 @@ import { BookShelves } from "../../components/BookShelves";
 import { IoSearch } from 'react-icons/io5';
 import { CatalogContext } from '../../context/CatalogContext';
 import { useContext, useEffect } from 'react';
-import { UserContext } from '../../context/UserContext.tsx';
+import { UserContext } from '../../context/UserContext/index.tsx';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

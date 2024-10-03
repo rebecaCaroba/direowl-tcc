@@ -7,6 +7,7 @@ import { AxiosError } from 'axios';
 import { TooltipContext } from '../../../context/TooltipContext';
 import { NotificationModalContext } from '../../../context/NotificationModalContext';
 import Gif from '../../../assets/corujinhaaaaa .gif'
+import { ScheduleContext } from '../../../context/ScheduleContext';
 
 interface BookType {
     title: string,
@@ -24,10 +25,11 @@ export function Book() {
     const [book, setBook] = useState<BookType | null>(null)
     const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
     const { showModal, messageModal } = useContext(NotificationModalContext)
-    const [teste, setTeste] = useState<boolean>(false)
+    const { getSchedule, schedule } = useContext(ScheduleContext)
     const navigate = useNavigate()
 
     useEffect(() => {
+
         async function getBook(bookId: string | undefined) {
             try {
                 const response = await api.get(`get-book/${bookId}`)
@@ -42,7 +44,10 @@ export function Book() {
         }
 
         getBook(bookId)
+        getSchedule(bookId)
     }, [bookId])
+
+    
 
     async function handleDeleteBook() {
         try {
@@ -101,7 +106,7 @@ export function Book() {
                         <button onClick={() => { navigate(`/calculate-time/${bookId}/${book.pages}`) }
                         }
                             className='button-read'
-                            disabled={teste}
+                            disabled={schedule.length > 0 ? true : false}
                         >
                             LER AGORA
                         </button>
@@ -117,7 +122,7 @@ export function Book() {
                 </div>
 
             </section>
-            <ReadingSchedule setTeste={setTeste} bookId={bookId} />
+            <ReadingSchedule bookId={bookId} />
         </main>
     )
 }

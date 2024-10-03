@@ -5,7 +5,7 @@ import { api } from '../../lib/axios/index.ts'
 import { AxiosError } from 'axios'
 import { useContext } from 'react'
 import { TooltipContext } from '../../context/TooltipContext/index.tsx'
-import { UserContext } from '../../context/UserContext.tsx/index.tsx'
+import { UserContext } from '../../context/UserContext/index.tsx'
 
 const FormUsernameSchema = z.object({
     username: z

@@ -7,28 +7,15 @@ import confetti from 'canvas-confetti';
 import './style.scss'
 import { TooltipContext } from "../../context/TooltipContext";
 import { DeleteScheduleBtn } from "./DeleteScheduleBtn";
+import { ScheduleContext } from "../../context/ScheduleContext";
 
 interface TimelineProps {
     bookId: string | undefined
-    setTeste: (data: boolean) => void
 }
 
-interface ScheduleEntry {
-    schedule_id: number
-    book_id: number
-    dayread_id: number
-    total_days: number
-    total_minutes: number
-    day: number
-    is_read: boolean
-    last_day_read: number
-    minutes_per_day: number
-    seconds: number
-}
+export function ReadingSchedule({ bookId }: TimelineProps) {
+    const { schedule, getSchedule } = useContext(ScheduleContext)
 
-export function ReadingSchedule({ bookId, setTeste }: TimelineProps) {
-
-    const [schedule, setSchedule] = useState<ScheduleEntry[]>([])
     const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
     const [time, setTime] = useState<number>(() => {
         const savedTime = localStorage.getItem(`timer-${bookId}`)
@@ -36,11 +23,6 @@ export function ReadingSchedule({ bookId, setTeste }: TimelineProps) {
     })
     const [isRunning, setIsRunning] = useState<boolean>(false)
     const timerRef = useRef<number | null>(null)
-
-    useEffect(() => {
-        getSchedule(bookId)
-
-    }, [bookId])
 
 
     useEffect(() => {
@@ -89,21 +71,6 @@ export function ReadingSchedule({ bookId, setTeste }: TimelineProps) {
         const minutes = Math.floor((timeInSeconds % 3600) / 60)
         const seconds = timeInSeconds % 60
         return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
-    }
-
-    async function getSchedule(bookId: string | undefined) {
-
-        try {
-            const bookIdNumber = Number(bookId)
-            const response = await api.get(`get-schedule/${bookIdNumber}`)
-            setSchedule(response.data.result)
-        } catch (err) {
-            if (err instanceof AxiosError && err?.response?.data?.message) {
-                console.log(err)
-                return
-            }
-            console.log(err)
-        }
     }
 
     async function handleCompleted(dayRead: number, timeInSeconds: number, dayreadId: number): Promise<void> {
@@ -184,16 +151,12 @@ export function ReadingSchedule({ bookId, setTeste }: TimelineProps) {
         confetti(params);
     }
 
-    if (schedule.length > 0) {
-        setTeste(true)
-    }
-
     return (
         <div>
             {schedule.length > 0 ? ((
                 <>
                     <div className="title">
-                        <h1>Cronograma</h1>
+                        <h1>Cronograma de {schedule[0].total_days} dia(s)</h1>
                     </div>
                     {schedule.map((item, index) => (
                         <section className="timeline" key={index} >

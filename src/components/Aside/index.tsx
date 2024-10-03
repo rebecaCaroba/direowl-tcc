@@ -6,7 +6,7 @@ import { GrCatalog } from "react-icons/gr";
 import logobranca from '../../assets/logobranca.svg'
 import { IoPersonCircle } from 'react-icons/io5';
 import './style.scss'
-import { UserContext } from '../../context/UserContext.tsx';
+import { UserContext } from '../../context/UserContext/index.tsx';
 
 
 export function Aside() {

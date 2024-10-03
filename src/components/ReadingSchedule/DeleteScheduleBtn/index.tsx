@@ -5,6 +5,7 @@ import { TooltipContext } from '../../../context/TooltipContext'
 import './style.scss'
 import { AxiosError } from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { ScheduleContext } from '../../../context/ScheduleContext'
 
 interface DeleteScheduleBtnProps {
     schedule_id: number
@@ -12,6 +13,7 @@ interface DeleteScheduleBtnProps {
 
 export function DeleteScheduleBtn({schedule_id}: DeleteScheduleBtnProps) {
     const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
+    const { setSchedule } = useContext(ScheduleContext)
     const { messageModal, showModal } = useContext(NotificationModalContext)
     const navigate = useNavigate()
 
@@ -24,6 +26,7 @@ export function DeleteScheduleBtn({schedule_id}: DeleteScheduleBtnProps) {
                 ShowTooltip(true)
             }
 
+            setSchedule([])
             navigate('/library')
 
         } catch (err) {
@@ -44,7 +47,7 @@ export function DeleteScheduleBtn({schedule_id}: DeleteScheduleBtnProps) {
 
     return (
         <div>
-            <button onClick={confirmDelete} className="btn-delete">Desistir</button>
+            <button onClick={confirmDelete} className="btn-delete">Excluir Cronograma</button>
         </div>
     )
 }

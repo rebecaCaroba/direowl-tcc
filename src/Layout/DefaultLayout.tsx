@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { api } from '../lib/axios';
-import { UserContext } from "../context/UserContext.tsx";
+import { UserContext } from "../context/UserContext/index.tsx";
 import { Tooltip } from '../components/Tooltip/index.tsx';
 import { AxiosError } from "axios";
 import './style.scss'
