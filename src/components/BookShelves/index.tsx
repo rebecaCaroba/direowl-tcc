@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import semImagem from '../../assets/semImagem.png';
 
 import { FaAngleRight } from "react-icons/fa6"
 import './style.scss'
@@ -35,7 +36,7 @@ export function BookShelves({ categories }: PropsBookShelves) {
                                 {data.books.slice(0, 6).map((book) => (  
                                     <div className='content-book' key={book.id}>
                                         <Link to={`book/${book.id}`}>
-                                            <img src={book.imageLinks} title={book.name} />
+                                            <img src={book.imageLinks ? book.imageLinks : semImagem} title={book.name} />
                                         </Link>
                                     </div>
                                 ))}

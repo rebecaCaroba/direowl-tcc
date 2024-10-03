@@ -6,8 +6,9 @@ import { api } from '../../../lib/axios';
 import { AxiosError } from 'axios';
 import { TooltipContext } from '../../../context/TooltipContext';
 import { NotificationModalContext } from '../../../context/NotificationModalContext';
-import Gif from '../../../assets/corujinhaaaaa .gif'
 import { ScheduleContext } from '../../../context/ScheduleContext';
+import semImagem from '../../../assets/semImagem.png'
+import Gif from '../../../assets/corujinhaaaaa .gif'
 
 interface BookType {
     title: string,
@@ -16,7 +17,7 @@ interface BookType {
     publishedDate: string,
     pages: number,
     description: string,
-    imageLinks: string,
+    imageLinks?: string,
     isbn?: number | string
 }
 
@@ -88,15 +89,15 @@ export function Book() {
                     <h1 className='text-yellow'>
                         {book.title}&nbsp;&nbsp;
 
-                        <data value={new Date(book.publishedDate).toISOString()}>
-                            {book.publishedDate ? new Date(book.publishedDate).toLocaleDateString() : ''}
+                        <data>
+                            {book.publishedDate}
                         </data>
                     </h1>
-                    <cite><b>By</b> {book.author}</cite> <span>&nbsp;&nbsp;&nbsp; <b>Editora</b> {book.publisher}</span>
+                    <cite><b>By</b> {book.author || 'Autor não registrado'}</cite> <span>&nbsp;&nbsp;&nbsp; <b>Editora</b> {book.publisher || 'Editora não registrada'}</span>
                     <br /><br />
-                    <span><b>ISBN:</b> {book.isbn}</span>
+                    <span><b>ISBN:</b> {book.isbn || 'ISBN não registrado'}</span>
                     <span>&nbsp;&nbsp;&nbsp; {book.pages} páginas</span>
-                    <p>{book.description}</p>
+                    <p>{book.description || 'Descrição não registrada'}</p>
 
                     <div className="book-btn">
                         <button onClick={() => {navigate(`/library/book/notes/${bookId}`)}} 
@@ -114,7 +115,7 @@ export function Book() {
                 </div>
                 <div className='book-action'>
                     <div className="book-image">
-                        <img src={book.imageLinks} alt="" />
+                        <img src={book.imageLinks ?book.imageLinks : semImagem} alt="" />
 
                     </div>
                     <button onClick={confirmDelete} className='button-delete'> Deletar</button>

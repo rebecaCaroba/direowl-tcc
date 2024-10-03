@@ -13,7 +13,7 @@ interface VolumeInfoType {
     industryIdentifiers?: { type: string; identifier: string }[];
     description?: string;
     imageLinks: {
-        thumbnail: string;
+        thumbnail: string | null;
     }
 }
 

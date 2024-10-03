@@ -1,18 +1,18 @@
-import semImagem from '../../assets/semImagem.png';
 import { useContext } from 'react';
 import { CatalogContext } from '../../context/CatalogContext';
+import semImagem from '../../assets/semImagem.png'
 
 interface VolumeInfoType {
   title: string;
-  authors?: string[];
-  publisher?: string;
-  publishedDate?: string;
+  authors: string[] | null;
+  publisher: string | null;
+  publishedDate: string | null;
   pageCount: number;
-  industryIdentifiers?: { type: string; identifier: string }[];
-  description?: string;
+  industryIdentifiers: { type: string; identifier: string }[] | null;
+  description: string | null;
   idResBook: string;
   imageLinks: {
-    thumbnail: string;
+    thumbnail: string | null;
   };
 }
 
@@ -56,14 +56,14 @@ export function BookList({ books, CatalogSelect }: BookListProps) {
                     handleAddBook({
                       idResBook,
                       title: volumeInfo.title,
-                      authors: volumeInfo.authors || ['Autor não registrado'],
-                      publisher: volumeInfo.publisher || 'Editora não registrada',
-                      publishedDate: volumeInfo.publishedDate || 'Data não registrada',
+                      authors: volumeInfo.authors || null,
+                      publisher: volumeInfo.publisher || null,
+                      publishedDate: volumeInfo.publishedDate || null,
                       pageCount: volumeInfo.pageCount,
-                      industryIdentifiers: volumeInfo.industryIdentifiers || [{ type: 'ISBN', identifier: 'ISBN Não registrado' }],
-                      description: volumeInfo.description || 'Descrição não registrada',
+                      industryIdentifiers: volumeInfo.industryIdentifiers || null,
+                      description: volumeInfo.description ||  null,
                       imageLinks: {
-                        thumbnail: volumeInfo.imageLinks?.thumbnail || semImagem,
+                        thumbnail: volumeInfo.imageLinks?.thumbnail || null,
                       },
                     })
                   }
