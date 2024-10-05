@@ -12,6 +12,7 @@
         width: 100%;
         
         input[type="text"] {
+            padding-left: 50px;
             width: 100%;
         }
 
@@ -23,7 +24,7 @@
             svg {
                 position: absolute;
                 top: 13%;
-                right: 1%;
+                left: 1%;
                 color: $c-first-300;
                 transition: 0.4s ease-in-out;   
 

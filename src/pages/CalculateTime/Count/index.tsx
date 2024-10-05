@@ -16,6 +16,14 @@ export function Count({ setTime, time, setStep }: CountProps) {
     const [btnDisable, setBtnDisable] = useState(true)
     const intervalRef = useRef<any>(null)
 
+    function handleNext() {
+        if(time.minutes >= 1) {
+            setStep(2) 
+        }
+
+        return
+    }
+
     function handleStart() {
         setBtnDisable(true)
         if (intervalRef.current !== null) {
@@ -32,7 +40,7 @@ export function Count({ setTime, time, setStep }: CountProps) {
                 }
                 return { minutes, seconds }
             })
-        }, 1000)
+        }, 100)
     }
 
     const handleStop = () => {
@@ -50,12 +58,16 @@ export function Count({ setTime, time, setStep }: CountProps) {
 
     return (
         <>
+            <div className="time-title">
+                <h1>Livros em mãos?</h1>
+                <span>Leia algumas páginas por no mínimo 1 minuto, desconciderando sumários e agradecimentos</span>
+            </div>
             <div className='time'>
-            <span>{minuteTens}</span>
-            <span>{minuteOnes}</span>
+                <span>{minuteTens}</span>
+                <span>{minuteOnes}</span>
                 <div className="count-separator">:</div>
-            <span>{secondTens}</span>
-            <span>{secondOnes}</span>
+                <span>{secondTens}</span>
+                <span>{secondOnes}</span>
             </div>
             <div className='count-container-button'>
                 <button className="btn-yellow" onClick={handleStart}>
@@ -66,7 +78,7 @@ export function Count({ setTime, time, setStep }: CountProps) {
                     Interromper
                 </button>
             </div>
-            <button className="btn-yellow" disabled={btnDisable} onClick={() => { setStep(2) }}>Próximo</button>
+            <button className="btn-yellow" disabled={btnDisable} onClick={handleNext}>Próximo</button>
         </>
     )
 }

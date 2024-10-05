@@ -13,14 +13,16 @@
         height: auto;
         max-width: 1100px;
 
-        .book-details h2, p  {
+        .book-details h2,
+        p {
             margin-bottom: 10px;
-            
+
         }
+
         .book-details .author {
             color: $c-first-100;
         }
-        
+
         .description {
             text-overflow: ellipsis;
             overflow: hidden;
@@ -34,5 +36,10 @@
     .book-card:hover {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         cursor: pointer;
+    }
+
+    .book-image img{
+        width: 8rem;
+        display: block;
     }
 }
