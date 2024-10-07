@@ -28,6 +28,7 @@ export function Notes() {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors, isSubmitting },
     } = useForm<AddNotestInputs>({
         resolver: zodResolver(AddNotesSchema),
@@ -80,6 +81,7 @@ export function Notes() {
             ShowTooltip(true)
 
             await getNotes(bookId)
+            reset()
         } catch (err) {
             if (err instanceof AxiosError && err.response?.data?.message) {
                 TextTooltip(err.response.data.message)
