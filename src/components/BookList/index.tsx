@@ -82,7 +82,7 @@ export function BookList({ books, CatalogSelect }: BookListProps) {
                 <p>
                   ISBN:&nbsp;{' '}
                   {volumeInfo.industryIdentifiers?.map((identifier) => identifier.identifier).join(', ') ||
-                    'ISBN Não registrado'}
+                    'Não registrado'}
                 </p>
                 <p>{volumeInfo.description || 'Descrição não registrada'}</p>
               </div>

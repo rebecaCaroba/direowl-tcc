@@ -65,7 +65,8 @@ export function CatalogContextProvider({
 
     async function AddBook({ book, CatalogSelect }: AddBookProps) {
         try {
-            const isbn = book.industryIdentifiers?.[0]?.identifier || 'ISBN não disponível'
+            const isbn = book.industryIdentifiers?.map((identifier) => identifier.identifier).join(', ') || null
+            console.log(isbn)
 
             const response = await api.post('add-book',
                 {
