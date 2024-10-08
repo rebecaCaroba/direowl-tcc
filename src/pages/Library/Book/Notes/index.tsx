@@ -1,12 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import * as z from 'zod'
 import './style.scss'
 import { api } from '../../../../lib/axios'
 import { AxiosError } from 'axios'
 import { TooltipContext } from '../../../../context/TooltipContext'
+import { IoIosArrowBack } from "react-icons/io";
 
 interface NoteType {
     id: number
@@ -33,6 +34,8 @@ export function Notes() {
     } = useForm<AddNotestInputs>({
         resolver: zodResolver(AddNotesSchema),
     })
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (bookId) {
@@ -95,6 +98,9 @@ export function Notes() {
 
     return (
         <div className="Notes">
+            <button onClick={() => {navigate(-1)}} className='notes-btn'>
+                <IoIosArrowBack size={24} />
+            </button>
             <div className="title">
                 <h1>Notas</h1>
             </div>

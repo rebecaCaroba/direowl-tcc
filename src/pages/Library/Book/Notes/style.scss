@@ -3,6 +3,18 @@
 .Notes {
     margin: 2rem 0;
 
+    .notes-btn {
+        margin-bottom: 1rem;
+        background: transparent;
+        color: $c-gray-100;
+
+        &:hover {
+            svg {
+                color: $c-secondary;
+            }
+        }
+    }
+
     form {
         margin-bottom: 2rem;
         textarea {

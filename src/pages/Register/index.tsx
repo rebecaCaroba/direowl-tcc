@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { api } from '../../lib/axios'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
 import logo from '../../assets/logobranca.svg'
 import { useContext } from 'react'
@@ -108,8 +108,9 @@ export function Register() {
         />
         <span>{errors.confirmPassword?.message ? errors.confirmPassword?.message : ''}</span>
 
+        <p>Já tem uma conta? <Link to="/">Conecte-se</Link></p>
         <button disabled={isSubmitting}
-          type="submit">Entrar</button>
+          type="submit">Cadastrar</button>
       </form>
     </div>
   )
