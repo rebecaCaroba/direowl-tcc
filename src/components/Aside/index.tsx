@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useContext, useState } from 'react';
 import { ImBooks } from "react-icons/im";
 import { LuBookPlus } from "react-icons/lu";
@@ -10,8 +10,11 @@ import { UserContext } from '../../context/UserContext/index.tsx';
 
 
 export function Aside() {
-  const [activeLink, setActiveLink] = useState<string>('')
+  const location = useLocation()
+  const showAside = location.pathname
+  const [activeLink, setActiveLink] = useState<string>(showAside)
   const { user } = useContext(UserContext)
+  console.log(showAside)
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link)
@@ -19,8 +22,8 @@ export function Aside() {
     const element = document.querySelector('#aside') as HTMLElement
 
     element.classList.toggle('active')
-  };
-
+  }
+  
   return (
     <aside id='aside'>
       <nav className="sidebar-nav">
@@ -29,7 +32,7 @@ export function Aside() {
           <div className="sidebar-logo-text"><span>DireOwl</span></div>
         </div>
         <ul>
-          <li className={activeLink === 'library' ? 'active' : ''}>
+          <li className={activeLink === '/library' ? 'active' : ''}>
             <Link
               onClick={() => handleLinkClick('library')}
               to="/library">
@@ -37,9 +40,9 @@ export function Aside() {
               Estantes
             </Link>
           </li>
-          <li className={activeLink === 'library/add-collection' ? 'active' : ''}>
+          <li className={activeLink === '/library/create-catalog' ? 'active' : ''}>
             <Link
-              onClick={() => handleLinkClick('library/add-collection')}
+              onClick={() => handleLinkClick('/library/create-catalog')}
               to="/library/create-catalog">
               <GrCatalog size={26} />
               Criar catálogo
