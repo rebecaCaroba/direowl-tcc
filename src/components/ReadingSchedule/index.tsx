@@ -167,7 +167,6 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
                                 </div>
                                 <div className="timeline-info ">
                                     <div className="timeline-text">
-                                        <h2>Página 1 a 5</h2>
                                         <p>Leia por no mínimo {item.minutes_per_day} minutos</p>
                                     </div>
 
