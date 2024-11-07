@@ -8,6 +8,7 @@ import { api } from '../../../lib/axios/index.ts'
 import './style.scss'
 import { DeleteCatalog } from '../../../components/DeleteCatalog/index.tsx'
 import { Readings } from '../../../components/Readings/index.tsx'
+import { DeleteAccount } from '../../../components/DeleteAccount/index.tsx'
 
 interface BookReadType {
     schedule_id: number,
@@ -90,6 +91,11 @@ export function Profile() {
                         <input type='radio' name='data' id='third' className="toggle-button" value="Mudar nome" />
                         <label className='profile-label' htmlFor="third">Deletar catálogo</label>
                         <DeleteCatalog />
+                    </li>
+                    <li>
+                        <input type='radio' name='data' id='fourth' className="toggle-button" value="Mudar nome" />
+                        <label className='profile-label' htmlFor="fourth">Deletar conta</label>
+                        <DeleteAccount user={user} />
                     </li>
                 </ul >
             </section>

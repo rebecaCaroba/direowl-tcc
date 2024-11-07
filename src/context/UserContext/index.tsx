@@ -7,7 +7,6 @@ interface UserContextProviderProps {
 }
 
 interface User {
-    id: number
     name: string
     email: string
 }
@@ -26,12 +25,7 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
 
     async function getUser() {
             try {
-                const token = localStorage.getItem('token')
-                const response = await api.get('/get-user', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
+                const response = await api.get('/get-user')
 
                 setUser(response.data.user)
             } catch (err) {

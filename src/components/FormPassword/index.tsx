@@ -31,7 +31,7 @@ export function FormPassword() {
 
     async function handlePassword(data: FormPasswordInput) {
         try {
-            const response = await api.patch('update-password', {
+            const response = await api.patch('/update-password', {
                 password: data.newPassword
             })
 

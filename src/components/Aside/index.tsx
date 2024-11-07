@@ -14,7 +14,6 @@ export function Aside() {
   const showAside = location.pathname
   const [activeLink, setActiveLink] = useState<string>(showAside)
   const { user } = useContext(UserContext)
-  console.log(showAside)
 
   const handleLinkClick = (link: string) => {
     setActiveLink(link)

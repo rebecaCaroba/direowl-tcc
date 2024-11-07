@@ -45,7 +45,7 @@ export function FormUsename({ user }: FormUsernameProps) {
         }
 
         try {
-            const response = await api.patch('update-username', {
+            const response = await api.patch('/update-username', {
                 newUsername: data.username,
             })
             getUser()

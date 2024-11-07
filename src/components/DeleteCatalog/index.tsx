@@ -37,12 +37,7 @@ export function DeleteCatalog() {
 
     const handleDeleteCatalog = useCallback( async (data: DeleteCatalogInput) => {
         try {
-            const token = localStorage.getItem('token')
-            const response = await api.delete(`/delete-catalog/${data.optionCatalog}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
+            const response = await api.delete(`/delete-catalog/${data.optionCatalog}`)
 
             if (response.data.message) {
                 TextTooltip(response.data.message)
