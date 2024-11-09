@@ -18,7 +18,6 @@ type FormUsernameInput = z.infer<typeof FormUsernameSchema>
 
 interface FormUsernameProps {
     user: {
-        id: number
         name: string
         email: string
     } | null

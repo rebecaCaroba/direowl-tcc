@@ -22,7 +22,7 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
         return savedTime ? JSON.parse(savedTime) : 0
     })
     const [isRunning, setIsRunning] = useState<boolean>(false)
-    const timerRef = useRef<number | null>(null)
+    const timerRef = useRef<any>(null)
 
 
     useEffect(() => {
