@@ -29,7 +29,6 @@ export function DefaultLayout() {
 
         verifyAuthUser()
     }, [])
-
     return (
         <div className="layout-container">
             <Outlet />
