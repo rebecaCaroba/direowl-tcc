@@ -73,6 +73,9 @@ export function Login() {
   const password = watch('password')
   const isSubmitDisabled = !password
 
+  console.log("back", import.meta.env.VITE_API_URL)
+
+
   return (
     <div className='container'>
       <img src={logo} width={80} />
