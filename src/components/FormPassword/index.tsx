@@ -47,7 +47,7 @@ export function FormPassword() {
                 ErrorTooltip(err.response.data.error)
                 return
             }
-            console.log(err)
+            
         }
 
     }

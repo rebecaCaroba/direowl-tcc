@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 import * as z from 'zod'
 import './style.scss'
+import { useContext } from 'react'
+import { TooltipContext } from '../../../context/TooltipContext'
 
 interface ResCalculateTimeType {
     minutesDay: number,
@@ -32,6 +34,7 @@ type FormTimeInput = z.infer<typeof FormTimeSchema>
 
 export function FormTime({ setStep, time, setResCalculateTime }: FormTimeProps) {
     const { totalPages } = useParams()
+    const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
 
     const {
         register,
@@ -40,10 +43,22 @@ export function FormTime({ setStep, time, setResCalculateTime }: FormTimeProps) 
     } = useForm<FormTimeInput>({
         resolver: zodResolver(FormTimeSchema),
     })
-
+    
     function handleCalculateTime(data: FormTimeInput) {
-
         const { daysToRead, pagF, pagI } = data
+
+        if(pagI > pagF) {
+            TextTooltip("A página inicial não pode ser maior que a página final.")
+            ShowTooltip(true)
+            ErrorTooltip(true)
+            return
+        }else if( pagI == pagF) {
+            TextTooltip("As páginas inicial e final não podem ser iguais.")
+            ShowTooltip(true)
+            ErrorTooltip(true)
+            return
+        }
+
         const daysToReadNum = Number(daysToRead)
         const pagFNum = Number(pagF)
         const pagINum = Number(pagI)

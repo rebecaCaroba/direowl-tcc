@@ -41,10 +41,10 @@ export function ScheduleContextProvider({
             setSchedule(response.data.result)
         } catch (err) {
             if (err instanceof AxiosError && err?.response?.data?.message) {
-                console.log(err)
+                
                 return
             }
-            console.log(err)
+            
         }
     }
 

@@ -33,7 +33,7 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
                     alert(err.response.data.message)
                     return
                 }
-                console.log(err)
+                
             }
         }
 

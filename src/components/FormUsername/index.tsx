@@ -61,7 +61,7 @@ export function FormUsename({ user }: FormUsernameProps) {
                 ErrorTooltip(err.response.data.error)
                 return
             }
-            console.log(err)
+            
         }
     }
 

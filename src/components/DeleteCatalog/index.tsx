@@ -52,7 +52,7 @@ export function DeleteCatalog() {
                 ErrorTooltip(err.response.data.error)
                 return
             }
-            console.log(err)
+            
         }
     }, [])
 

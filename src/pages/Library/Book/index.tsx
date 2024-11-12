@@ -40,7 +40,7 @@ export function Book() {
                     alert(err.response.data.message)
                     return
                 }
-                console.log(err)
+                
             }
         }
 
@@ -67,7 +67,7 @@ export function Book() {
                 ErrorTooltip(err.response.data.error)
                 return
             }
-            console.log(err)
+            
         }
 
     }

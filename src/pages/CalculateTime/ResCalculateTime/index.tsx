@@ -1,5 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom"
 import { api } from "../../../lib/axios"
+import { TooltipContext } from "../../../context/TooltipContext"
+import { useContext } from "react"
+import { AxiosError } from "axios"
 
 interface ResCalculateTimeProps {
     resCalculateTime: {
@@ -18,6 +21,8 @@ interface ResCalculateTimeType {
 }
 
 export function ResCalculateTime({ resCalculateTime }: ResCalculateTimeProps) {
+    const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
+
     const { bookId } = useParams()
     const navigate = useNavigate()
 
@@ -44,7 +49,12 @@ export function ResCalculateTime({ resCalculateTime }: ResCalculateTimeProps) {
             navigate(`/library/book/${bookId}`)
 
         } catch (err) {
-            console.log(err)
+            if (err instanceof AxiosError && err?.response?.data?.message) {
+                TextTooltip(err.response.data.message)
+                ShowTooltip(true)
+                ErrorTooltip(err.response.data.error)
+                return
+              }
         }
     }
 

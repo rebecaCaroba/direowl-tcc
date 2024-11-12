@@ -64,7 +64,7 @@ export function AddBook() {
                 alert('Nenhum livro encontrado.')
             }
         } catch (err) {
-            console.log(err)
+            alert(err)
         } finally {
             setIsLoading(false)
         }

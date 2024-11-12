@@ -66,7 +66,6 @@ export function CatalogContextProvider({
     async function AddBook({ book, CatalogSelect }: AddBookProps) {
         try {
             const isbn = book.industryIdentifiers?.map((identifier) => identifier.identifier).join(', ') || null
-            console.log(isbn)
 
             const response = await api.post('add-book',
                 {
@@ -96,7 +95,7 @@ export function CatalogContextProvider({
                 ErrorTooltip(err.response.data.error)
                 return
             }
-            console.log(err)
+            
         }
     }
 
@@ -137,7 +136,7 @@ export function CatalogContextProvider({
                 ErrorTooltip(err.response.data.error)
                 return
             }
-            console.log(err)
+            
         } finally {
             setLoading(false)
         }
@@ -166,7 +165,7 @@ export function CatalogContextProvider({
                 ErrorTooltip(err.response.data.error)
                 return
             }
-            console.log(err)
+            
         } finally {
             setLoading(false)
         }

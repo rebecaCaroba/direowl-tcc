@@ -36,7 +36,7 @@ export function DeleteScheduleBtn({schedule_id}: DeleteScheduleBtnProps) {
                 ErrorTooltip(err.response.data.error)
                 return
             }
-            console.log(err)
+            
         }
     }, [schedule_id])
 

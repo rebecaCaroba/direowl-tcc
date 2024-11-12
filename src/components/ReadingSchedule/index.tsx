@@ -87,8 +87,6 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
             })
 
             if (dayRead == schedule[0].total_days) {
-                console.log(schedule[0].schedule_id)
-
                 const response = await api.put('/completed-schedule', {
                     schedule_id: schedule[0].schedule_id,
                     complete: true
@@ -125,7 +123,7 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
                 ErrorTooltip(err.response.data.error)
                 return
             }
-            console.log(err)
+            
         }
 
     }

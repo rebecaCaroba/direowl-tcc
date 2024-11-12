@@ -27,7 +27,7 @@ export function Catalog() {
 
                 setAllBooks(response.data.result)
             } catch (err) {
-                console.log(err)
+                
             }
 
         }

@@ -66,7 +66,7 @@ export function Profile() {
 
 
 
-            <section  className='leituras'>
+            <section className='leituras'>
                 <div className="title">
                     <h1>Leituras</h1>
                 </div>

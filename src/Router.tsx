@@ -11,6 +11,7 @@ import { Book } from './pages/Library/Book/index.tsx';
 import { CalculateTime } from './pages/CalculateTime/index.tsx'; 
 import { Catalog } from './pages/Library/Catalog/index.tsx';
 import { Notes } from './pages/Library/Book/Notes/index.tsx';
+import { GlobalLayout } from './Layout/GlobalLayout.tsx';
 
 export function Router() {
   const location = useLocation();
@@ -21,17 +22,19 @@ export function Router() {
       {showAside && <Header />}
       <div  className={`content ${showAside ? 'with-sidebar' : ''}`}>
         <Routes>
+          <Route element={<DefaultLayout />}>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
-          <Route element={<DefaultLayout />}>
-            <Route path="/library" element={<Library />} />
-            <Route path="/library/create-catalog" element={<CreateCatalog />} />
-            <Route path="/library/add-book" element={<AddBook />} />
-            <Route path="/library/profile" element={<Profile />} />
-            <Route path="/library/book/:bookId" element={<Book />} />
-            <Route path='/library/book/notes/:bookId' element={<Notes />} />
-            <Route path="/library/catalog/:catalogId" element={<Catalog />} />
-            <Route path="/calculate-time/:bookId/:totalPages" element={<CalculateTime />} />
+            <Route element={<GlobalLayout />}>
+              <Route path="/library" element={<Library />} />
+              <Route path="/library/create-catalog" element={<CreateCatalog />} />
+              <Route path="/library/add-book" element={<AddBook />} />
+              <Route path="/library/profile" element={<Profile />} />
+              <Route path="/library/book/:bookId" element={<Book />} />
+              <Route path='/library/book/notes/:bookId' element={<Notes />} />
+              <Route path="/library/catalog/:catalogId" element={<Catalog />} />
+              <Route path="/calculate-time/:bookId/:totalPages" element={<CalculateTime />} />
+            </Route>
           </Route>
         </Routes>
       </div>

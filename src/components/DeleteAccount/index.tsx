@@ -49,7 +49,6 @@ export function DeleteAccount({ user }: DeleteAccountProps) {
                 ErrorTooltip(err.response.data.error)
                 return
             }
-            console.log(err)
         }
     }
 

@@ -6,8 +6,9 @@ import { useForm } from 'react-hook-form'
 import logo from '../../assets/logobranca.svg'
 import { api } from '../../lib/axios'
 import { AxiosError } from 'axios'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Spinner } from '../../components/Spinner'
+import { TooltipContext } from '../../context/TooltipContext'
 
 const LoginAccountFormSchema = z.object({
   email: z.
@@ -21,6 +22,7 @@ type LoginAccountInputs = z.infer<typeof LoginAccountFormSchema>
 
 export function Login() {
   const [loading, setLoading] = useState<boolean>(false)
+  const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
   const {
     register,
     handleSubmit,
@@ -40,7 +42,7 @@ export function Login() {
 
       } catch (err) {
         localStorage.clear()
-        console.log(err)
+        
         return
       }
     }
@@ -61,10 +63,12 @@ export function Login() {
 
     } catch (err) {
       if (err instanceof AxiosError && err?.response?.data?.message) {
-        alert(err.response.data.message)
+        TextTooltip(err.response.data.message)
+        ShowTooltip(true)
+        ErrorTooltip(err.response.data.error)
         return
       }
-      console.log(err)
+      
     } finally {
       setLoading(false)
     }
