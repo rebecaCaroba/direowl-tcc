@@ -12,6 +12,7 @@ interface PropsBookShelves {
                 id: number
                 name: string
                 imageLinks: string
+                title: string
             }[]
         }
     }
@@ -19,7 +20,6 @@ interface PropsBookShelves {
 
 
 export function BookShelves({ categories }: PropsBookShelves) {
-
     return (
         <main className='bookshelves'>
             {Object.entries(categories).map(([catalogName, data], index) => {
@@ -36,7 +36,7 @@ export function BookShelves({ categories }: PropsBookShelves) {
                                 {data.books.slice(0, 6).map((book) => (  
                                     <div className='content-book' key={book.id}>
                                         <Link to={`book/${book.id}`}>
-                                            <img src={book.imageLinks ? book.imageLinks : semImagem} title={book.name} />
+                                            <img src={book.imageLinks ? book.imageLinks : semImagem} title={book.title} />
                                         </Link>
                                     </div>
                                 ))}

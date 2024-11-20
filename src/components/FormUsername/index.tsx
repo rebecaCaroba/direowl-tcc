@@ -69,7 +69,7 @@ export function FormUsename({ user }: FormUsernameProps) {
         <form onSubmit={handleSubmit(handleusername)} className='cont'>
             <p>Nome:</p>
             <input type="text" id="name" {...register('username')} placeholder={user?.name} />
-            <button type='submit' className="btn-yellow" style={{ marginLeft: '1rem' }}>Alterar</button>
+            <button type='submit' className="btn-yellow">Alterar</button>
             <br /><br />
             <div>
                 <span>{errors.username?.message ? errors.username?.message : ''}</span>

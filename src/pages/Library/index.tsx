@@ -51,9 +51,10 @@ export function Library() {
             id: item.book_id,
             name: item.catalog_name,
             imageLinks: item.book_image,
+            title: item.book_title
         })
         return acc
-    }, {} as Record<string, { catalogId: number; books: { id: number; name: string; imageLinks: string }[] }>)
+    }, {} as Record<string, { catalogId: number; books: { id: number; name: string; imageLinks: string; title: string }[] }>)
 
     return (
         <div>

@@ -123,7 +123,7 @@ export function Book() {
                 </div>
 
             </section>
-            <ReadingSchedule bookId={bookId} />
+            <ReadingSchedule bookId={bookId} book={book} />
         </main>
     )
 }

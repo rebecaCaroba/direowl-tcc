@@ -22,6 +22,7 @@ interface CatalogsAndBooksType {
     book_image: string
     catalog_id: number
     catalog_name: string
+    book_title: string
 }
 
 

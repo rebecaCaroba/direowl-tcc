@@ -28,6 +28,11 @@
         background: linear-gradient(135deg, rgba(255,237,118,1) 0%, rgb(251, 171, 105) 95%);
         color: $c-first;
     }
+
+    @media (max-width: 420px) {
+        width: 80px;
+    }
+
 }
 
 .profile-header-user {
@@ -37,6 +42,10 @@
 
     h1 {
         margin-bottom: 0.5rem;
+
+        @media (max-width: 420px) {
+            font-size: 20px;
+        }
     }
 }
 
@@ -45,6 +54,7 @@
     width: 100px;
     height: 100px;
     border-radius: 100%;
+
 }
 
 .profile-user svg {
@@ -115,6 +125,7 @@
         display: flex;
         align-items: flex-end;
         gap: 1rem;
+        flex-wrap: wrap;
     }
     
 }
@@ -165,11 +176,11 @@ input[type='radio'] {
 }
 
 .btn-deletar {
-    width: 20%;
     background-color: $c-red-200;
     color: $c-gray-100;
     transition: 0.3s ease-in;
-
+    padding: 1rem;
+    
     &:hover {
         background-color: $c-red-300;
     }

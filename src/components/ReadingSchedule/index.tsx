@@ -2,18 +2,32 @@ import { FaPlayCircle } from "react-icons/fa";
 import { FaRegStopCircle } from "react-icons/fa";
 import { useContext, useEffect, useRef, useState } from "react";
 import { api } from "../../lib/axios";
+import { useNavigate } from 'react-router-dom';
 import { AxiosError } from "axios";
 import confetti from 'canvas-confetti';
 import './style.scss'
 import { TooltipContext } from "../../context/TooltipContext";
 import { DeleteScheduleBtn } from "./DeleteScheduleBtn";
 import { ScheduleContext } from "../../context/ScheduleContext";
+import corujaLendo from '../../assets/corujalendo.svg'
 
 interface TimelineProps {
     bookId: string | undefined
+    book: {
+        title: string,
+        author: string[],
+        publisher: string,
+        publishedDate: string,
+        pages: number,
+        description: string,
+        imageLinks?: string,
+        isbn?: number | string
+    }
 }
 
-export function ReadingSchedule({ bookId }: TimelineProps) {
+export function ReadingSchedule({ bookId, book }: TimelineProps) {
+    console.log("read", book)
+    const navigate = useNavigate()
     const { schedule, getSchedule } = useContext(ScheduleContext)
 
     const { ShowTooltip, TextTooltip, ErrorTooltip } = useContext(TooltipContext)
@@ -123,7 +137,7 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
                 ErrorTooltip(err.response.data.error)
                 return
             }
-            
+
         }
 
     }
@@ -202,7 +216,12 @@ export function ReadingSchedule({ bookId }: TimelineProps) {
                 </>
             )
             ) : (
-                <h2>Crie uma rotina de leitura :)</h2>
+                <div className="create-read">
+                    <article onClick={() => { navigate(`/calculate-time/${bookId}/${book.pages}`) }}>
+                        <img src={corujaLendo} alt="" />
+                        <h1 className='text-yellow'>Que tal criar uma rotina de leitura?</h1>
+                    </article>
+                </div>
             )}
         </div>
     )
