@@ -26,7 +26,6 @@ interface TimelineProps {
 }
 
 export function ReadingSchedule({ bookId, book }: TimelineProps) {
-    console.log("read", book)
     const navigate = useNavigate()
     const { schedule, getSchedule } = useContext(ScheduleContext)
 
@@ -47,7 +46,7 @@ export function ReadingSchedule({ bookId, book }: TimelineProps) {
                     localStorage.setItem(`timer-${bookId}`, JSON.stringify(newTime))
                     return newTime
                 })
-            }, 10)
+            }, 1000)
         } else {
             if (timerRef.current) {
                 clearInterval(timerRef.current)

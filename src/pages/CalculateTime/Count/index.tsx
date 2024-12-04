@@ -40,7 +40,7 @@ export function Count({ setTime, time, setStep }: CountProps) {
                 }
                 return { minutes, seconds }
             })
-        }, 100)
+        }, 1000)
     }
 
     const handleStop = () => {
